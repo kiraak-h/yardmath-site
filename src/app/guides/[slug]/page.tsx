@@ -79,13 +79,14 @@ export default async function GuideDetailPage({ params }: { params: Promise<{ sl
     datePublished: guide.publishedDate,
     dateModified: guide.revisedDate,
     mainEntityOfPage: pageUrl,
+    image: siteUrl ? `${siteUrl}/og-image.png` : "/og-image.png",
     publisher: {
       "@type": "Organization",
       name: "YardMath",
       ...(siteUrl ? { url: siteUrl } : {}),
       logo: {
         "@type": "ImageObject",
-        url: siteUrl ? `${siteUrl}/og-image.png` : "/og-image.png",
+        url: siteUrl ? `${siteUrl}/favicon.svg` : "/favicon.svg",
       },
     },
     author: {
@@ -217,7 +218,14 @@ export default async function GuideDetailPage({ params }: { params: Promise<{ sl
             <ul className="sources-list">
               {guide.sources.map((src, idx) => (
                 <li key={idx}>
-                  <strong>{src.title}</strong> — <span>{src.publisher}</span>. <small>{src.citation}</small>
+                  {src.url ? (
+                    <a href={src.url} target="_blank" rel="noopener noreferrer" className="inline-link">
+                      <strong>{src.title}</strong>
+                    </a>
+                  ) : (
+                    <strong>{src.title}</strong>
+                  )}{" "}
+                  — <span>{src.publisher}</span>. <small>{src.citation}</small>
                 </li>
               ))}
             </ul>

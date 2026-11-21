@@ -89,6 +89,7 @@ export type ToolDefinition = {
     organization: string;
     standardOrDocument: string;
     citation: string;
+    url: string;
   }[];
 
   // Phase 3: Genuinely distinct, high-value FAQs
@@ -182,8 +183,8 @@ export const tools: ToolDefinition[] = [
       }
     ],
     authoritativeSources: [
-      { organization: "Cornell Cooperative Extension", standardOrDocument: "Lawn Care Guidelines: Topdressing and Soil Health", citation: "Cornell University College of Agriculture and Life Sciences." },
-      { organization: "Penn State Extension", standardOrDocument: "Agronomy Facts 62: Soil Amendments and Turfgrass Establishment", citation: "Pennsylvania State University." }
+      { organization: "Cornell Cooperative Extension", standardOrDocument: "Lawn Care Guidelines: Topdressing and Soil Health", citation: "Cornell University College of Agriculture and Life Sciences.", url: "https://cals.cornell.edu/turfgrass" },
+      { organization: "Penn State Extension", standardOrDocument: "Agronomy Facts 62: Soil Amendments and Turfgrass Establishment", citation: "Pennsylvania State University.", url: "https://extension.psu.edu/soil-management-in-turf-establishment" }
     ],
     faqs: [
       { question: "How much topsoil do I need for a 1,000 sq ft lawn?", answer: "At a standard 4-inch depth for new seeding or sod, 1,000 sq ft requires 12.35 cubic yards. With a 10% allowance for settling, order 13.6 cubic yards." },
@@ -280,8 +281,8 @@ export const tools: ToolDefinition[] = [
       }
     ],
     authoritativeSources: [
-      { organization: "National Institute of Standards and Technology (NIST)", standardOrDocument: "Handbook 44: Specifications and Tolerances for Measuring Devices", citation: "U.S. Department of Commerce." },
-      { organization: "Bureau of Reclamation", standardOrDocument: "Earth Manual: Earth Materials and Measurement Principles", citation: "U.S. Department of the Interior." }
+      { organization: "National Institute of Standards and Technology (NIST)", standardOrDocument: "Handbook 44: Specifications and Tolerances for Measuring Devices", citation: "U.S. Department of Commerce.", url: "https://www.nist.gov/pml/owm/handbook-44-current-edition" },
+      { organization: "Bureau of Reclamation", standardOrDocument: "Earth Manual: Earth Materials and Measurement Principles", citation: "U.S. Department of the Interior.", url: "https://www.usbr.gov/tsc/techreferences/mands/mands-pdfs/EarthManual-Part1.pdf" }
     ],
     faqs: [
       { question: "How many cubic feet are in a cubic yard?", answer: "There are exactly 27 cubic feet in one cubic yard (3 ft × 3 ft × 3 ft = 27 cu ft)." },
@@ -377,8 +378,8 @@ export const tools: ToolDefinition[] = [
       }
     ],
     authoritativeSources: [
-      { organization: "ASTM International", standardOrDocument: "ASTM C33 / C33M: Standard Specification for Concrete Aggregates (Coarse Aggregate Gradation)", citation: "West Conshohocken, PA." },
-      { organization: "American Society of Landscape Architects (ASLA)", standardOrDocument: "Landscape Architecture Technical Information Series: Aggregate Surfacing", citation: "Washington, DC." }
+      { organization: "ASTM International", standardOrDocument: "ASTM C33 / C33M-23: Standard Specification for Concrete Aggregates (Coarse Aggregate Gradation)", citation: "West Conshohocken, PA.", url: "https://www.astm.org/c0033_c0033m-23.html" },
+      { organization: "American Society of Landscape Architects (ASLA)", standardOrDocument: "Landscape Architecture Technical Information Series: Aggregate Surfacing", citation: "Washington, DC.", url: "https://www.asla.org/" }
     ],
     faqs: [
       { question: "How many bags of pea gravel are in a cubic yard?", answer: "One cubic yard weighs approximately 2,700 lbs. If using 50 lb bags, it takes 54 bags to equal one cubic yard (27 cubic feet)." },
@@ -473,8 +474,8 @@ export const tools: ToolDefinition[] = [
       }
     ],
     authoritativeSources: [
-      { organization: "International Society of Arboriculture (ISA)", standardOrDocument: "Proper Mulching Guidelines", citation: "TreesAreGood Educational Resources, Champaign, IL." },
-      { organization: "Purdue Extension", standardOrDocument: "Mulch Practices for Landscapes (FNR-012-W)", citation: "Purdue University Department of Forestry and Natural Resources." }
+      { organization: "International Society of Arboriculture (ISA)", standardOrDocument: "Proper Mulching Guidelines", citation: "TreesAreGood Educational Resources, Champaign, IL.", url: "https://www.treesaregood.org/treeowner/mulching" },
+      { organization: "Purdue Extension", standardOrDocument: "Mulch Practices for Landscapes (FNR-492-W)", citation: "Purdue University Department of Forestry and Natural Resources.", url: "https://www.extension.purdue.edu/extmedia/FNR/FNR-492-W.pdf" }
     ],
     faqs: [
       { question: "How many bags of mulch equal 1 cubic yard?", answer: "One cubic yard (27 cu ft) equals exactly 13.5 bags of 2-cubic-foot mulch (practically 14 bags) or 9 bags of 3-cubic-foot mulch." },
@@ -570,8 +571,8 @@ export const tools: ToolDefinition[] = [
       }
     ],
     authoritativeSources: [
-      { organization: "USDA Natural Resources Conservation Service (NRCS)", standardOrDocument: "Soil Quality for Environmental Health: Organic Matter and Pore Space", citation: "United States Department of Agriculture." },
-      { organization: "University of Maryland Extension", standardOrDocument: "Improving Garden Soils with Organic Matter", citation: "Home and Garden Information Center Publication HG-42." }
+      { organization: "USDA Natural Resources Conservation Service (NRCS)", standardOrDocument: "Soil Quality for Environmental Health: Organic Matter and Pore Space", citation: "United States Department of Agriculture.", url: "https://www.nrcs.usda.gov/conservation-basics/natural-resource-concerns/soil" },
+      { organization: "University of Maryland Extension", standardOrDocument: "Improving Garden Soils with Organic Matter", citation: "Home and Garden Information Center Publication HG-42.", url: "https://extension.umd.edu/resource/soil-health-lawns-and-gardens" }
     ],
     faqs: [
       { question: "What is the difference between topsoil and garden soil?", answer: "Topsoil is screened natural surface soil (sand, silt, and clay). Garden soil is topsoil enriched with organic matter (compost, peat, or aged manure) formulated for vegetable and flower growth." },
@@ -668,8 +669,8 @@ export const tools: ToolDefinition[] = [
       }
     ],
     authoritativeSources: [
-      { organization: "Oregon State University Extension Service", standardOrDocument: "Constructing and Filling Raised Bed Planters (EM 9183)", citation: "Corvallis, OR." },
-      { organization: "University of Florida IFAS Extension", standardOrDocument: "Raised Bed Gardening: Soil Mixtures and Dimensions (CIR 1282)", citation: "Gainesville, FL." }
+      { organization: "Oregon State University Extension Service", standardOrDocument: "Constructing and Filling Raised Bed Planters (EM 9183)", citation: "Corvallis, OR.", url: "https://extension.oregonstate.edu/gardening/techniques/raised-bed-gardening" },
+      { organization: "University of Florida IFAS Extension", standardOrDocument: "Raised Bed Gardening: Soil Mixtures and Dimensions (CIR 1282)", citation: "Gainesville, FL.", url: "https://edis.ifas.ufl.edu/" }
     ],
     faqs: [
       { question: "How many bags of soil do I need for a 4x8 raised bed at 12 inches?", answer: "A 4×8 bed (inside dimensions 3.75 ft × 7.75 ft) at 12 inches deep holds 29.1 cubic feet of soil. Factoring in 15% settling, you need 33.5 cu ft, which equals seventeen 2-cubic-foot bags (or 1.25 cubic yards)." },
@@ -765,8 +766,8 @@ export const tools: ToolDefinition[] = [
       }
     ],
     authoritativeSources: [
-      { organization: "US Composting Council (USCC)", standardOrDocument: "Seal of Testing Assurance (STA) Program: Consumer Application Rates", citation: "Raleigh, NC." },
-      { organization: "Washington State University Extension", standardOrDocument: "How to Use Compost in Gardens and Landscapes (EB1784)", citation: "Pullman, WA." }
+      { organization: "US Composting Council (USCC)", standardOrDocument: "Seal of Testing Assurance (STA) Program: Consumer Application Rates", citation: "Raleigh, NC.", url: "https://www.compostingcouncil.org/page/CertifiedCompostSTA" },
+      { organization: "Washington State University Extension", standardOrDocument: "How to Use Compost in Gardens and Landscapes (EB1784)", citation: "Pullman, WA.", url: "https://pubs.extension.wsu.edu/" }
     ],
     faqs: [
       { question: "How much compost do I need for a garden bed?", answer: "For annual maintenance, spread 1 to 2 inches across the bed and till or fork it into the top 6 inches of soil. A 100 sq ft bed at 2 inches deep requires 0.62 cubic yards (approx. 17 cubic feet)." },
@@ -863,8 +864,8 @@ export const tools: ToolDefinition[] = [
       }
     ],
     authoritativeSources: [
-      { organization: "Interlocking Concrete Pavement Institute (ICPI)", standardOrDocument: "Tech Spec 2: Construction of Interlocking Concrete Pavements", citation: "Chantilly, VA." },
-      { organization: "ASTM International", standardOrDocument: "ASTM C33 / C33M: Standard Specification for Concrete Aggregates (Fine Aggregate)", citation: "West Conshohocken, PA." }
+      { organization: "ASTM International", standardOrDocument: "ASTM C33 / C33M-23: Standard Specification for Concrete Aggregates (Fine Aggregate)", citation: "West Conshohocken, PA.", url: "https://www.astm.org/c0033_c0033m-23.html" },
+      { organization: "Interlocking Concrete Pavement Institute (ICPI)", standardOrDocument: "Tech Spec 2: Construction of Interlocking Concrete Pavements", citation: "Chantilly, VA.", url: "https://icpi.org/" }
     ],
     faqs: [
       { question: "How many 50 lb bags of sand are in a cubic yard?", answer: "Dry sand weighs approximately 2,700 lbs per cubic yard. It takes 54 fifty-pound bags to equal one cubic yard (27 cubic feet)." },
@@ -891,7 +892,7 @@ export const tools: ToolDefinition[] = [
     icon: "▦",
     material: "Paver base aggregate",
     bestFor: ["Patio foundations", "Walkway base layers", "Paver project material planning"],
-    formula: "Length (ft) × Width (ft) × Compacted Depth (in) ÷ 324 × Compaction Factor (1.18 to 1.20) = Loose Order Cubic Yards.",
+    formula: "Length (ft) × Width (ft) × Depth (in) ÷ 324 = Base Geometric Volume (yd³). Loose Order Volume = Base Volume × (1 + Allowance% ÷ 100). (Set Allowance to 18%–20% for dense-graded aggregate compaction).",
     howTo: [
       "Measure your patio or walkway plan area, adding 6 inches of over-excavation beyond the paver edge on all sides.",
       "Enter design compacted depth (4 inches for walkways/patios; 6 to 8 inches for residential driveways).",
@@ -910,9 +911,9 @@ export const tools: ToolDefinition[] = [
       ]
     },
     formulaExplanation: {
-      usCustomary: "Loose Order Cubic Yards = Area (ft²) × Compacted Depth (in) ÷ 324 × 1.20",
-      metric: "Loose Order Cubic Metres = Area (m²) × Compacted Depth (cm) ÷ 100 × 1.20",
-      dimensionalExplanation: "The formula computes geometric compacted volume and multiplies by 1.20 to compensate for the 15% to 20% volume loss that occurs when stone dust vibrates into void spaces under a plate compactor.",
+      usCustomary: "Base Volume (yd³) = Area (ft²) × Depth (in) ÷ 324. Order Volume = Base Volume × (1 + Allowance% ÷ 100)",
+      metric: "Base Volume (m³) = Area (m²) × Depth (cm) ÷ 100. Order Volume = Base Volume × (1 + Allowance% ÷ 100)",
+      dimensionalExplanation: "The calculator computes exact neat geometric volume from your input dimensions. To account for plate compaction shrinkage (which typically compresses dense-graded road base by 15% to 20%), apply the loose-to-compacted factor by setting the project Allowance to 18% or 20% in the calculator settings.",
       circleNote: "For round patios: Area = π × [(Diameter + 1.0 ft over-excavation) ÷ 2]².",
       triangleNote: "For triangular layouts: Area = (Base × Height) ÷ 2."
     },
@@ -923,7 +924,7 @@ export const tools: ToolDefinition[] = [
       steps: [
         { label: "1. Over-Dug Plan Area", formula: "9 ft × 21 ft", result: "189 sq ft", explanation: "Includes 6-inch perimeter base extension for edge restraints." },
         { label: "2. Compacted Net Volume", formula: "189 sq ft × 4 in ÷ 324", result: "2.333 yd³", explanation: "Target geometric finished base volume." },
-        { label: "3. Loose Order Volume (20% Compaction)", formula: "2.333 yd³ × 1.20", result: "2.800 yd³", explanation: "Compensates for mechanical compaction shrinkage." },
+        { label: "3. Loose Order Volume (20% Allowance)", formula: "2.333 yd³ × 1.20", result: "2.800 yd³", explanation: "Compensates for mechanical compaction shrinkage via the user-controlled 20% allowance input." },
         { label: "4. Total Weight (at 2,800 lb/yd³)", formula: "2.800 yd³ × 2,800 lb/yd³", result: "7,840 lbs", explanation: "Calculates total weight in short tons (3.92 tons)." },
         { label: "5. Metric Equivalent", formula: "2.800 yd³ × 0.764555", result: "2.14 m³", explanation: "Equivalent loose metric volume (3.56 metric tonnes)." }
       ],
@@ -959,8 +960,8 @@ export const tools: ToolDefinition[] = [
       }
     ],
     authoritativeSources: [
-      { organization: "Interlocking Concrete Pavement Institute (ICPI)", standardOrDocument: "Tech Spec 4: Structural Design of Interlocking Concrete Pavements", citation: "Chantilly, VA." },
-      { organization: "ASTM International", standardOrDocument: "ASTM D2940 / D2940M: Standard Specification for Graded Aggregate Material for Bases", citation: "West Conshohocken, PA." }
+      { organization: "Interlocking Concrete Pavement Institute (ICPI)", standardOrDocument: "Tech Spec 4: Structural Design of Interlocking Concrete Pavements", citation: "Chantilly, VA.", url: "https://icpi.org/" },
+      { organization: "ASTM International", standardOrDocument: "ASTM D2940 / D2940M-20: Standard Specification for Graded Aggregate Material for Bases or Subbases", citation: "West Conshohocken, PA.", url: "https://www.astm.org/d2940_d2940m-20.html" }
     ],
     faqs: [
       { question: "How thick should paver base be?", answer: "Walkways and pedestrian patios require a minimum of 4 inches of compacted base. Patios supporting hot tubs or heavy fire pits require 6 inches; residential paver driveways require 8 to 12 inches." },
@@ -980,17 +981,17 @@ export const tools: ToolDefinition[] = [
     shortName: "Driveway gravel",
     eyebrow: "ROADWAYS, DRIVES & HEAVY ACCESS",
     category: "Stone & aggregate",
-    metaTitle: "Gravel Driveway Calculator | Estimate Tons, Yards & Layers",
-    metaDescription: "Calculate gravel volume and tons for driveways, lanes, and parking pads. Free calculator covers sub-base, Crusher Run, and wearing course layers.",
-    description: "Estimate gravel volume for a driveway using its measured length, width and planned layer depth. Compare cubic-yard and metric quantities and add supplier-based bag, weight and cost details.",
-    cardDescription: "Estimate gravel for a driveway layer from its dimensions and depth.",
+    metaTitle: "Gravel Driveway Calculator | Estimate Volume, Tons & Depth",
+    metaDescription: "Calculate gravel volume and weight for driveways, lanes, and parking pads. Enter dimensions and single-layer depth to estimate cubic yards and quarry tonnage.",
+    description: "Estimate gravel volume and quarry tonnage for a single driveway layer from its length, width, and layer depth. Calculate multi-tier profiles by running base and surface layers separately.",
+    cardDescription: "Estimate gravel volume and tonnage for a single driveway layer.",
     icon: "▰",
     material: "Driveway gravel",
     bestFor: ["Driveway resurfacing", "New gravel driveway planning", "Driveway base or wearing-course estimates"],
     formula: "Length (ft) × Width (ft) × Depth (in) ÷ 324 = Cubic Yards. Weight (tons) = Cubic Yards × 1.35 to 1.45 tons/yd³.",
     howTo: [
       "Measure the length of your driveway and its average width in feet.",
-      "Enter the intended depth for the specific layer you are calculating (2 inches for resurfacing; 4 to 6 inches for a new base).",
+      "Enter the intended depth for the single layer you are currently calculating (run the calculator separately for each distinct layer in a multi-tier profile).",
       "Add an allowance (10% to 15%) for mechanical compaction and subgrade displacement.",
       "Review the total in loose cubic yards and estimated quarry weight (tons)."
     ],
@@ -1055,8 +1056,8 @@ export const tools: ToolDefinition[] = [
       }
     ],
     authoritativeSources: [
-      { organization: "Federal Highway Administration (FHWA)", standardOrDocument: "Gravel Roads Construction and Maintenance Guide (FHWA-FLH-15-004)", citation: "U.S. Department of Transportation." },
-      { organization: "Penn State Center for Dirt and Gravel Road Studies", standardOrDocument: "Driving Surface Aggregate Standards & Maintenance", citation: "Pennsylvania State University." }
+      { organization: "Federal Highway Administration (FHWA)", standardOrDocument: "Gravel Roads Construction and Maintenance Guide (FHWA-FLH-15-004)", citation: "U.S. Department of Transportation.", url: "https://www.fhwa.dot.gov/construction/gravel/flh15004.pdf" },
+      { organization: "Penn State Center for Dirt and Gravel Road Studies", standardOrDocument: "Driving Surface Aggregate Standards & Maintenance", citation: "Pennsylvania State University.", url: "https://www.dirtandgravel.psu.edu/" }
     ],
     faqs: [
       { question: "How many tons of gravel do I need for a 100-foot driveway?", answer: "For a 100 ft long by 10 ft wide driveway with a 2-inch resurfacing layer: you need 6.17 cubic yards. At 1.4 tons per yard, you need approximately 8.6 tons of gravel." },
@@ -1077,21 +1078,21 @@ export const tools: ToolDefinition[] = [
     eyebrow: "SLABS, FOOTINGS & STEPS",
     category: "Construction",
     metaTitle: "Concrete Calculator | Calculate Slabs, Footings & Bags",
-    metaDescription: "Calculate concrete volume for slabs, footings, and post holes. Free calculator converts square feet and thickness into cubic yards, metres, and 60 or 80 lb bags.",
+    metaDescription: "Calculate concrete volume for slabs, footings, and post holes. Free calculator converts square feet and thickness into cubic yards, metres, and estimated bags based on your manufacturer's printed bag yield.",
     description: "Calculate geometric concrete volume for a slab, footing or other simple pour. Convert the result to cubic yards, cubic metres and litres, and estimate bag counts using the yield printed on your concrete mix.",
     cardDescription: "Calculate concrete volume for slabs, pads and simple pours.",
     icon: "▧",
     material: "Concrete",
     bestFor: ["Concrete slabs and pads", "Simple rectangular footings", "Comparing ready-mix and bagged concrete volume"],
-    formula: "Length (ft) × Width (ft) × Thickness (in) ÷ 324 = Cubic Yards. 80 lb Bags = Cubic Feet ÷ 0.60. 60 lb Bags = Cubic Feet ÷ 0.45.",
+    formula: "Length (ft) × Width (ft) × Thickness (in) ÷ 324 = Cubic Yards. Bag count is calculated by dividing total cubic feet by the manufacturer's printed bag yield (e.g. 0.60 cu ft for 80 lb; 0.45 cu ft for 60 lb).",
     howTo: [
       "Measure internal formwork length and width in feet (use cylinder mode for round sonotubes/post holes).",
       "Enter exact pour thickness in inches (remember: a 2x4 form board has an actual depth of 3.5 inches).",
       "Include a 10% allowance for formwork deflection, subgrade dips, and spillage.",
-      "Review the total in cubic yards, cubic metres, or bags (45 bags of 80 lb per cubic yard)."
+      "Review the total in cubic yards, cubic metres, or bags by entering your bag's printed volumetric yield (e.g. 0.60 cu ft for 80 lb; 0.45 cu ft for 60 lb) into the Pack Volume field."
     ],
     quickAnswer: {
-      directAnswer: "Residential concrete slabs require a minimum thickness of 4.0 inches (3.5 inches if framed with standard dressed 2x4s) of 3,500+ PSI concrete. Multiply slab length (ft) by width (ft) by thickness (in) and divide by 324 to find cubic yards. One cubic yard covers 81 sq ft at 4 inches thick and requires 45 eighty-pound bags or 60 sixty-pound bags.",
+      directAnswer: "Residential concrete slabs require a minimum thickness of 4.0 inches (3.5 inches if framed with standard dressed 2x4s) of 3,500+ PSI concrete. Multiply slab length (ft) by width (ft) by thickness (in) and divide by 324 to find cubic yards. One cubic yard covers 81 sq ft at 4 inches thick. At standard bag yields (0.60 cu ft for 80 lb; 0.45 cu ft for 60 lb), 1 cubic yard requires 45 eighty-pound bags or 60 sixty-pound bags; enter your bag's printed yield to calculate exact package quantities.",
       ruleOfThumb: "A standard 10 ft × 10 ft patio slab at 4 inches thick (100 sq ft) requires 1.23 cubic yards of concrete (or 1.36 cubic yards with a 10% allowance, requiring 62 eighty-pound bags).",
       tableCaption: "Concrete Slab Volume & Bag Yield Benchmarks",
       benchmarkTable: [
@@ -1152,8 +1153,8 @@ export const tools: ToolDefinition[] = [
       }
     ],
     authoritativeSources: [
-      { organization: "American Concrete Institute (ACI)", standardOrDocument: "ACI 302.1R: Guide for Concrete Floor and Slab Construction", citation: "Farmington Hills, MI." },
-      { organization: "Portland Cement Association (PCA)", standardOrDocument: "Design and Control of Concrete Mixtures (EB001)", citation: "Skokie, IL." }
+      { organization: "American Concrete Institute (ACI)", standardOrDocument: "ACI 302.1R-15: Guide to Concrete Floor and Slab Construction", citation: "Farmington Hills, MI.", url: "https://www.concrete.org/store/productdetail.aspx?ItemID=302115" },
+      { organization: "Portland Cement Association (PCA)", standardOrDocument: "Design and Control of Concrete Mixtures (EB001)", citation: "Skokie, IL.", url: "https://www.cement.org/" }
     ],
     faqs: [
       { question: "How many 80 lb bags of concrete make a cubic yard?", answer: "It takes exactly 45 bags of 80 lb concrete mix to equal one cubic yard (27 cubic feet), because each 80 lb bag yields 0.60 cubic feet (27 ÷ 0.60 = 45)." },
@@ -1249,8 +1250,8 @@ export const tools: ToolDefinition[] = [
       }
     ],
     authoritativeSources: [
-      { organization: "ASTM International", standardOrDocument: "ASTM D448: Standard Classification for Sizes of Aggregate for Road and Bridge Construction", citation: "West Conshohocken, PA." },
-      { organization: "National Stone, Sand & Gravel Association (NSSGA)", standardOrDocument: "Aggregate Handbook: Gradation, Physical Properties and Uses", citation: "Alexandria, VA." }
+      { organization: "ASTM International", standardOrDocument: "ASTM D448-24: Standard Classification for Sizes of Aggregate for Road and Bridge Construction", citation: "West Conshohocken, PA.", url: "https://www.astm.org/d0448-24.html" },
+      { organization: "National Stone, Sand & Gravel Association (NSSGA)", standardOrDocument: "Aggregate Handbook: Gradation, Physical Properties and Uses", citation: "Alexandria, VA.", url: "https://www.nssga.org/" }
     ],
     faqs: [
       { question: "How many tons is 1 cubic yard of crushed stone?", answer: "One cubic yard of crushed stone typically weighs between 1.35 and 1.45 short tons (2,700 to 2,900 lbs). A safe planning estimate is 1.4 tons per cubic yard." },

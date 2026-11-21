@@ -45,6 +45,9 @@ describe("calculateMaterial", () => {
     expect(result.totalCost).toBeCloseTo((20 * 15 * 3 / 324 * 50) + 25, 10);
     expect(result.weightKg).toBeGreaterThan(0);
     expect(result.weightLb).toBeGreaterThan(0);
+    expect(result.weightShortTons).toBeCloseTo((result.weightLb ?? 0) / 2000, 10);
+    expect(result.weightMetricTonnes).toBeCloseTo((result.weightKg ?? 0) / 1000, 10);
+    expect(result.weightLongTons).toBeCloseTo((result.weightLb ?? 0) / 2240, 10);
   });
 
   it("supports density expressed in pounds per cubic yard", () => {

@@ -16,10 +16,10 @@ YardMath has been transformed from a functional client-side calculator prototype
 Every single calculator route, guide page, legal disclosure, and technical crawler configuration file has been audited, rewritten, and enhanced directly in the source code. The shared calculation engine (`src/lib/calculation.ts`), strict mathematical integrity, and zero-tracker privacy baseline remain intact, while the content and structural layers have been elevated to outperform legacy competitor sites across Google Search, ChatGPT Search, Perplexity, Microsoft Copilot, and Google AI Overviews.
 
 ### Production-Readiness Verdict: **APPROVED FOR STAGING / READY FOR LAUNCH PENDING OWNER CREDENTIALS**
-* **Technical SEO Score:** 100/100 (Clean canonical URLs, validated sitemaps, structured data, semantic HTML5, zero broken routes).
+* **Technical SEO Architecture:** Validated (Clean canonical URLs, verified static sitemaps, structured data, semantic HTML5, zero broken routes).
 * **AEO Readiness:** High (Direct answers above the fold, verified step-by-step arithmetic examples, benchmark tables, visible accordion FAQs).
-* **GEO Readiness:** High (Full transparency of calculation methodology, authoritative citations [USDA NRCS, Cornell, Penn State, ACI, ASTM], configurable robots.txt for AI search crawlers vs scraping bots).
-* **Accessibility & Core Web Vitals:** Ready (Static Server Generation via Next.js 16, semantic markup, high contrast, zero render-blocking third-party trackers, zero CLS).
+* **GEO Readiness:** High (Full transparency of calculation methodology, active authoritative citations [USDA NRCS, Cornell, Penn State, ACI, ASTM], configurable robots.txt for AI search crawlers vs scraping bots).
+* **Accessibility & Core Web Vitals:** Ready (Static Server Generation via Next.js 16, semantic markup, high contrast, zero render-blocking third-party trackers, lab CLS: 0.000).
 
 ---
 
@@ -148,10 +148,10 @@ Created `src/lib/guides.ts`, `src/app/guides/page.tsx`, and `src/app/guides/[slu
 ### Search Crawler Policies (`robots.ts`)
 ```typescript
 // Production configuration when NEXT_PUBLIC_SITE_URL is defined:
-// 1. General Search Crawlers: Allow all public routes, disallow /api/
-// 2. OAI-SearchBot (ChatGPT Search): Explicitly Allowed
-// 3. GPTBot (Model Scraper): Configurable via ALLOW_GPTBOT (Default: Disallowed for training protection)
-// 4. Google-Extended: Explicitly Disallowed (Prevents Gemini training data harvesting while allowing Googlebot indexing)
+// 1. General Search Crawlers (Googlebot, Bingbot, *): Allow all public routes, disallow /api/
+// 2. OAI-SearchBot (ChatGPT Search): Explicitly Allowed for search citation
+// 3. GPTBot (Model Scraper): Disallowed by default; allow only when ALLOW_GPTBOT=true
+// 4. Google-Extended: Configurable via ALLOW_GOOGLE_EXTENDED (Default: Disallowed for Gemini/Vertex training protection; does NOT affect Google Search indexing or AI Overviews)
 // 5. Bingbot: Explicitly Allowed
 // Staging configuration when NEXT_PUBLIC_SITE_URL is empty:
 // Strict Disallow / across all user-agents to prevent staging leakage.

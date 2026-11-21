@@ -63,22 +63,28 @@ export default function AboutPage() {
         <li><strong>Pavement & Concrete Guidelines:</strong> Interlocking Concrete Pavement Institute (ICPI Tech Specs), American Concrete Institute (ACI 302.1R), and Portland Cement Association (PCA).</li>
       </ul>
 
-      <h2>4. Quality-Control & Correction Policy</h2>
+      <h2>4. Quality-Control & Testing Methodology</h2>
       <p>
-        We treat mathematical accuracy and semantic clarity with the highest editorial seriousness. All calculation engines undergo continuous automated testing against known geometric benchmarks (rectangles, circles, triangles, repeat counts, and bag yield division).
-      </p>
-      <p>
-        If you discover a formula discrepancy, typographical error, unclear instruction, or broken calculation link:
+        We treat mathematical accuracy and semantic clarity with rigorous discipline. The core calculation engine is tested using an automated Vitest test suite executing in strict TypeScript:
       </p>
       <ul>
-        <li>We investigate all technical and content bug reports promptly.</li>
-        <li>Corrections are deployed immediately after verification and documented in our public release notes.</li>
-        <li>You can submit feedback or corrections directly via our <Link href="/contact/" className="inline-link">contact page</Link> or by emailing <a className="inline-link" href={email ? `mailto:${email}` : "mailto:feedback@yardmath.com"}>{email || "feedback@yardmath.com"}</a>.</li>
+        <li><strong>Unit Tests & Geometric Proofs:</strong> Automated tests validate neat geometric displacement across rectangles, circles (using diameter), and triangles (using base and perpendicular height).</li>
+        <li><strong>Conversion Invariance:</strong> Tests verify that converting between imperial and metric systems preserves underlying material quantities and budget totals.</li>
+        <li><strong>IEEE 754 Floating-Point Precision:</strong> All rounding and unit-conversion multipliers use validated precision thresholds to prevent compounding rounding artifacts.</li>
+        <li><strong>Content Math Validation:</strong> All worked examples and benchmark tables in our guides and calculator landing pages are programmatically validated by automated test suites before release.</li>
+      </ul>
+      <p>
+        If you discover a formula discrepancy, typographical error, unclear instruction, or broken link:
+      </p>
+      <ul>
+        <li>We investigate technical and content bug reports promptly.</li>
+        <li>Corrections are tested, verified, and deployed directly to the open source codebase.</li>
+        <li>You can submit feedback or corrections via our <Link href="/contact/" className="inline-link">contact page</Link>{email ? <> or by emailing <a className="inline-link" href={`mailto:${email}`}>{email}</a></> : null}.</li>
       </ul>
 
-      <h2>5. Editorial Responsibility & Independence</h2>
+      <h2>5. Editorial Responsibility & Transparency</h2>
       <p>
-        YardMath is editorially independent. We do not accept sponsored placements for specific soil brands or stone quarries, and our calculators do not prioritize any commercial manufacturer. Our tools run 100% in your browser without tracking cookies or advertising scripts.
+        YardMath is an independent software and educational project maintained by the YardMath project team. We do not claim an external peer-review board; rather, our editorial standards require that every material guideline, layer recommendation, and density reference cite verified, primary institutional sources (such as USDA NRCS, Cornell Cooperative Extension, Penn State Agronomy, ASTM International, and the American Concrete Institute). We do not accept sponsored placements for specific soil brands or stone quarries.
       </p>
 
       <h2>6. Operational Boundaries & Disclaimer</h2>

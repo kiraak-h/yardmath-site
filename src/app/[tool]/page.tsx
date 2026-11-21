@@ -286,7 +286,14 @@ export default async function ToolPage({ params }: { params: Promise<{ tool: str
               <ul className="sources-list">
                 {tool.authoritativeSources.map((src, idx) => (
                   <li key={idx}>
-                    <strong>{src.standardOrDocument}</strong> — <span>{src.organization}</span>. <small>{src.citation}</small>
+                    {src.url ? (
+                      <a href={src.url} target="_blank" rel="noopener noreferrer" className="inline-link">
+                        <strong>{src.standardOrDocument}</strong>
+                      </a>
+                    ) : (
+                      <strong>{src.standardOrDocument}</strong>
+                    )}{" "}
+                    — <span>{src.organization}</span>. <small>{src.citation}</small>
                   </li>
                 ))}
               </ul>

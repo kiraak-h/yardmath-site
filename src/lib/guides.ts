@@ -34,7 +34,7 @@ export type GuideDefinition = {
   keyTakeaways: string[];
   sections: GuideSection[];
   faqs: { question: string; answer: string }[];
-  sources: { title: string; publisher: string; citation: string }[];
+  sources: { title: string; publisher: string; citation: string; url: string }[];
   relatedTools: ToolSlug[];
   relatedGuides: string[];
 };
@@ -123,8 +123,8 @@ export const guides: GuideDefinition[] = [
       }
     ],
     sources: [
-      { title: "Agronomy Facts 62: Estimating Soil and Amendment Quantities", publisher: "Penn State Extension", citation: "Pennsylvania State University College of Agricultural Sciences." },
-      { title: "National Engineering Handbook, Part 642: Measurement of Areas and Earthwork", publisher: "USDA Natural Resources Conservation Service (NRCS)", citation: "United States Department of Agriculture." }
+      { title: "Agronomy Facts 62: Estimating Soil and Amendment Quantities", publisher: "Penn State Extension", citation: "Pennsylvania State University College of Agricultural Sciences.", url: "https://extension.psu.edu/soil-management-in-turf-establishment" },
+      { title: "National Engineering Handbook, Part 642: Measurement of Areas and Earthwork", publisher: "USDA Natural Resources Conservation Service (NRCS)", citation: "United States Department of Agriculture.", url: "https://www.nrcs.usda.gov/" }
     ],
     relatedTools: ["cubic-yard-calculator", "topsoil-calculator", "mulch-calculator", "crushed-stone-calculator"],
     relatedGuides: ["cubic-yards-vs-cubic-feet", "measuring-irregular-landscaping-areas", "how-much-topsoil-do-i-need"]
@@ -208,8 +208,8 @@ export const guides: GuideDefinition[] = [
       }
     ],
     sources: [
-      { title: "Lawn Establishment and Renovation Guide", publisher: "Cornell Cooperative Extension", citation: "Cornell University College of Agriculture and Life Sciences." },
-      { title: "Soil Management for Lawns and Gardens", publisher: "University of Maryland Extension", citation: "Home & Garden Information Center, Publication HG-110." }
+      { title: "Lawn Establishment and Renovation Guide", publisher: "Cornell Cooperative Extension", citation: "Cornell University College of Agriculture and Life Sciences.", url: "https://cals.cornell.edu/turfgrass" },
+      { title: "Soil Management for Lawns and Gardens", publisher: "University of Maryland Extension", citation: "Home & Garden Information Center, Publication HG-110.", url: "https://extension.umd.edu/resource/soil-health-lawns-and-gardens" }
     ],
     relatedTools: ["topsoil-calculator", "soil-calculator", "raised-bed-soil-calculator", "compost-calculator"],
     relatedGuides: ["how-to-measure-landscaping-materials", "raised-bed-soil-volume", "how-to-calculate-material-weight-bulk-density"]
@@ -286,8 +286,8 @@ export const guides: GuideDefinition[] = [
       }
     ],
     sources: [
-      { title: "Proper Mulching Techniques", publisher: "International Society of Arboriculture (ISA)", citation: "TreesAreGood Educational Bulletin." },
-      { title: "Mulching Landscape Trees and Shrubs", publisher: "Purdue Extension", citation: "Purdue University Department of Forestry and Natural Resources, FNR-012-W." }
+      { title: "Proper Mulching Techniques", publisher: "International Society of Arboriculture (ISA)", citation: "TreesAreGood Educational Bulletin.", url: "https://www.treesaregood.org/treeowner/mulching" },
+      { title: "Mulching Landscape Trees and Shrubs", publisher: "Purdue Extension", citation: "Purdue University Department of Forestry and Natural Resources, FNR-012-W.", url: "https://www.extension.purdue.edu/extmedia/FNR/FNR-492-W.pdf" }
     ],
     relatedTools: ["mulch-calculator", "cubic-yard-calculator", "soil-calculator", "compost-calculator"],
     relatedGuides: ["how-to-measure-landscaping-materials", "cubic-yards-vs-cubic-feet"]
@@ -365,7 +365,8 @@ export const guides: GuideDefinition[] = [
       }
     ],
     sources: [
-      { title: "NIST Handbook 44: Specifications, Tolerances, and Other Technical Requirements for Weighing and Measuring Devices", publisher: "National Institute of Standards and Technology (NIST)", citation: "U.S. Department of Commerce." }
+      { title: "NIST Handbook 44: Specifications, Tolerances, and Other Technical Requirements for Weighing and Measuring Devices", publisher: "National Institute of Standards and Technology (NIST)", citation: "U.S. Department of Commerce.", url: "https://www.nist.gov/pml/owm/handbook-44-current-edition" },
+      { title: "NIST Special Publication 811: Guide for the Use of the International System of Units (SI)", publisher: "National Institute of Standards and Technology (NIST)", citation: "U.S. Department of Commerce.", url: "https://www.nist.gov/pml/special-publication-811" }
     ],
     relatedTools: ["cubic-yard-calculator", "topsoil-calculator", "mulch-calculator", "concrete-calculator"],
     relatedGuides: ["how-to-measure-landscaping-materials", "how-to-calculate-material-weight-bulk-density"]
@@ -450,8 +451,8 @@ export const guides: GuideDefinition[] = [
       }
     ],
     sources: [
-      { title: "ASTM C29 / C29M-17a: Standard Test Method for Bulk Density ('Unit Weight') and Voids in Aggregate", publisher: "ASTM International", citation: "West Conshohocken, PA." },
-      { title: "Geotechnical Engineering Circular No. 5: Evaluation of Soil and Rock Properties", publisher: "Federal Highway Administration (FHWA)", citation: "U.S. Department of Transportation, Publication FHWA-IF-02-034." }
+      { title: "ASTM C29 / C29M-23: Standard Test Method for Bulk Density ('Unit Weight') and Voids in Aggregate", publisher: "ASTM International", citation: "West Conshohocken, PA.", url: "https://www.astm.org/c0029_c0029m-23.html" },
+      { title: "Geotechnical Engineering Circular No. 5: Evaluation of Soil and Rock Properties", publisher: "Federal Highway Administration (FHWA)", citation: "U.S. Department of Transportation, Publication FHWA-IF-02-034.", url: "https://www.fhwa.dot.gov/engineering/geotech/pubs/02034/ch05.cfm" }
     ],
     relatedTools: ["pea-gravel-calculator", "crushed-stone-calculator", "sand-calculator", "cubic-yard-calculator"],
     relatedGuides: ["cubic-yards-vs-cubic-feet", "gravel-driveway-material-estimation"]
@@ -526,8 +527,8 @@ export const guides: GuideDefinition[] = [
       }
     ],
     sources: [
-      { title: "Gravel Roads Construction and Maintenance Guide", publisher: "Federal Highway Administration (FHWA)", citation: "Publication FHWA-FLH-15-004." },
-      { title: "Environmentally Sensitive Maintenance for Dirt and Gravel Roads", publisher: "Penn State Center for Dirt and Gravel Road Studies", citation: "Pennsylvania State University." }
+      { title: "Gravel Roads Construction and Maintenance Guide", publisher: "Federal Highway Administration (FHWA)", citation: "Publication FHWA-FLH-15-004.", url: "https://www.fhwa.dot.gov/construction/gravel/flh15004.pdf" },
+      { title: "Environmentally Sensitive Maintenance for Dirt and Gravel Roads", publisher: "Penn State Center for Dirt and Gravel Road Studies", citation: "Pennsylvania State University.", url: "https://www.dirtandgravel.psu.edu/" }
     ],
     relatedTools: ["gravel-driveway-calculator", "crushed-stone-calculator", "paver-base-calculator", "cubic-yard-calculator"],
     relatedGuides: ["how-to-calculate-material-weight-bulk-density", "cubic-yards-vs-cubic-feet"]
@@ -604,8 +605,8 @@ export const guides: GuideDefinition[] = [
       }
     ],
     sources: [
-      { title: "ACI 302.1R-15: Guide to Concrete Floor and Slab Construction", publisher: "American Concrete Institute (ACI)", citation: "Farmington Hills, MI." },
-      { title: "Design and Control of Concrete Mixtures", publisher: "Portland Cement Association (PCA)", citation: "16th Edition, Engineering Bulletin EB001." }
+      { title: "ACI 302.1R-15: Guide to Concrete Floor and Slab Construction", publisher: "American Concrete Institute (ACI)", citation: "Farmington Hills, MI.", url: "https://www.concrete.org/store/productdetail.aspx?ItemID=302115" },
+      { title: "ASTM C387 / C387M-23: Standard Specification for Packaged, Dry, Combined Materials for Mortar and Concrete", publisher: "ASTM International", citation: "West Conshohocken, PA.", url: "https://www.astm.org/c0387_c0387m-23.html" }
     ],
     relatedTools: ["concrete-calculator", "cubic-yard-calculator", "sand-calculator", "paver-base-calculator"],
     relatedGuides: ["cubic-yards-vs-cubic-feet", "how-to-calculate-material-weight-bulk-density"]
@@ -679,8 +680,8 @@ export const guides: GuideDefinition[] = [
       }
     ],
     sources: [
-      { title: "Constructing and Filling Raised Bed Planters", publisher: "Oregon State University Extension Service", citation: "Publication EM 9183." },
-      { title: "Raised Bed Gardening", publisher: "University of Florida IFAS Extension", citation: "Publication CIR 1282." }
+      { title: "Constructing and Filling Raised Bed Planters", publisher: "Oregon State University Extension Service", citation: "Publication EM 9183.", url: "https://extension.oregonstate.edu/gardening/techniques/raised-bed-gardening" },
+      { title: "Raised Bed Gardening", publisher: "University of Florida IFAS Extension", citation: "Publication CIR 1282.", url: "https://edis.ifas.ufl.edu/" }
     ],
     relatedTools: ["raised-bed-soil-calculator", "soil-calculator", "compost-calculator", "topsoil-calculator"],
     relatedGuides: ["how-to-measure-landscaping-materials", "how-much-topsoil-do-i-need"]
@@ -757,8 +758,8 @@ export const guides: GuideDefinition[] = [
       }
     ],
     sources: [
-      { title: "Elementary Surveying: An Introduction to Geomatics", publisher: "Pearson", citation: "Ghilani & Wolf, 15th Edition, Chapter 12: Area Computations." },
-      { title: "RHS Practical Landscaping Guides: Measuring Your Garden", publisher: "Royal Horticultural Society (RHS)", citation: "London, UK." }
+      { title: "National Engineering Handbook: Surveying and Geometric Earthwork Measurements", publisher: "USDA Natural Resources Conservation Service (NRCS)", citation: "United States Department of Agriculture.", url: "https://www.nrcs.usda.gov/" },
+      { title: "RHS Practical Landscaping Guides: Measuring Your Garden", publisher: "Royal Horticultural Society (RHS)", citation: "London, UK.", url: "https://www.rhs.org.uk/" }
     ],
     relatedTools: ["cubic-yard-calculator", "topsoil-calculator", "mulch-calculator", "pea-gravel-calculator"],
     relatedGuides: ["how-to-measure-landscaping-materials", "cubic-yards-vs-cubic-feet"]

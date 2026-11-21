@@ -923,3 +923,105 @@ button { cursor: pointer; }
   margin: 10px 0 0;
 }
 
+/* Accessibility & High Contrast Overrides (WCAG AA & AAA Compliance) */
+.hero-kicker,
+.section-kicker,
+.step-tag,
+.visual-card-label {
+  color: #274929 !important;
+  font-weight: 650;
+}
+
+.breadcrumbs {
+  color: #2c4231 !important;
+}
+
+.breadcrumbs a {
+  color: #1f3b25 !important;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.tool-page-heading p {
+  color: #253b2a !important;
+}
+
+.tool-page-badges span {
+  color: #203c24 !important;
+  background: #ffffff !important;
+  border-color: #cad8be !important;
+  font-weight: 650 !important;
+}
+
+.input-unit {
+  color: #2b4530 !important;
+  font-weight: 600;
+}
+
+.field-hint {
+  color: #37503c !important;
+}
+
+.allowance-row > div > span {
+  color: #39523e !important;
+}
+
+.result-intro {
+  color: #28422e !important;
+}
+
+.primary-result span {
+  color: #203c24 !important;
+}
+
+.result-equivalents {
+  color: #2a4330 !important;
+}
+
+.result-line {
+  color: #27402d !important;
+}
+
+.result-line strong {
+  color: #163420 !important;
+}
+
+.result-caveat {
+  color: #344d3a !important;
+}
+
+.step-detail {
+  color: #28402e !important;
+}
+
+.mistake-impact {
+  color: #6a160d !important;
+  background: #fdf2f0 !important;
+  border: 1px solid #f7d2cb;
+  font-weight: 500;
+}
+
+.mistake-fix {
+  color: #134020 !important;
+  background: #edf7ed !important;
+  border: 1px solid #cae6cc;
+  font-weight: 500;
+}
+
+.sources-list li {
+  color: #263c2c !important;
+}
+
+.sources-list small {
+  color: #3d5442 !important;
+}
+
+.aside-card p {
+  color: #273e2d !important;
+}
+
+.aside-number {
+  color: #21432a !important;
+}
+
+

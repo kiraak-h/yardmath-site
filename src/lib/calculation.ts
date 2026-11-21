@@ -34,6 +34,12 @@ export type CalculatorResult = {
   bagSizeCubicFeet: number;
   weightKg: number | null;
   weightLb: number | null;
+  /** US Short Tons (2,000 lbs) */
+  weightShortTons: number | null;
+  /** Metric Tonnes (1,000 kg) */
+  weightMetricTonnes: number | null;
+  /** Imperial Long Tons (2,240 lbs) */
+  weightLongTons: number | null;
   materialCost: number | null;
   totalCost: number | null;
   allowanceCubicYards: number;
@@ -96,6 +102,9 @@ export function calculateMaterial(input: CalculatorInput): CalculatorResult {
 
   let weightKg: number | null = null;
   let weightLb: number | null = null;
+  let weightShortTons: number | null = null;
+  let weightMetricTonnes: number | null = null;
+  let weightLongTons: number | null = null;
   if (input.density !== null) {
     if (input.densityUnit === "kg-m3") {
       weightKg = cubicMetres * input.density;
@@ -104,6 +113,9 @@ export function calculateMaterial(input: CalculatorInput): CalculatorResult {
       weightLb = cubicYards * input.density;
       weightKg = weightLb * KG_PER_LB;
     }
+    weightShortTons = weightLb / 2000;
+    weightMetricTonnes = weightKg / 1000;
+    weightLongTons = weightLb / 2240;
   }
 
   let materialCost: number | null = null;
@@ -125,6 +137,9 @@ export function calculateMaterial(input: CalculatorInput): CalculatorResult {
     bagSizeCubicFeet,
     weightKg,
     weightLb,
+    weightShortTons,
+    weightMetricTonnes,
+    weightLongTons,
     materialCost,
     totalCost,
     allowanceCubicYards: cubicYards - baseCubicFeet / FT3_PER_YD3,

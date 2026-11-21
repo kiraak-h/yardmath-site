@@ -40,16 +40,16 @@ export default function ContactPage() {
       <h2>1. Direct Email Contact</h2>
       {email ? (
         <p>
-          You can reach our team directly at{" "}
+          You can reach our editorial and technical team directly at{" "}
           <a className="inline-link" href={`mailto:${email}`}>
             {email}
-          </a>. We respond to technical inquiries and correction submissions within two business days.
+          </a>.
         </p>
       ) : (
         <div className="configuration-note">
-          <strong>Production Configuration Notice:</strong>
+          <strong>Site Owner Setup Notice:</strong>
           <p>
-            The <code>NEXT_PUBLIC_CONTACT_EMAIL</code> environment variable should be configured with a monitored support address for live deployments. For reference inquiries, contact <code>support@yardmath.com</code>.
+            A public contact email has not yet been configured for this deployment. The site owner must define the <code>NEXT_PUBLIC_CONTACT_EMAIL</code> environment variable with a monitored support address prior to public launch.
           </p>
         </div>
       )}

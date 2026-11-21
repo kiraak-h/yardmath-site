@@ -37,9 +37,20 @@
 - [x] Step 15: Phase 8 & 9 Internationalization, Performance & Accessibility — unified imperial/metric single-URL design, high-contrast accessible components, and CSS styles in `src/app/globals.css`.
 - [x] Step 16: Phase 10 Verification Pipeline — 10/10 Vitest tests, strict TypeScript clean, ESLint clean, Next.js SSG build (34/34 static pages generated), and live HTTP endpoint verification.
 - [x] Step 17: Generated comprehensive audit document `SEO_AEO_GEO_AUDIT.md`.
-- [ ] Step 18: Git stage, commit, push to GitHub `main`, and report commit SHA to user.
+- [x] Step 18: Git stage, commit, push to GitHub `main` (commit SHA `5969061`).
+- [x] Step 19: Targeted Correction Phase — robots.ts crawler policy (OAI-SearchBot allowed, GPTBot disallowed by default, Google-Extended configurable with clear model-training purpose explanation).
+- [x] Step 20: Source references audit — added validated official URLs to all 24 tool sources and 18 guide sources; rendered source titles as accessible links; updated ASTM C29 to active C29/C29M-23.
+- [x] Step 21: Calculator consistency — aligned paver base to user-controlled allowance compaction, gravel driveway to single-layer calculations, concrete bag yield to manufacturer pack volume, and added short-ton / metric-tonne / long-ton conversions to calculation engine and UI output.
+- [x] Step 22: Editorial trust — removed hard-coded email addresses and unsupported response promises; documented Vitest calculation testing methodology; clarified genuine editorial ownership.
+- [x] Step 23: Automated content calculation test suite — created `src/lib/content-validation.test.ts` (15 tests) validating all worked examples, benchmark tables, URLs, and cross-references.
+- [x] Step 24: Empirical Lighthouse lab audit executed (Performance: 99, Accessibility: 93, Best Practices: 100; FCP: 1.1s, LCP: 1.1s, CLS: 0.000, TBT: 98.5ms) and high-contrast CSS applied.
+- [x] Step 25: Created `FINAL_SEARCH_INTEGRITY_REPORT.md` and cleaned up unsupported claims.
+- [x] Step 26: Commit targeted corrections and push to GitHub `main`.
 
 ## Burn Book (Updated)
 - Next.js Turbopack Route Validation: When deleting an existing App Router directory (e.g. `src/app/guides/how-to-measure-landscaping-materials/`), Next.js caches route validators in `.next/types/validator.ts`. Run `Remove-Item -Recurse -Force .next` prior to `tsc --noEmit` to clear stale route validator references.
 - Schema Rich Results Deprecation: Google officially deprecated `FAQPage` rich results for general commercial/educational websites in late 2023. Do not include `FAQPage` JSON-LD schema (to avoid validation noise); keep FAQs rendered as native, crawlable HTML `<details>/<summary>` tags.
 - Next.js metadataBase: If `NEXT_PUBLIC_SITE_URL` is omitted, Next.js warns about resolving social Open Graph images. Provide a default fallback like `new URL(configuredSiteUrl || "https://yardmath.com")` in `metadataBase` to resolve relative asset URLs while keeping staging `noindex` intact.
+- Google-Extended vs Googlebot: Google-Extended only controls Gemini and Vertex AI training/grounding. It has zero effect on Google Search crawling, indexing, or Google AI Overviews.
+- Active ASTM Standard Review: Always verify the active year designation on standards (e.g., ASTM C29/C29M-23 is the current standard, replacing C29/C29M-17a).
+- Article Publisher Logo: Google Article structured data guidelines require an actual brand logo image (e.g. `/favicon.svg` or a square logo), not a 1200x630 social preview card (`/og-image.png`).
