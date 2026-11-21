@@ -4,10 +4,10 @@ import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 
 const configuredSiteUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim();
-const metadataBase = configuredSiteUrl ? new URL(configuredSiteUrl) : undefined;
+const metadataBase = new URL(configuredSiteUrl || "https://yardmath.com");
 
 export const metadata: Metadata = {
-  ...(metadataBase ? { metadataBase } : {}),
+  metadataBase,
   title: { default: "YardMath — Landscaping Material Calculators", template: "%s | YardMath" },
   description: "Plan landscaping projects with free calculators for topsoil, mulch, gravel, compost, sand, concrete and more. Estimate volume, packages and project costs.",
   applicationName: "YardMath",
