@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#eef1e5"/>
+  <path d="M760 0h440v630H760z" fill="#e0e8d3"/>
+  <g opacity=".5" stroke="#a7b99a" stroke-width="1"><path d="M760 0v630M840 0v630M920 0v630M1000 0v630M1080 0v630M1160 0v630M760 80h440M760 160h440M760 240h440M760 320h440M760 400h440M760 480h440M760 560h440"/></g>
+  <g transform="translate(100 110)"><rect x="0" y="0" width="66" height="62" rx="14" fill="#234a38"/><path d="M16 46V25h9v21m8 0V17h9v29m8 0V29h9v17" fill="none" stroke="#d5e86e" stroke-width="5" stroke-linecap="round"/><text x="88" y="49" font-family="Arial,sans-serif" font-size="52" font-weight="800" fill="#19342b">yard<tspan fill="#719143">math</tspan></text></g>
+  <text x="100" y="295" font-family="Arial,sans-serif" font-size="66" font-weight="800" fill="#19342b">Good projects start</text>
+  <text x="100" y="375" font-family="Georgia,serif" font-size="70" font-style="italic" fill="#73934a">with good math.</text>
+  <text x="104" y="447" font-family="Arial,sans-serif" font-size="24" fill="#66766a">Free landscaping material calculators</text>
+  <g transform="translate(805 140)"><rect width="290" height="350" rx="22" fill="#fff" stroke="#e2e8dc"/><text x="28" y="48" font-family="Arial,sans-serif" font-size="13" letter-spacing="2" fill="#718b48">PROJECT ESTIMATE</text><rect x="28" y="82" width="234" height="1" fill="#e5e9e3"/><g font-family="Arial,sans-serif" font-size="18" fill="#496056"><text x="28" y="130">Topsoil</text><text x="250" y="130" text-anchor="end" font-weight="700" fill="#19342b">2.4 yd³</text><text x="28" y="192">Mulch</text><text x="250" y="192" text-anchor="end" font-weight="700" fill="#19342b">1.2 yd³</text><text x="28" y="254">Pea gravel</text><text x="250" y="254" text-anchor="end" font-weight="700" fill="#19342b">0.8 yd³</text></g><rect x="28" y="288" width="234" height="38" rx="8" fill="#eaf0dd"/><text x="145" y="313" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" font-weight="700" fill="#315339">US + METRIC UNITS</text></g>
+</svg>
