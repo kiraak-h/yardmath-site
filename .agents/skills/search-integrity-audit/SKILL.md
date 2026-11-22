@@ -6,7 +6,7 @@ description: Protocol for verifying search integrity, AEO/GEO crawlers, standard
 # Search Integrity and Calculation Content Audit Protocol
 
 ## Context & Motivation
-Created following the comprehensive search integrity correction phase on YardMath (`70df978bc3aa5e8051947556dfb629a9f75a8b0f`), refined during the typed calculation and source audit phase (`e03919e37bf0b6fd7275979838dab7f3fcc4b7cc`), and finalized with benchmark range parsing and concrete qualification (`23221afbcfbf7ae417fcbf58c1138a896ca5ec1c`). Ensures calculator websites do not over-promise feature automation, cite outdated standards, or conflate AI model training with search indexing.
+Created following the comprehensive search integrity correction phase on YardMath (`70df978bc3aa5e8051947556dfb629a9f75a8b0f`), refined during the typed calculation and source audit phase (`e03919e37bf0b6fd7275979838dab7f3fcc4b7cc`), updated with benchmark range parsing and concrete qualification (`23221afbcfbf7ae417fcbf58c1138a896ca5ec1c`), and finalized with truthful source verification, CMHA dual-spec mapping, and exhaustive worked-example validation (`3b9846c9b5d18ee2c2ae5faaac5096b8ab040807`). Ensures calculator websites do not over-promise feature automation, cite outdated standards, or conflate AI model training with search indexing.
 
 ## Rules & Patterns
 
@@ -24,7 +24,10 @@ Created following the comprehensive search integrity correction phase on YardMat
 ### 3. Standards Currency & Authoritative Citations
 - Always check the active year designation on cited technical standards (e.g., `ASTM C29/C29M-23` instead of outdated `C29/C29M-17a`).
 - Every citation must provide a verified, clickable `url` pointing to an official publishing organization or specific publication (ASTM, ACI, USDA, University Extension).
-- Distinguish syntax validation from live HTTP reachability. Classify HTTP 403 Forbidden responses from anti-bot firewalls (Cloudflare, Akamai) as `Indeterminate / Bot Challenge`, not broken links.
+- **Separation of Reachability vs Substantive Support:** Distinguish live HTTP reachability from substantive claim verification. An HTTP 200 response must never automatically mean a claim is supported without verifying primary literature text. Document exact titles, relevant sections/pages, and direct source excerpts.
+- Classify HTTP 403 Forbidden responses from anti-bot firewalls (Cloudflare, Akamai) as `Indeterminate / Bot Defense`, not broken links; maintain offline verification evidence where available.
+- Verify publication titles against publisher records to prevent confabulated series numbers (e.g. Penn State *Lawn Establishment: Preparing the Soil and Grading* vs unrelated *Agronomy Facts 62*).
+- Map specific technical documents accurately (e.g., CMHA `PAV-TEC-002` for pedestrian/driveway construction guidelines and `PAV-TEC-004` for structural base design).
 - Do not claim peer-reviewed oversight unless an independent external review board and documented review workflow exist.
 
 ### 4. Structured Data & Accessibility Integrity
@@ -35,6 +38,8 @@ Created following the comprehensive search integrity correction phase on YardMat
 
 ### 5. Automated Content Math Validation via Typed Fixtures
 - Use typed numerical fixtures (e.g. `workedExampleFixtures`) to generate both displayed user copy and automated Vitest assertions, guaranteeing zero content drift.
-- Programmatically recalculate every worked example step with the central calculation engine (`calculateMaterial()`).
-- Programmatically verify every benchmark table numeric value (e.g. $324 / \text{depth}$ in inches) with numeric comma-stripped parsing.
+- Enforce explicit typed step categories (e.g. `WorkedExampleStepCategory` union: `surface_area`, `base_volume`, `order_volume`, `packaging_yield`, `total_weight`, `metric_equivalent`) and switch on category in test assertions; fail immediately on any unhandled or unrecognized step category.
+- Recalculate every step with the central calculation engine (`calculateMaterial()`) and validate all weight unit variations (lbs, US short tons, metric tonnes, UK long tons).
+- Programmatically verify every benchmark table numeric value (e.g. $324 / \text{depth}$ in inches) with numeric comma-stripped parsing and range endpoint verification ($324 / D_{max}$ and $324 / D_{min}$).
 - Assert that invalid or out-of-boundary zero/negative inputs throw appropriate runtime errors (`RangeError`).
+- Keep deterministic CI test suites completely isolated from live remote network requests.
