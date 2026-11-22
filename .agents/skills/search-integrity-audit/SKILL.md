@@ -6,7 +6,7 @@ description: Protocol for verifying search integrity, AEO/GEO crawlers, standard
 # Search Integrity and Calculation Content Audit Protocol
 
 ## Context & Motivation
-Created following the comprehensive search integrity correction phase on YardMath (`70df978bc3aa5e8051947556dfb629a9f75a8b0f`) and refined during the typed calculation and source audit phase (`e03919e37bf0b6fd7275979838dab7f3fcc4b7cc`). Ensures calculator websites do not over-promise feature automation, cite outdated standards, or conflate AI model training with search indexing.
+Created following the comprehensive search integrity correction phase on YardMath (`70df978bc3aa5e8051947556dfb629a9f75a8b0f`), refined during the typed calculation and source audit phase (`e03919e37bf0b6fd7275979838dab7f3fcc4b7cc`), and finalized with benchmark range parsing and concrete qualification (`23221afbcfbf7ae417fcbf58c1138a896ca5ec1c`). Ensures calculator websites do not over-promise feature automation, cite outdated standards, or conflate AI model training with search indexing.
 
 ## Rules & Patterns
 
