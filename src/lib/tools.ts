@@ -1,3 +1,4 @@
+import { workedExampleFixtures } from "./worked-examples";
 export type ToolSlug =
   | "topsoil-calculator"
   | "cubic-yard-calculator"
@@ -141,17 +142,11 @@ export const tools: ToolDefinition[] = [
       triangleNote: "For triangular beds, calculate area as (base × perpendicular height) ÷ 2."
     },
     workedExample: {
-      title: "Lawn Renovation Worked Example",
-      scenario: "A homeowner is preparing a 20 ft × 15 ft lawn area with 3 inches of screened topsoil and a 10% allowance, using 2 cu ft retail bags.",
-      dimensions: "20 ft length × 15 ft width × 3 in depth, 10% allowance",
-      steps: [
-        { label: "1. Surface Area", formula: "20 ft × 15 ft", result: "300 sq ft", explanation: "Calculates the flat horizontal plan area." },
-        { label: "2. Base Geometric Volume", formula: "300 sq ft × 3 in ÷ 324", result: "2.778 yd³", explanation: "Translates area and depth into base volume before settling." },
-        { label: "3. Post-Allowance Order Volume", formula: "2.778 yd³ × 1.10", result: "3.056 yd³", explanation: "Applies a 10% buffer for soil consolidation and grading." },
-        { label: "4. Equivalent Cubic Feet", formula: "3.056 yd³ × 27 cu ft/yd³", result: "82.5 cu ft", explanation: "Converts cubic yards to cubic feet for bag calculations." },
-        { label: "5. Bag Count (2 cu ft bags)", formula: "82.5 cu ft ÷ 2 cu ft/bag", result: "42 packages", explanation: "41.25 bags rounded up to the nearest whole package." }
-      ],
-      finalSummary: "Order 3.1 cubic yards in bulk or 42 bags (2 cu ft each) to achieve a finished 3-inch topsoil layer."
+      title: workedExampleFixtures["topsoil-calculator"].title,
+      scenario: workedExampleFixtures["topsoil-calculator"].scenario,
+      dimensions: workedExampleFixtures["topsoil-calculator"].dimensionsDescription,
+      steps: workedExampleFixtures["topsoil-calculator"].steps,
+      finalSummary: workedExampleFixtures["topsoil-calculator"].finalSummary,
     },
     inputsGuide: {
       lengthWidth: "Measure the longest boundary lines using a tape measure. For irregularly curved beds, split the area into separate rectangles and triangles.",
@@ -183,8 +178,8 @@ export const tools: ToolDefinition[] = [
       }
     ],
     authoritativeSources: [
-      { organization: "Cornell Cooperative Extension", standardOrDocument: "Lawn Care Guidelines: Topdressing and Soil Health", citation: "Cornell University College of Agriculture and Life Sciences.", url: "https://cals.cornell.edu/turfgrass" },
-      { organization: "Penn State Extension", standardOrDocument: "Agronomy Facts 62: Soil Amendments and Turfgrass Establishment", citation: "Pennsylvania State University.", url: "https://extension.psu.edu/soil-management-in-turf-establishment" }
+      { organization: "Cornell Cooperative Extension", standardOrDocument: "Lawn Care Guidelines: Topdressing and Soil Health", citation: "Cornell University College of Agriculture and Life Sciences.", url: "https://turf.cals.cornell.edu/" },
+      { organization: "Penn State Extension", standardOrDocument: "Agronomy Facts 62: Soil Amendments and Turfgrass Establishment", citation: "Pennsylvania State University.", url: "https://extension.psu.edu/lawn-establishment" }
     ],
     faqs: [
       { question: "How much topsoil do I need for a 1,000 sq ft lawn?", answer: "At a standard 4-inch depth for new seeding or sod, 1,000 sq ft requires 12.35 cubic yards. With a 10% allowance for settling, order 13.6 cubic yards." },
@@ -239,17 +234,11 @@ export const tools: ToolDefinition[] = [
       triangleNote: "For triangular areas: Area = (Base × Height) ÷ 2. Then: Area (ft²) × Depth (in) ÷ 324 = Cubic Yards."
     },
     workedExample: {
-      title: "Excavation and Backfill Worked Example",
-      scenario: "Estimating backfill volume for a rectangular trench 30 feet long, 4 feet wide, and 18 inches deep with a 5% allowance.",
-      dimensions: "30 ft × 4 ft × 18 in depth, 5% allowance",
-      steps: [
-        { label: "1. Area", formula: "30 ft × 4 ft", result: "120 sq ft", explanation: "Plan view area of the trench excavation." },
-        { label: "2. Base Cubic Yards", formula: "120 sq ft × 18 in ÷ 324", result: "6.667 yd³", explanation: "Raw geometric displacement volume." },
-        { label: "3. Allowance Addition", formula: "6.667 yd³ × 1.05", result: "7.000 yd³", explanation: "Adds 5% for irregular trench side sloughing." },
-        { label: "4. Equivalent Cubic Feet", formula: "7.0 yd³ × 27", result: "189 cu ft", explanation: "Converts to total cubic feet." },
-        { label: "5. Equivalent Metric Volume", formula: "7.0 yd³ × 0.764555", result: "5.352 m³", explanation: "Calculates equivalent volume in cubic metres." }
-      ],
-      finalSummary: "Total required backfill is exactly 7.0 cubic yards (189 cu ft or 5.35 m³)."
+      title: workedExampleFixtures["cubic-yard-calculator"].title,
+      scenario: workedExampleFixtures["cubic-yard-calculator"].scenario,
+      dimensions: workedExampleFixtures["cubic-yard-calculator"].dimensionsDescription,
+      steps: workedExampleFixtures["cubic-yard-calculator"].steps,
+      finalSummary: workedExampleFixtures["cubic-yard-calculator"].finalSummary,
     },
     inputsGuide: {
       lengthWidth: "Enter ground dimensions in linear feet. For circular features, enter the full diameter across the widest midpoint.",
@@ -281,8 +270,8 @@ export const tools: ToolDefinition[] = [
       }
     ],
     authoritativeSources: [
-      { organization: "National Institute of Standards and Technology (NIST)", standardOrDocument: "Handbook 44: Specifications and Tolerances for Measuring Devices", citation: "U.S. Department of Commerce.", url: "https://www.nist.gov/pml/owm/handbook-44-current-edition" },
-      { organization: "Bureau of Reclamation", standardOrDocument: "Earth Manual: Earth Materials and Measurement Principles", citation: "U.S. Department of the Interior.", url: "https://www.usbr.gov/tsc/techreferences/mands/mands-pdfs/EarthManual-Part1.pdf" }
+      { organization: "National Institute of Standards and Technology (NIST)", standardOrDocument: "Handbook 44: Specifications and Tolerances for Measuring Devices", citation: "U.S. Department of Commerce.", url: "https://www.nist.gov/pml/weights-and-measures/publications/nist-handbooks" },
+      { organization: "Bureau of Reclamation", standardOrDocument: "Earth Manual: Earth Materials and Measurement Principles", citation: "U.S. Department of the Interior.", url: "https://www.usbr.gov/tsc/techreferences/manualsandguidelines/manuals.html" }
     ],
     faqs: [
       { question: "How many cubic feet are in a cubic yard?", answer: "There are exactly 27 cubic feet in one cubic yard (3 ft × 3 ft × 3 ft = 27 cu ft)." },
@@ -336,17 +325,11 @@ export const tools: ToolDefinition[] = [
       triangleNote: "For wedge-shaped garden corners: Area = (Base × Height) ÷ 2."
     },
     workedExample: {
-      title: "Garden Walkway Worked Example",
-      scenario: "Installing a 40 ft long, 3 ft wide curved garden path at 3 inches depth with an 8% allowance, using 50 lb bags.",
-      dimensions: "40 ft × 3 ft × 3 in depth, 8% allowance",
-      steps: [
-        { label: "1. Plan Area", formula: "40 ft × 3 ft", result: "120 sq ft", explanation: "Surface area of the walkway." },
-        { label: "2. Base Volume", formula: "120 sq ft × 3 in ÷ 324", result: "1.111 yd³", explanation: "Geometric cubic volume." },
-        { label: "3. Post-Allowance Volume", formula: "1.111 yd³ × 1.08", result: "1.200 yd³", explanation: "Includes 8% for border settling and curves." },
-        { label: "4. Total Weight (at 2,700 lb/yd³)", formula: "1.200 yd³ × 2,700 lb/yd³", result: "3,240 lbs", explanation: "Calculates total weight in pounds (1.62 short tons)." },
-        { label: "5. 50 lb Bags", formula: "3,240 lbs ÷ 50 lb/bag", result: "65 bags", explanation: "64.8 bags rounded up to nearest bag." }
-      ],
-      finalSummary: "Order 1.2 cubic yards in bulk or 65 bags (50 lbs each) of washed pea gravel."
+      title: workedExampleFixtures["pea-gravel-calculator"].title,
+      scenario: workedExampleFixtures["pea-gravel-calculator"].scenario,
+      dimensions: workedExampleFixtures["pea-gravel-calculator"].dimensionsDescription,
+      steps: workedExampleFixtures["pea-gravel-calculator"].steps,
+      finalSummary: workedExampleFixtures["pea-gravel-calculator"].finalSummary,
     },
     inputsGuide: {
       lengthWidth: "Measure the total length and average width. If borders curve, take width measurements every 10 feet and use the average.",
@@ -432,17 +415,11 @@ export const tools: ToolDefinition[] = [
       triangleNote: "For corner beds: Area = (Base × Height) ÷ 2."
     },
     workedExample: {
-      title: "Residential Shrub Bed Worked Example",
-      scenario: "Mulching three front foundation beds totaling 450 sq ft with 3 inches of shredded hardwood mulch and a 5% allowance.",
-      dimensions: "450 sq ft total area × 3 in depth, 5% allowance",
-      steps: [
-        { label: "1. Total Surface Area", formula: "450 sq ft", result: "450 sq ft", explanation: "Combined surface area of three beds." },
-        { label: "2. Base Cubic Yards", formula: "450 sq ft × 3 in ÷ 324", result: "4.167 yd³", explanation: "Net volumetric requirement." },
-        { label: "3. Order Volume with 5% Allowance", formula: "4.167 yd³ × 1.05", result: "4.375 yd³", explanation: "Accounts for uneven ground and bed edges." },
-        { label: "4. Total Cubic Feet", formula: "4.375 yd³ × 27", result: "118.1 cu ft", explanation: "Conversion to cubic feet." },
-        { label: "5. Retail 2 cu ft Bags", formula: "118.1 cu ft ÷ 2 cu ft/bag", result: "60 bags", explanation: "59.06 bags rounded up to 60." }
-      ],
-      finalSummary: "Order 4.5 cubic yards in bulk or 60 bags (2 cu ft each) of shredded hardwood mulch."
+      title: workedExampleFixtures["mulch-calculator"].title,
+      scenario: workedExampleFixtures["mulch-calculator"].scenario,
+      dimensions: workedExampleFixtures["mulch-calculator"].dimensionsDescription,
+      steps: workedExampleFixtures["mulch-calculator"].steps,
+      finalSummary: workedExampleFixtures["mulch-calculator"].finalSummary,
     },
     inputsGuide: {
       lengthWidth: "Measure the bed borders. For foundation beds with curved cutouts, break into sections or measure average width.",
@@ -529,17 +506,11 @@ export const tools: ToolDefinition[] = [
       triangleNote: "For corner beds: Area = (Base × Perpendicular Height) ÷ 2."
     },
     workedExample: {
-      title: "Perennial Bed Preparation Worked Example",
-      scenario: "Filling an 18 ft long by 6 ft wide perennial garden bed with 6 inches of enriched garden soil and a 10% settling allowance.",
-      dimensions: "18 ft × 6 ft × 6 in depth, 10% allowance",
-      steps: [
-        { label: "1. Bed Area", formula: "18 ft × 6 ft", result: "108 sq ft", explanation: "Calculates the rectangular planting area." },
-        { label: "2. Base Volume", formula: "108 sq ft × 6 in ÷ 324", result: "2.000 yd³", explanation: "Calculates net geometric volume." },
-        { label: "3. Order Volume with 10% Allowance", formula: "2.000 yd³ × 1.10", result: "2.200 yd³", explanation: "Adds 10% for compaction and settling." },
-        { label: "4. Total Cubic Feet", formula: "2.200 yd³ × 27", result: "59.4 cu ft", explanation: "Converts to total cubic feet." },
-        { label: "5. 1.5 cu ft Bags", formula: "59.4 cu ft ÷ 1.5 cu ft/bag", result: "40 bags", explanation: "39.6 bags rounded up to 40." }
-      ],
-      finalSummary: "Order 2.2 cubic yards of garden soil in bulk or 40 bags (1.5 cu ft each)."
+      title: workedExampleFixtures["soil-calculator"].title,
+      scenario: workedExampleFixtures["soil-calculator"].scenario,
+      dimensions: workedExampleFixtures["soil-calculator"].dimensionsDescription,
+      steps: workedExampleFixtures["soil-calculator"].steps,
+      finalSummary: workedExampleFixtures["soil-calculator"].finalSummary,
     },
     inputsGuide: {
       lengthWidth: "Measure the planting bed edges accurately. If the bed is terraced on a slope, measure the flat horizontal terrace run.",
@@ -572,7 +543,7 @@ export const tools: ToolDefinition[] = [
     ],
     authoritativeSources: [
       { organization: "USDA Natural Resources Conservation Service (NRCS)", standardOrDocument: "Soil Quality for Environmental Health: Organic Matter and Pore Space", citation: "United States Department of Agriculture.", url: "https://www.nrcs.usda.gov/conservation-basics/natural-resource-concerns/soil" },
-      { organization: "University of Maryland Extension", standardOrDocument: "Improving Garden Soils with Organic Matter", citation: "Home and Garden Information Center Publication HG-42.", url: "https://extension.umd.edu/resource/soil-health-lawns-and-gardens" }
+      { organization: "University of Maryland Extension", standardOrDocument: "Improving Garden Soils with Organic Matter", citation: "Home and Garden Information Center Publication HG-42.", url: "https://extension.umd.edu/resource/organic-matter-and-soil-amendments" }
     ],
     faqs: [
       { question: "What is the difference between topsoil and garden soil?", answer: "Topsoil is screened natural surface soil (sand, silt, and clay). Garden soil is topsoil enriched with organic matter (compost, peat, or aged manure) formulated for vegetable and flower growth." },
@@ -627,17 +598,11 @@ export const tools: ToolDefinition[] = [
       triangleNote: "For corner planters: Area = (Inside Base × Inside Height) ÷ 2."
     },
     workedExample: {
-      title: "Twin Raised Bed Vegetable Garden Example",
-      scenario: "Filling two identical 4 ft × 8 ft cedar raised beds (framed with 2x10 lumber, inside dimensions 3.75 ft × 7.75 ft) to a fill depth of 9 inches with 15% settling allowance.",
-      dimensions: "Two beds: 3.75 ft × 7.75 ft × 9 in depth each, 15% allowance",
-      steps: [
-        { label: "1. Interior Area per Bed", formula: "3.75 ft × 7.75 ft", result: "29.063 sq ft", explanation: "True interior planting surface area." },
-        { label: "2. Total Area (2 beds)", formula: "29.063 sq ft × 2", result: "58.125 sq ft", explanation: "Combined surface area for both beds." },
-        { label: "3. Base Volume", formula: "58.125 sq ft × 9 in ÷ 324", result: "1.615 yd³", explanation: "Base geometric fill requirement (43.6 cu ft)." },
-        { label: "4. Volume with 15% Settling Allowance", formula: "1.615 yd³ × 1.15", result: "1.857 yd³", explanation: "Accounts for organic compaction and fluffy soil settling." },
-        { label: "5. Total Bags (2 cu ft bags)", formula: "(1.857 yd³ × 27) ÷ 2 cu ft/bag", result: "26 bags", explanation: "50.14 cu ft total ÷ 2 = 25.1 bags, rounded up to 26." }
-      ],
-      finalSummary: "Order 1.9 cubic yards of raised bed soil mix or 26 bags (2.0 cu ft each) for both beds."
+      title: workedExampleFixtures["raised-bed-soil-calculator"].title,
+      scenario: workedExampleFixtures["raised-bed-soil-calculator"].scenario,
+      dimensions: workedExampleFixtures["raised-bed-soil-calculator"].dimensionsDescription,
+      steps: workedExampleFixtures["raised-bed-soil-calculator"].steps,
+      finalSummary: workedExampleFixtures["raised-bed-soil-calculator"].finalSummary,
     },
     inputsGuide: {
       lengthWidth: "Measure inside the wooden frame. 2-inch lumber is actually 1.5 inches thick, deducting 3 inches from both length and width.",
@@ -669,8 +634,8 @@ export const tools: ToolDefinition[] = [
       }
     ],
     authoritativeSources: [
-      { organization: "Oregon State University Extension Service", standardOrDocument: "Constructing and Filling Raised Bed Planters (EM 9183)", citation: "Corvallis, OR.", url: "https://extension.oregonstate.edu/gardening/techniques/raised-bed-gardening" },
-      { organization: "University of Florida IFAS Extension", standardOrDocument: "Raised Bed Gardening: Soil Mixtures and Dimensions (CIR 1282)", citation: "Gainesville, FL.", url: "https://edis.ifas.ufl.edu/" }
+      { organization: "Oregon State University Extension Service", standardOrDocument: "Constructing and Filling Raised Bed Planters (EM 9183)", citation: "Corvallis, OR.", url: "https://catalog.extension.oregonstate.edu/fs270" },
+      { organization: "University of Florida IFAS Extension", standardOrDocument: "Raised Bed Gardening: Soil Mixtures and Dimensions (CIR 1282)", citation: "Gainesville, FL.", url: "https://gardeningsolutions.ifas.ufl.edu/design/types-of-gardens/raised-beds/" }
     ],
     faqs: [
       { question: "How many bags of soil do I need for a 4x8 raised bed at 12 inches?", answer: "A 4×8 bed (inside dimensions 3.75 ft × 7.75 ft) at 12 inches deep holds 29.1 cubic feet of soil. Factoring in 15% settling, you need 33.5 cu ft, which equals seventeen 2-cubic-foot bags (or 1.25 cubic yards)." },
@@ -724,17 +689,11 @@ export const tools: ToolDefinition[] = [
       triangleNote: "For triangular beds: Area = (Base × Height) ÷ 2."
     },
     workedExample: {
-      title: "Lawn Core Aeration Top-Dressing Example",
-      scenario: "Top-dressing a 2,500 sq ft home lawn with a 1/4-inch layer of finely screened organic compost after core aeration, with a 5% allowance.",
-      dimensions: "2,500 sq ft × 0.25 in depth, 5% allowance",
-      steps: [
-        { label: "1. Lawn Area", formula: "2,500 sq ft", result: "2,500 sq ft", explanation: "Total turfgrass area." },
-        { label: "2. Base Cubic Yards", formula: "2,500 sq ft × 0.25 in ÷ 324", result: "1.929 yd³", explanation: "Geometric application requirement." },
-        { label: "3. Volume with 5% Allowance", formula: "1.929 yd³ × 1.05", result: "2.025 yd³", explanation: "Compensates for aerator holes and uneven grass density." },
-        { label: "4. Total Cubic Feet", formula: "2.025 yd³ × 27", result: "54.7 cu ft", explanation: "Converts to cubic feet." },
-        { label: "5. Total 1.0 cu ft Bags", formula: "54.7 cu ft ÷ 1.0 cu ft/bag", result: "55 bags", explanation: "54.7 bags rounded up to 55." }
-      ],
-      finalSummary: "Order 2.0 cubic yards of screened compost in bulk or 55 bags (1.0 cu ft each)."
+      title: workedExampleFixtures["compost-calculator"].title,
+      scenario: workedExampleFixtures["compost-calculator"].scenario,
+      dimensions: workedExampleFixtures["compost-calculator"].dimensionsDescription,
+      steps: workedExampleFixtures["compost-calculator"].steps,
+      finalSummary: workedExampleFixtures["compost-calculator"].finalSummary,
     },
     inputsGuide: {
       lengthWidth: "Measure the boundaries of the lawn or garden plot. For lawns, subtract driveway, patio, and building footprints.",
@@ -767,7 +726,7 @@ export const tools: ToolDefinition[] = [
     ],
     authoritativeSources: [
       { organization: "US Composting Council (USCC)", standardOrDocument: "Seal of Testing Assurance (STA) Program: Consumer Application Rates", citation: "Raleigh, NC.", url: "https://www.compostingcouncil.org/page/CertifiedCompostSTA" },
-      { organization: "Washington State University Extension", standardOrDocument: "How to Use Compost in Gardens and Landscapes (EB1784)", citation: "Pullman, WA.", url: "https://pubs.extension.wsu.edu/" }
+      { organization: "Washington State University Extension", standardOrDocument: "How to Use Compost in Gardens and Landscapes (EB1784)", citation: "Pullman, WA.", url: "https://pubs.extension.wsu.edu/backyard-composting-home-garden-series" }
     ],
     faqs: [
       { question: "How much compost do I need for a garden bed?", answer: "For annual maintenance, spread 1 to 2 inches across the bed and till or fork it into the top 6 inches of soil. A 100 sq ft bed at 2 inches deep requires 0.62 cubic yards (approx. 17 cubic feet)." },
@@ -822,17 +781,11 @@ export const tools: ToolDefinition[] = [
       triangleNote: "For triangular spaces: Area = (Base × Height) ÷ 2."
     },
     workedExample: {
-      title: "Paver Patio Bedding Sand Worked Example",
-      scenario: "Installing a 20 ft × 16 ft interlocking concrete paver patio requiring an uncompacted 1-inch bedding layer of ASTM C33 sand with a 5% allowance.",
-      dimensions: "20 ft × 16 ft × 1.0 in depth, 5% allowance",
-      steps: [
-        { label: "1. Plan Patio Area", formula: "20 ft × 16 ft", result: "320 sq ft", explanation: "Surface area of the paver base." },
-        { label: "2. Base Cubic Yards", formula: "320 sq ft × 1 in ÷ 324", result: "0.988 yd³", explanation: "Base geometric bedding volume (26.67 cu ft)." },
-        { label: "3. Order Volume with 5% Allowance", formula: "0.988 yd³ × 1.05", result: "1.037 yd³", explanation: "Accounts for screeding waste and edge loss." },
-        { label: "4. Total Weight (at 2,700 lb/yd³)", formula: "1.037 yd³ × 2,700 lb/yd³", result: "2,800 lbs", explanation: "Calculates total weight (1.40 short tons)." },
-        { label: "5. 50 lb Bags", formula: "2,800 lbs ÷ 50 lb/bag", result: "56 bags", explanation: "56 fifty-pound retail bags." }
-      ],
-      finalSummary: "Order 1.05 cubic yards (1.4 tons) in bulk or 56 bags (50 lbs each) of coarse washed concrete sand."
+      title: workedExampleFixtures["sand-calculator"].title,
+      scenario: workedExampleFixtures["sand-calculator"].scenario,
+      dimensions: workedExampleFixtures["sand-calculator"].dimensionsDescription,
+      steps: workedExampleFixtures["sand-calculator"].steps,
+      finalSummary: workedExampleFixtures["sand-calculator"].finalSummary,
     },
     inputsGuide: {
       lengthWidth: "Measure the compacted aggregate base area. Paver bedding sand extends to the inside of the edge restraints.",
@@ -865,7 +818,7 @@ export const tools: ToolDefinition[] = [
     ],
     authoritativeSources: [
       { organization: "ASTM International", standardOrDocument: "ASTM C33 / C33M-23: Standard Specification for Concrete Aggregates (Fine Aggregate)", citation: "West Conshohocken, PA.", url: "https://www.astm.org/c0033_c0033m-23.html" },
-      { organization: "Interlocking Concrete Pavement Institute (ICPI)", standardOrDocument: "Tech Spec 2: Construction of Interlocking Concrete Pavements", citation: "Chantilly, VA.", url: "https://icpi.org/" }
+      { organization: "Interlocking Concrete Pavement Institute (ICPI)", standardOrDocument: "Tech Spec 2: Construction of Interlocking Concrete Pavements", citation: "Chantilly, VA.", url: "https://masonryandhardscapes.org/" }
     ],
     faqs: [
       { question: "How many 50 lb bags of sand are in a cubic yard?", answer: "Dry sand weighs approximately 2,700 lbs per cubic yard. It takes 54 fifty-pound bags to equal one cubic yard (27 cubic feet)." },
@@ -885,9 +838,9 @@ export const tools: ToolDefinition[] = [
     shortName: "Paver base",
     eyebrow: "PATIO & WALKWAY SUB-BASE",
     category: "Stone & aggregate",
-    metaTitle: "Paver Base Calculator | Estimate Crushed Stone & Compaction",
-    metaDescription: "Calculate crushed aggregate base for patios, walkways, and driveways. Free calculator accounts for compaction loss, thickness, tons, and cubic yards.",
-    description: "Estimate the compacted aggregate volume for a patio, walkway or paver project. Calculate the measured layer volume and add an allowance using your chosen dimensions and depth.",
+    metaTitle: "Paver Base Calculator | Geometric Volume & Allowance Estimator",
+    metaDescription: "Calculate geometric volume for patio and walkway aggregate base layers. Enter dimensions and depth, then apply your chosen allowance for loose-to-compacted ordering.",
+    description: "Estimate geometric volume for a patio, walkway, or paver base layer. Enter project dimensions and depth, then apply a manual allowance (such as 18%–20% for dense-graded aggregate compaction) to determine loose order quantities.",
     cardDescription: "Estimate aggregate quantities for patios, paths and paver foundations.",
     icon: "▦",
     material: "Paver base aggregate",
@@ -900,14 +853,14 @@ export const tools: ToolDefinition[] = [
       "Review the loose order volume in cubic yards and weight in short tons."
     ],
     quickAnswer: {
-      directAnswer: "Residential patios and walkways require a minimum compacted base depth of 4 inches (10 cm) of dense-graded aggregate (ASTM D2940 Crusher Run / road base). Because stone dust packs into voids during plate compaction, order 18% to 20% extra loose aggregate to achieve target compacted depth. 1 cubic yard loose covers 81 sq ft at 4 inches before compaction.",
-      ruleOfThumb: "A 200 sq ft patio requires 2.47 cubic yards of compacted base, which requires ordering 2.96 cubic yards of loose stone (approx. 4.1 tons).",
-      tableCaption: "Paver Base Compacted Depth Standards & Order Quantities",
+      directAnswer: "Residential patios and walkways over granular subgrades typically specify a minimum compacted base depth of 4 inches (10 cm) of dense-graded aggregate (ASTM D2940 Crusher Run / road base) per ICPI guidelines. This tool calculates neat geometric volume from your input dimensions; because aggregate consolidates under vibratory plate compaction, apply a loose-to-compacted allowance (typically 18% to 20%) in the project allowance field to determine order quantities. 1 loose cubic yard covers 81 sq ft at 4 inches before mechanical compaction.",
+      ruleOfThumb: "A 200 sq ft patio at 4 inches depth requires 2.47 cubic yards of neat base. Applying a 20% manual compaction allowance indicates ordering 2.96 cubic yards of loose aggregate (approx. 4.1 tons).",
+      tableCaption: "Paver Base Depth & Geometric Coverage Benchmarks (Neat Volume)",
       benchmarkTable: [
-        { depth: "4.0 inches (10 cm)", coverageSqFt: "67.5 sq ft / loose yd³", coverageSqM: "6.3 m² / m³", typicalUse: "Pedestrian walkway & residential patio base" },
-        { depth: "6.0 inches (15 cm)", coverageSqFt: "45.0 sq ft / loose yd³", coverageSqM: "4.2 m² / m³", typicalUse: "Hot tub pad, outdoor kitchen, light vehicle driveway" },
-        { depth: "8.0 inches (20 cm)", coverageSqFt: "33.8 sq ft / loose yd³", coverageSqM: "3.1 m² / m³", typicalUse: "Standard residential paver driveway base" },
-        { depth: "10.0 to 12.0 inches", coverageSqFt: "22.5 sq ft / loose yd³", coverageSqM: "2.1 m² / m³", typicalUse: "Commercial parking, clay subgrades, heavy truck access" }
+        { depth: "4.0 inches (10 cm)", coverageSqFt: "81.0 sq ft / yd³", coverageSqM: "7.5 m²", typicalUse: "Pedestrian walkway & residential patio base" },
+        { depth: "6.0 inches (15 cm)", coverageSqFt: "54.0 sq ft / yd³", coverageSqM: "5.0 m²", typicalUse: "Hot tub pad, outdoor kitchen, light vehicle driveway" },
+        { depth: "8.0 inches (20 cm)", coverageSqFt: "40.5 sq ft / yd³", coverageSqM: "3.8 m²", typicalUse: "Standard residential paver driveway base" },
+        { depth: "12.0 inches (30 cm)", coverageSqFt: "27.0 sq ft / yd³", coverageSqM: "2.5 m²", typicalUse: "Commercial parking, clay subgrades, heavy truck access" }
       ]
     },
     formulaExplanation: {
@@ -918,17 +871,11 @@ export const tools: ToolDefinition[] = [
       triangleNote: "For triangular layouts: Area = (Base × Height) ÷ 2."
     },
     workedExample: {
-      title: "Walkway Paver Base Worked Example",
-      scenario: "Preparing the base for an 8 ft × 20 ft walkway (including 6-inch over-dig on both sides = 9 ft × 21 ft = 189 sq ft) with 4 inches of compacted Crusher Run and a 20% compaction factor.",
-      dimensions: "189 sq ft area × 4 in compacted depth, 20% compaction allowance",
-      steps: [
-        { label: "1. Over-Dug Plan Area", formula: "9 ft × 21 ft", result: "189 sq ft", explanation: "Includes 6-inch perimeter base extension for edge restraints." },
-        { label: "2. Compacted Net Volume", formula: "189 sq ft × 4 in ÷ 324", result: "2.333 yd³", explanation: "Target geometric finished base volume." },
-        { label: "3. Loose Order Volume (20% Allowance)", formula: "2.333 yd³ × 1.20", result: "2.800 yd³", explanation: "Compensates for mechanical compaction shrinkage via the user-controlled 20% allowance input." },
-        { label: "4. Total Weight (at 2,800 lb/yd³)", formula: "2.800 yd³ × 2,800 lb/yd³", result: "7,840 lbs", explanation: "Calculates total weight in short tons (3.92 tons)." },
-        { label: "5. Metric Equivalent", formula: "2.800 yd³ × 0.764555", result: "2.14 m³", explanation: "Equivalent loose metric volume (3.56 metric tonnes)." }
-      ],
-      finalSummary: "Order 2.8 cubic yards (approx. 4.0 tons) of dense-graded road base (#411 / Crusher Run)."
+      title: workedExampleFixtures["paver-base-calculator"].title,
+      scenario: workedExampleFixtures["paver-base-calculator"].scenario,
+      dimensions: workedExampleFixtures["paver-base-calculator"].dimensionsDescription,
+      steps: workedExampleFixtures["paver-base-calculator"].steps,
+      finalSummary: workedExampleFixtures["paver-base-calculator"].finalSummary,
     },
     inputsGuide: {
       lengthWidth: "Always extend your base area 6 inches beyond the paver perimeter on all sides to anchor edge restraints firmly.",
@@ -960,7 +907,7 @@ export const tools: ToolDefinition[] = [
       }
     ],
     authoritativeSources: [
-      { organization: "Interlocking Concrete Pavement Institute (ICPI)", standardOrDocument: "Tech Spec 4: Structural Design of Interlocking Concrete Pavements", citation: "Chantilly, VA.", url: "https://icpi.org/" },
+      { organization: "Interlocking Concrete Pavement Institute (ICPI)", standardOrDocument: "Tech Spec 4: Structural Design of Interlocking Concrete Pavements", citation: "Chantilly, VA.", url: "https://masonryandhardscapes.org/" },
       { organization: "ASTM International", standardOrDocument: "ASTM D2940 / D2940M-20: Standard Specification for Graded Aggregate Material for Bases or Subbases", citation: "West Conshohocken, PA.", url: "https://www.astm.org/d2940_d2940m-20.html" }
     ],
     faqs: [
@@ -996,7 +943,7 @@ export const tools: ToolDefinition[] = [
       "Review the total in loose cubic yards and estimated quarry weight (tons)."
     ],
     quickAnswer: {
-      directAnswer: "For refreshing an existing gravel driveway, install a 2-inch layer of #57 angular crushed stone (approx. 1 cubic yard per 162 sq ft). For building a new driveway, install an 8 to 12 inch tiered profile: 6 inches of coarse sub-base (#3 ballast), 4 inches of dense-graded base (Crusher Run), and 2 inches of surface gravel. Multiply area by depth in inches and divide by 324 to get cubic yards.",
+      directAnswer: "This calculator evaluates a single aggregate layer at a time. For refreshing an existing driveway, a 2-inch wearing course of #57 angular crushed stone (approx. 1 cubic yard per 162 sq ft) is common. For constructing a new gravel driveway, layered profiles depend on subgrade soil California Bearing Ratio (CBR), frost depth, and axle loads; typical rural residential installations stage a 4-to-6-inch coarse subbase (#3 ballast), a 3-to-4-inch dense-graded base (Crusher Run), and a 1.5-to-2-inch wearing course (#57 or stone with fines). Calculate each layer separately using its specific layer depth, allowance, and supplier density.",
       ruleOfThumb: "A standard 100 ft × 10 ft driveway (1,000 sq ft) resurfaced with 2 inches of gravel requires 6.17 cubic yards (approx. 8.6 tons of crushed stone).",
       tableCaption: "Driveway Gravel Layer Guidelines & Material Sizing",
       benchmarkTable: [
@@ -1014,17 +961,11 @@ export const tools: ToolDefinition[] = [
       triangleNote: "For driveway entrance flares: Area = (Flare Base × Flare Length) ÷ 2."
     },
     workedExample: {
-      title: "150-Foot Driveway Resurfacing Example",
-      scenario: "Top-dressing an existing 150 ft long by 12 ft wide rural gravel driveway with 2 inches of #57 crushed limestone and a 10% allowance.",
-      dimensions: "150 ft × 12 ft × 2 in depth, 10% allowance",
-      steps: [
-        { label: "1. Driveway Plan Area", formula: "150 ft × 12 ft", result: "1,800 sq ft", explanation: "Total surface square footage." },
-        { label: "2. Base Volume", formula: "1,800 sq ft × 2 in ÷ 324", result: "11.111 yd³", explanation: "Net geometric volume requirement." },
-        { label: "3. Volume with 10% Allowance", formula: "11.111 yd³ × 1.10", result: "12.222 yd³", explanation: "Compensates for hollows and wheel rut filling." },
-        { label: "4. Quarry Weight in Tons (at 1.4 tons/yd³)", formula: "12.222 yd³ × 1.4 tons/yd³", result: "17.1 tons", explanation: "Calculates total weight for quarry ordering (34,200 lbs)." },
-        { label: "5. Dump Truck Loads", formula: "17.1 tons ÷ 15 tons/triaxle truck", result: "2 truckloads", explanation: "Requires two standard tri-axle dump truck deliveries." }
-      ],
-      finalSummary: "Order 12.5 cubic yards or approximately 17 to 18 tons of #57 crushed stone."
+      title: workedExampleFixtures["gravel-driveway-calculator"].title,
+      scenario: workedExampleFixtures["gravel-driveway-calculator"].scenario,
+      dimensions: workedExampleFixtures["gravel-driveway-calculator"].dimensionsDescription,
+      steps: workedExampleFixtures["gravel-driveway-calculator"].steps,
+      finalSummary: workedExampleFixtures["gravel-driveway-calculator"].finalSummary,
     },
     inputsGuide: {
       lengthWidth: "Measure the center length and take width measurements at multiple points; gravel driveways frequently spread wider near the road entrance.",
@@ -1056,7 +997,7 @@ export const tools: ToolDefinition[] = [
       }
     ],
     authoritativeSources: [
-      { organization: "Federal Highway Administration (FHWA)", standardOrDocument: "Gravel Roads Construction and Maintenance Guide (FHWA-FLH-15-004)", citation: "U.S. Department of Transportation.", url: "https://www.fhwa.dot.gov/construction/gravel/flh15004.pdf" },
+      { organization: "Federal Highway Administration (FHWA)", standardOrDocument: "Gravel Roads Construction and Maintenance Guide (FHWA-FLH-15-004)", citation: "U.S. Department of Transportation.", url: "https://www.fhwa.dot.gov/pavement/pub_details.cfm?id=968" },
       { organization: "Penn State Center for Dirt and Gravel Road Studies", standardOrDocument: "Driving Surface Aggregate Standards & Maintenance", citation: "Pennsylvania State University.", url: "https://www.dirtandgravel.psu.edu/" }
     ],
     faqs: [
@@ -1096,10 +1037,10 @@ export const tools: ToolDefinition[] = [
       ruleOfThumb: "A standard 10 ft × 10 ft patio slab at 4 inches thick (100 sq ft) requires 1.23 cubic yards of concrete (or 1.36 cubic yards with a 10% allowance, requiring 62 eighty-pound bags).",
       tableCaption: "Concrete Slab Volume & Bag Yield Benchmarks",
       benchmarkTable: [
-        { depth: "3.5 inches (8.9 cm)", coverageSqFt: "92.6 sq ft / yd³", coverageSqM: "8.6 m² / m³", typicalUse: "Framed with dressed 2x4 lumber; light walkways" },
-        { depth: "4.0 inches (10.2 cm)", coverageSqFt: "81.0 sq ft / yd³", coverageSqM: "7.5 m² / m³", typicalUse: "Standard residential patio & shed pad" },
-        { depth: "5.0 inches (12.7 cm)", coverageSqFt: "64.8 sq ft / yd³", coverageSqM: "6.0 m² / m³", typicalUse: "Passenger vehicle residential driveway" },
-        { depth: "6.0 inches (15.2 cm)", coverageSqFt: "54.0 sq ft / yd³", coverageSqM: "5.0 m² / m³", typicalUse: "Heavy RV parking pad, workshop floor, reinforced slab" },
+        { depth: "3.5 inches (8.9 cm)", coverageSqFt: "92.6 sq ft / yd³", coverageSqM: "8.6 m² / yd³", typicalUse: "Framed with dressed 2x4 lumber; light walkways" },
+        { depth: "4.0 inches (10.2 cm)", coverageSqFt: "81.0 sq ft / yd³", coverageSqM: "7.5 m² / yd³", typicalUse: "Standard residential patio & shed pad" },
+        { depth: "5.0 inches (12.7 cm)", coverageSqFt: "64.8 sq ft / yd³", coverageSqM: "6.0 m² / yd³", typicalUse: "Passenger vehicle residential driveway" },
+        { depth: "6.0 inches (15.2 cm)", coverageSqFt: "54.0 sq ft / yd³", coverageSqM: "5.0 m² / yd³", typicalUse: "Heavy RV parking pad, workshop floor, reinforced slab" },
         { depth: "8.0 to 12.0 inches", coverageSqFt: "27.0 to 40.5 sq ft / yd³", coverageSqM: "2.5 to 3.8 m²", typicalUse: "Commercial equipment footers & grade beams" }
       ]
     },
@@ -1111,17 +1052,11 @@ export const tools: ToolDefinition[] = [
       triangleNote: "For triangular pads: Volume (cu ft) = [(Base in ft × Height in ft) ÷ 2] × (Thickness in in ÷ 12)."
     },
     workedExample: {
-      title: "12x12 Patio Slab Worked Example",
-      scenario: "Pouring a 12 ft × 12 ft concrete patio slab at a design thickness of 4 inches with a 10% formwork allowance, using 80 lb bags.",
-      dimensions: "12 ft × 12 ft × 4 in thickness, 10% allowance",
-      steps: [
-        { label: "1. Slab Surface Area", formula: "12 ft × 12 ft", result: "144 sq ft", explanation: "Plan view area inside forms." },
-        { label: "2. Base Volume", formula: "144 sq ft × 4 in ÷ 324", result: "1.778 yd³", explanation: "Base geometric cubic volume (48.0 cu ft)." },
-        { label: "3. Volume with 10% Allowance", formula: "1.778 yd³ × 1.10", result: "1.956 yd³", explanation: "Accounts for form flex and subgrade variations (52.8 cu ft)." },
-        { label: "4. 80 lb Bags Needed (yield 0.60 cu ft/bag)", formula: "52.8 cu ft ÷ 0.60 cu ft/bag", result: "88 bags", explanation: "88 eighty-pound bags (approx. 7,040 lbs dry)." },
-        { label: "5. Alternative: 60 lb Bags (yield 0.45 cu ft/bag)", formula: "52.8 cu ft ÷ 0.45 cu ft/bag", result: "118 bags", explanation: "117.3 bags rounded up to 118 sixty-pound bags." }
-      ],
-      finalSummary: "Order 2.0 cubic yards from a ready-mix truck, or purchase 88 bags of 80 lb premix concrete."
+      title: workedExampleFixtures["concrete-calculator"].title,
+      scenario: workedExampleFixtures["concrete-calculator"].scenario,
+      dimensions: workedExampleFixtures["concrete-calculator"].dimensionsDescription,
+      steps: workedExampleFixtures["concrete-calculator"].steps,
+      finalSummary: workedExampleFixtures["concrete-calculator"].finalSummary,
     },
     inputsGuide: {
       lengthWidth: "Measure the inside faces of your wooden form boards. Form boards must be securely braced with wooden stakes every 2 feet.",
@@ -1154,7 +1089,7 @@ export const tools: ToolDefinition[] = [
     ],
     authoritativeSources: [
       { organization: "American Concrete Institute (ACI)", standardOrDocument: "ACI 302.1R-15: Guide to Concrete Floor and Slab Construction", citation: "Farmington Hills, MI.", url: "https://www.concrete.org/store/productdetail.aspx?ItemID=302115" },
-      { organization: "Portland Cement Association (PCA)", standardOrDocument: "Design and Control of Concrete Mixtures (EB001)", citation: "Skokie, IL.", url: "https://www.cement.org/" }
+      { organization: "Portland Cement Association (PCA)", standardOrDocument: "Design and Control of Concrete Mixtures (EB001)", citation: "Skokie, IL.", url: "https://www.cement.org/intelligence-resources/store/design-control-of-concrete-mixtures/" }
     ],
     faqs: [
       { question: "How many 80 lb bags of concrete make a cubic yard?", answer: "It takes exactly 45 bags of 80 lb concrete mix to equal one cubic yard (27 cubic feet), because each 80 lb bag yields 0.60 cubic feet (27 ÷ 0.60 = 45)." },
@@ -1208,17 +1143,11 @@ export const tools: ToolDefinition[] = [
       triangleNote: "For triangular sections: Area = (Base × Height) ÷ 2."
     },
     workedExample: {
-      title: "French Drain Backfill Worked Example",
-      scenario: "Filling a 50 ft long, 1.5 ft wide French drain trench with 12 inches of #57 washed crushed stone around a 4-inch perforated pipe, with a 10% allowance.",
-      dimensions: "50 ft × 1.5 ft × 12 in depth, 10% allowance",
-      steps: [
-        { label: "1. Trench Area", formula: "50 ft × 1.5 ft", result: "75 sq ft", explanation: "Surface area of the drainage trench." },
-        { label: "2. Base Cubic Yards", formula: "75 sq ft × 12 in ÷ 324", result: "2.778 yd³", explanation: "Net geometric volume (75.0 cu ft)." },
-        { label: "3. Volume with 10% Allowance", formula: "2.778 yd³ × 1.10", result: "3.056 yd³", explanation: "Accounts for trench wall irregularity and settling." },
-        { label: "4. Weight in Tons (at 1.35 tons/yd³)", formula: "3.056 yd³ × 1.35 tons/yd³", result: "4.13 tons", explanation: "Calculates quarry delivery weight (8,250 lbs)." },
-        { label: "5. Metric Equivalent", formula: "3.056 yd³ × 0.764555", result: "2.34 m³", explanation: "Equivalent volume in cubic metres." }
-      ],
-      finalSummary: "Order 3.1 cubic yards or approximately 4.25 tons of #57 washed crushed stone."
+      title: workedExampleFixtures["crushed-stone-calculator"].title,
+      scenario: workedExampleFixtures["crushed-stone-calculator"].scenario,
+      dimensions: workedExampleFixtures["crushed-stone-calculator"].dimensionsDescription,
+      steps: workedExampleFixtures["crushed-stone-calculator"].steps,
+      finalSummary: workedExampleFixtures["crushed-stone-calculator"].finalSummary,
     },
     inputsGuide: {
       lengthWidth: "Measure the trench or pad boundaries accurately with a steel tape measure.",
@@ -1250,7 +1179,7 @@ export const tools: ToolDefinition[] = [
       }
     ],
     authoritativeSources: [
-      { organization: "ASTM International", standardOrDocument: "ASTM D448-24: Standard Classification for Sizes of Aggregate for Road and Bridge Construction", citation: "West Conshohocken, PA.", url: "https://www.astm.org/d0448-24.html" },
+      { organization: "ASTM International", standardOrDocument: "ASTM D448-12(2022): Standard Classification for Sizes of Aggregate for Road and Bridge Construction", citation: "West Conshohocken, PA.", url: "https://www.astm.org/d0448-12r22.html" },
       { organization: "National Stone, Sand & Gravel Association (NSSGA)", standardOrDocument: "Aggregate Handbook: Gradation, Physical Properties and Uses", citation: "Alexandria, VA.", url: "https://www.nssga.org/" }
     ],
     faqs: [

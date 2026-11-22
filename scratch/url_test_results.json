@@ -1,0 +1,296 @@
+[
+  {
+    "url": "https://cals.cornell.edu/turfgrass",
+    "title": "Lawn Care Guidelines: Topdressing and Soil Health",
+    "status": 404,
+    "ok": false,
+    "finalUrl": "https://cals.cornell.edu/turfgrass"
+  },
+  {
+    "url": "https://extension.psu.edu/soil-management-in-turf-establishment",
+    "title": "Agronomy Facts 62: Soil Amendments and Turfgrass Establishment",
+    "status": 404,
+    "ok": false,
+    "finalUrl": "https://extension.psu.edu/soil-management-in-turf-establishment"
+  },
+  {
+    "url": "https://www.nist.gov/pml/owm/handbook-44-current-edition",
+    "title": "Handbook 44: Specifications and Tolerances for Measuring Devices",
+    "status": 404,
+    "ok": false,
+    "finalUrl": "https://www.nist.gov/pml/owm/handbook-44-current-edition"
+  },
+  {
+    "url": "https://www.usbr.gov/tsc/techreferences/mands/mands-pdfs/EarthManual-Part1.pdf",
+    "title": "Earth Manual: Earth Materials and Measurement Principles",
+    "status": 404,
+    "ok": false,
+    "finalUrl": "https://www.usbr.gov/tsc/techreferences/mands/mands-pdfs/EarthManual-Part1.pdf"
+  },
+  {
+    "url": "https://www.astm.org/c0033_c0033m-23.html",
+    "title": "ASTM C33 / C33M-23: Standard Specification for Concrete Aggregates (Coarse Aggregate Gradation)",
+    "status": 200,
+    "ok": true,
+    "finalUrl": "https://store.astm.org/c0033_c0033m-23.html"
+  },
+  {
+    "url": "https://www.asla.org/",
+    "title": "Landscape Architecture Technical Information Series: Aggregate Surfacing",
+    "status": 403,
+    "ok": false,
+    "finalUrl": "https://www.asla.org/"
+  },
+  {
+    "url": "https://www.treesaregood.org/treeowner/mulching",
+    "title": "Proper Mulching Guidelines",
+    "status": 200,
+    "ok": true,
+    "finalUrl": "https://www.treesaregood.org/Tree-Owner-Resources/mulching"
+  },
+  {
+    "url": "https://www.extension.purdue.edu/extmedia/FNR/FNR-492-W.pdf",
+    "title": "Mulch Practices for Landscapes (FNR-492-W)",
+    "status": 200,
+    "ok": true,
+    "finalUrl": "https://www.extension.purdue.edu/extmedia/FNR/FNR-492-W.pdf"
+  },
+  {
+    "url": "https://www.nrcs.usda.gov/conservation-basics/natural-resource-concerns/soil",
+    "title": "Soil Quality for Environmental Health: Organic Matter and Pore Space",
+    "status": 200,
+    "ok": true,
+    "finalUrl": "https://www.nrcs.usda.gov/conservation-basics/soil"
+  },
+  {
+    "url": "https://extension.umd.edu/resource/soil-health-lawns-and-gardens",
+    "title": "Improving Garden Soils with Organic Matter",
+    "status": 404,
+    "ok": false,
+    "finalUrl": "https://extension.umd.edu/resource/soil-health-lawns-and-gardens"
+  },
+  {
+    "url": "https://extension.oregonstate.edu/gardening/techniques/raised-bed-gardening",
+    "title": "Constructing and Filling Raised Bed Planters (EM 9183)",
+    "status": 404,
+    "ok": false,
+    "finalUrl": "https://extension.oregonstate.edu/gardening/techniques/raised-bed-gardening"
+  },
+  {
+    "url": "https://edis.ifas.ufl.edu/",
+    "title": "Raised Bed Gardening: Soil Mixtures and Dimensions (CIR 1282)",
+    "status": 200,
+    "ok": true,
+    "finalUrl": "https://ask.ifas.ufl.edu/"
+  },
+  {
+    "url": "https://www.compostingcouncil.org/page/CertifiedCompostSTA",
+    "title": "Seal of Testing Assurance (STA) Program: Consumer Application Rates",
+    "status": 403,
+    "ok": false,
+    "finalUrl": "https://www.compostingcouncil.org/page/CertifiedCompostSTA"
+  },
+  {
+    "url": "https://pubs.extension.wsu.edu/",
+    "title": "How to Use Compost in Gardens and Landscapes (EB1784)",
+    "status": 200,
+    "ok": true,
+    "finalUrl": "https://pubs.extension.wsu.edu/"
+  },
+  {
+    "url": "https://www.astm.org/c0033_c0033m-23.html",
+    "title": "ASTM C33 / C33M-23: Standard Specification for Concrete Aggregates (Fine Aggregate)",
+    "status": 200,
+    "ok": true,
+    "finalUrl": "https://store.astm.org/c0033_c0033m-23.html"
+  },
+  {
+    "url": "https://icpi.org/",
+    "title": "Tech Spec 2: Construction of Interlocking Concrete Pavements",
+    "status": 200,
+    "ok": true,
+    "finalUrl": "https://www.cmha.org/"
+  },
+  {
+    "url": "https://icpi.org/",
+    "title": "Tech Spec 4: Structural Design of Interlocking Concrete Pavements",
+    "status": 200,
+    "ok": true,
+    "finalUrl": "https://www.cmha.org/"
+  },
+  {
+    "url": "https://www.astm.org/d2940_d2940m-20.html",
+    "title": "ASTM D2940 / D2940M-20: Standard Specification for Graded Aggregate Material for Bases or Subbases",
+    "status": 200,
+    "ok": true,
+    "finalUrl": "https://store.astm.org/d2940_d2940m-20.html"
+  },
+  {
+    "url": "https://www.fhwa.dot.gov/construction/gravel/flh15004.pdf",
+    "title": "Gravel Roads Construction and Maintenance Guide (FHWA-FLH-15-004)",
+    "status": 404,
+    "ok": false,
+    "finalUrl": "https://www.fhwa.dot.gov/construction/gravel/flh15004.pdf"
+  },
+  {
+    "url": "https://www.dirtandgravel.psu.edu/",
+    "title": "Driving Surface Aggregate Standards & Maintenance",
+    "status": 200,
+    "ok": true,
+    "finalUrl": "https://dirtandgravel.psu.edu/"
+  },
+  {
+    "url": "https://www.concrete.org/store/productdetail.aspx?ItemID=302115",
+    "title": "ACI 302.1R-15: Guide to Concrete Floor and Slab Construction",
+    "status": 200,
+    "ok": true,
+    "finalUrl": "https://www.concrete.org/store/productdetail.aspx?ItemID=3021U15&Language=English&Units=US_AND_METRIC"
+  },
+  {
+    "url": "https://www.cement.org/",
+    "title": "Design and Control of Concrete Mixtures (EB001)",
+    "status": 200,
+    "ok": true,
+    "finalUrl": "https://www.cement.org/"
+  },
+  {
+    "url": "https://www.astm.org/d0448-24.html",
+    "title": "ASTM D448-24: Standard Classification for Sizes of Aggregate for Road and Bridge Construction",
+    "status": 404,
+    "ok": false,
+    "finalUrl": "https://store.astm.org/d0448-24.html"
+  },
+  {
+    "url": "https://www.nssga.org/",
+    "title": "Aggregate Handbook: Gradation, Physical Properties and Uses",
+    "status": 200,
+    "ok": true,
+    "finalUrl": "https://www.nssga.org/"
+  },
+  {
+    "url": "https://extension.psu.edu/soil-management-in-turf-establishment",
+    "title": "Agronomy Facts 62: Estimating Soil and Amendment Quantities",
+    "status": 404,
+    "ok": false,
+    "finalUrl": "https://extension.psu.edu/soil-management-in-turf-establishment"
+  },
+  {
+    "url": "https://www.nrcs.usda.gov/",
+    "title": "National Engineering Handbook, Part 642: Measurement of Areas and Earthwork",
+    "status": 200,
+    "ok": true,
+    "finalUrl": "https://www.nrcs.usda.gov/"
+  },
+  {
+    "url": "https://cals.cornell.edu/turfgrass",
+    "title": "Lawn Establishment and Renovation Guide",
+    "status": 404,
+    "ok": false,
+    "finalUrl": "https://cals.cornell.edu/turfgrass"
+  },
+  {
+    "url": "https://extension.umd.edu/resource/soil-health-lawns-and-gardens",
+    "title": "Soil Management for Lawns and Gardens",
+    "status": 404,
+    "ok": false,
+    "finalUrl": "https://extension.umd.edu/resource/soil-health-lawns-and-gardens"
+  },
+  {
+    "url": "https://www.treesaregood.org/treeowner/mulching",
+    "title": "Proper Mulching Techniques",
+    "status": 200,
+    "ok": true,
+    "finalUrl": "https://www.treesaregood.org/Tree-Owner-Resources/mulching"
+  },
+  {
+    "url": "https://www.extension.purdue.edu/extmedia/FNR/FNR-492-W.pdf",
+    "title": "Mulching Landscape Trees and Shrubs",
+    "status": 200,
+    "ok": true,
+    "finalUrl": "https://www.extension.purdue.edu/extmedia/FNR/FNR-492-W.pdf"
+  },
+  {
+    "url": "https://www.nist.gov/pml/owm/handbook-44-current-edition",
+    "title": "NIST Handbook 44: Specifications, Tolerances, and Other Technical Requirements for Weighing and Measuring Devices",
+    "status": 404,
+    "ok": false,
+    "finalUrl": "https://www.nist.gov/pml/owm/handbook-44-current-edition"
+  },
+  {
+    "url": "https://www.nist.gov/pml/special-publication-811",
+    "title": "NIST Special Publication 811: Guide for the Use of the International System of Units (SI)",
+    "status": 200,
+    "ok": true,
+    "finalUrl": "https://www.nist.gov/pml/special-publication-811"
+  },
+  {
+    "url": "https://www.astm.org/c0029_c0029m-23.html",
+    "title": "ASTM C29 / C29M-23: Standard Test Method for Bulk Density ('Unit Weight') and Voids in Aggregate",
+    "status": 200,
+    "ok": true,
+    "finalUrl": "https://store.astm.org/c0029_c0029m-23.html"
+  },
+  {
+    "url": "https://www.fhwa.dot.gov/engineering/geotech/pubs/02034/ch05.cfm",
+    "title": "Geotechnical Engineering Circular No. 5: Evaluation of Soil and Rock Properties",
+    "status": 404,
+    "ok": false,
+    "finalUrl": "https://www.fhwa.dot.gov/engineering/geotech/pubs/02034/ch05.cfm"
+  },
+  {
+    "url": "https://www.fhwa.dot.gov/construction/gravel/flh15004.pdf",
+    "title": "Gravel Roads Construction and Maintenance Guide",
+    "status": 404,
+    "ok": false,
+    "finalUrl": "https://www.fhwa.dot.gov/construction/gravel/flh15004.pdf"
+  },
+  {
+    "url": "https://www.dirtandgravel.psu.edu/",
+    "title": "Environmentally Sensitive Maintenance for Dirt and Gravel Roads",
+    "status": 200,
+    "ok": true,
+    "finalUrl": "https://dirtandgravel.psu.edu/"
+  },
+  {
+    "url": "https://www.concrete.org/store/productdetail.aspx?ItemID=302115",
+    "title": "ACI 302.1R-15: Guide to Concrete Floor and Slab Construction",
+    "status": 200,
+    "ok": true,
+    "finalUrl": "https://www.concrete.org/store/productdetail.aspx?ItemID=3021U15&Language=English&Units=US_AND_METRIC"
+  },
+  {
+    "url": "https://www.astm.org/c0387_c0387m-23.html",
+    "title": "ASTM C387 / C387M-23: Standard Specification for Packaged, Dry, Combined Materials for Mortar and Concrete",
+    "status": 200,
+    "ok": true,
+    "finalUrl": "https://store.astm.org/c0387_c0387m-23.html"
+  },
+  {
+    "url": "https://extension.oregonstate.edu/gardening/techniques/raised-bed-gardening",
+    "title": "Constructing and Filling Raised Bed Planters",
+    "status": 404,
+    "ok": false,
+    "finalUrl": "https://extension.oregonstate.edu/gardening/techniques/raised-bed-gardening"
+  },
+  {
+    "url": "https://edis.ifas.ufl.edu/",
+    "title": "Raised Bed Gardening",
+    "status": 200,
+    "ok": true,
+    "finalUrl": "https://ask.ifas.ufl.edu/"
+  },
+  {
+    "url": "https://www.nrcs.usda.gov/",
+    "title": "National Engineering Handbook: Surveying and Geometric Earthwork Measurements",
+    "status": 200,
+    "ok": true,
+    "finalUrl": "https://www.nrcs.usda.gov/"
+  },
+  {
+    "url": "https://www.rhs.org.uk/",
+    "title": "RHS Practical Landscaping Guides: Measuring Your Garden",
+    "status": 404,
+    "ok": false,
+    "finalUrl": "https://www.rhs.org.uk/"
+  }
+]

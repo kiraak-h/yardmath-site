@@ -46,6 +46,16 @@
 - [x] Step 24: Empirical Lighthouse lab audit executed (Performance: 99, Accessibility: 93, Best Practices: 100; FCP: 1.1s, LCP: 1.1s, CLS: 0.000, TBT: 98.5ms) and high-contrast CSS applied.
 - [x] Step 25: Created `FINAL_SEARCH_INTEGRITY_REPORT.md` and cleaned up unsupported claims.
 - [x] Step 26: Commit targeted corrections and push to GitHub `main`.
+- [x] Step 27: Final search-integrity and technical audit completion:
+  - Aligned Paver Base metadata, quick answer, description, formula, and benchmark table to neat geometric volume ($81.0\text{ sq ft/yd}^3$ at 4") with manual compaction allowance (18%–20%).
+  - Qualified construction and horticultural recommendations (ACI 332 residential slab minimums, ACI 302.1R joint spacing, single-layer driveway tool, ISA 2–3" mulch depths, USCC compost application rates).
+  - Built typed fixture module `src/lib/worked-examples.ts` coupling UI content with automated calculation validation.
+  - Expanded `src/lib/content-validation.test.ts` to 27 tests (37 project total) testing all 12 worked examples against `calculateMaterial()`, all benchmark table formulas, all unit conversions, and boundary/zero inputs.
+  - Audited all 42 cited source URLs: verified HTTP reachability, classified 403 responses as Cloudflare bot defense (indeterminate, not broken), and mapped direct publication links. Saved machine-readable data to `scratch/url_audit_complete.json`.
+  - Added WCAG AA/AAA high-contrast color styles and $44\text{px}$ touch targets to `src/app/globals.css`.
+  - Executed Lighthouse lab audit on production build: 100 Performance, 100 Accessibility, 100 Best Practices, 66 SEO (staging guard), 100 Agentic Browsing (`scratch/lighthouse-topsoil-final.report.*`).
+  - Updated `FINAL_SEARCH_INTEGRITY_REPORT.md` with all empirical results and pre-launch guidance.
+- [x] Step 28: Git stage, commit, and push final changes to `main`.
 
 ## Burn Book (Updated)
 - Next.js Turbopack Route Validation: When deleting an existing App Router directory (e.g. `src/app/guides/how-to-measure-landscaping-materials/`), Next.js caches route validators in `.next/types/validator.ts`. Run `Remove-Item -Recurse -Force .next` prior to `tsc --noEmit` to clear stale route validator references.

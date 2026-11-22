@@ -1024,4 +1024,104 @@ button { cursor: pointer; }
   color: #21432a !important;
 }
 
+.calc-panel-head p {
+  color: #27402d !important;
+}
+
+.unit-toggle button {
+  color: #1b3522 !important;
+  font-weight: 600;
+}
+
+.unit-toggle button.active {
+  background: var(--forest-deep) !important;
+  color: #ffffff !important;
+}
+
+.shape-option {
+  color: #1e3825 !important;
+  font-weight: 600;
+}
+
+.shape-option.selected {
+  border-color: var(--forest) !important;
+  background: #f4f8f0 !important;
+  color: var(--forest-deep) !important;
+}
+
+.advanced-toggle,
+.advanced-toggle small {
+  color: #203c24 !important;
+}
+
+.reset-calculator {
+  color: #234129 !important;
+  font-weight: 600;
+}
+
+.live-dot {
+  color: #18381e !important;
+  background: #e5f0df !important;
+  font-weight: 700;
+}
+
+.add-cost-link {
+  color: #174221 !important;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.result-actions button {
+  color: #18381e !important;
+  font-weight: 600;
+  border-color: #9cb8a0 !important;
+}
+
+.guide-content-section p,
+.formula-explanation-p,
+.formula-shape-notes,
+.formula-shape-notes p,
+.formula-shape-notes strong,
+.formula-note,
+.example-scenario,
+.example-scenario p {
+  color: #1b3321 !important;
+}
+
+.howto-list li > span {
+  color: #ffffff !important;
+  background: #183a22 !important;
+  font-weight: 700;
+}
+
+.aside-card a {
+  color: #164621 !important;
+  font-weight: 650;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.related-card span small {
+  color: #253e2b !important;
+}
+
+/* Touch Targets: minimum 44px tap target size & spacing for mobile */
+.footer-links a {
+  color: #c2d4c5 !important;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 4px 0;
+}
+
+.footer-bottom a {
+  color: #9bb5a3 !important;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 4px 6px;
+}
+
+
 
