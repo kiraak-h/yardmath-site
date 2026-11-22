@@ -109,8 +109,12 @@ describe("Content Validation & Calculation Integrity", () => {
 
     it("verifies CMHA citations point to exact publication resources", () => {
       const paverTool = tools.find((t) => t.slug === "paver-base-calculator");
-      const cmhaPaver = paverTool?.authoritativeSources.find((s) => s.organization.includes("CMHA"));
-      expect(cmhaPaver?.url).toBe("https://www.cmha.org/resource/pav-tec-004/");
+      const cmhaTec002 = paverTool?.authoritativeSources.find((s) => s.url.includes("pav-tec-002"));
+      const cmhaTec004 = paverTool?.authoritativeSources.find((s) => s.url.includes("pav-tec-004"));
+      expect(cmhaTec002, "CMHA PAV-TEC-002 must be cited for pedestrian/driveway construction").toBeDefined();
+      expect(cmhaTec004, "CMHA PAV-TEC-004 must be cited for structural design").toBeDefined();
+      expect(cmhaTec002?.url).toBe("https://www.cmha.org/resource/pav-tec-002/");
+      expect(cmhaTec004?.url).toBe("https://www.cmha.org/resource/pav-tec-004/");
 
       const sandTool = tools.find((t) => t.slug === "sand-calculator");
       const cmhaSand = sandTool?.authoritativeSources.find((s) => s.organization.includes("CMHA"));
@@ -127,6 +131,37 @@ describe("Content Validation & Calculation Integrity", () => {
       const topsoilTool = tools.find((t) => t.slug === "topsoil-calculator");
       const cornellSource = topsoilTool?.authoritativeSources.find((s) => s.organization.includes("Cornell"));
       expect(cornellSource?.url).toBe("https://turf.cals.cornell.edu/lawn/lawn-care-the-easiest-steps-to-an-attractive-environmental-asset/");
+    });
+
+    it("verifies Penn State citation references genuine Lawn Establishment guide rather than confabulated Agronomy Facts 62", () => {
+      const topsoilTool = tools.find((t) => t.slug === "topsoil-calculator");
+      const psuSource = topsoilTool?.authoritativeSources.find((s) => s.organization.includes("Penn State"));
+      expect(psuSource?.standardOrDocument).toBe("Lawn Establishment: Preparing the Soil and Grading");
+      expect(psuSource?.standardOrDocument).not.toContain("Agronomy Facts 62");
+      expect(psuSource?.url).toBe("https://extension.psu.edu/lawn-establishment");
+
+      const topsoilGuide = guides.find((g) => g.slug === "how-to-measure-landscaping-materials");
+      const psuGuideSource = topsoilGuide?.sources.find((s) => s.publisher.includes("Penn State"));
+      expect(psuGuideSource?.title).toBe("Lawn Establishment: Preparing the Soil and Grading");
+      expect(psuGuideSource?.title).not.toContain("Agronomy Facts 62");
+      expect(psuGuideSource?.url).toBe("https://extension.psu.edu/lawn-establishment");
+    });
+
+    it("verifies pea gravel calculator cites USDA Forest Service / FHWA tread guide rather than ASLA homepage", () => {
+      const peaTool = tools.find((t) => t.slug === "pea-gravel-calculator");
+      const treadSource = peaTool?.authoritativeSources.find((s) => s.organization.includes("FHWA") || s.organization.includes("Forest Service"));
+      expect(treadSource, "USDA Forest Service / FHWA tread source must be cited").toBeDefined();
+      expect(treadSource?.url).toBe("https://www.fhwa.dot.gov/environment/recreational_trails/publications/fs_publications/07232806/page09.cfm");
+    });
+
+    it("verifies driveway calculator and guide cite direct CDGRS technical bulletin rather than generic homepage", () => {
+      const drivewayTool = tools.find((t) => t.slug === "gravel-driveway-calculator");
+      const cdgrsToolSource = drivewayTool?.authoritativeSources.find((s) => s.organization.includes("Dirt and Gravel"));
+      expect(cdgrsToolSource?.url).toBe("https://dirtandgravel.psu.edu/wp-content/uploads/Tech-Bulletin_Driving_Surface_Aggregate_2025.pdf");
+
+      const drivewayGuide = guides.find((g) => g.slug === "gravel-driveway-material-estimation");
+      const cdgrsGuideSource = drivewayGuide?.sources.find((s) => s.publisher.includes("Dirt and Gravel"));
+      expect(cdgrsGuideSource?.url).toBe("https://dirtandgravel.psu.edu/wp-content/uploads/Tech-Bulletin_Driving_Surface_Aggregate_2025.pdf");
     });
 
     it("verifies RHS citation points to official garden plan publication", () => {
@@ -362,63 +397,118 @@ describe("Content Validation & Calculation Integrity", () => {
         expect(tool.workedExample.steps.length).toBe(fixture.steps.length);
         expect(tool.workedExample.finalSummary).toBe(fixture.finalSummary);
 
-        // 8. Mathematically validate every displayed step result
-        for (const step of tool.workedExample.steps) {
+        const validatedCategories = new Set<string>();
+
+        // 8. Mathematically validate every displayed step result using explicit typed step category
+        for (const step of fixture.steps) {
           expect(step.label.length).toBeGreaterThan(0);
           expect(step.formula.length).toBeGreaterThan(0);
           expect(step.result.length).toBeGreaterThan(0);
           expect(step.explanation.length).toBeGreaterThan(0);
 
-          const lowerLabel = step.label.toLowerCase();
           const cleanResult = step.result.replace(/,/g, "");
+          validatedCategories.add(step.category);
 
-          if (lowerLabel.includes("surface area") || lowerLabel.includes("plan area")) {
-            const match = cleanResult.match(/([\d.]+)\s*sq\s*ft/i);
-            expect(match, `Step '${step.label}' should contain sq ft result`).toBeDefined();
-            const areaNum = parseFloat(match![1]);
-            expect(areaNum).toBeCloseTo(fixture.expected.area, 1);
-          } else if (lowerLabel.includes("base geometric volume") || lowerLabel.includes("base volume")) {
-            const match = cleanResult.match(/([\d.]+)\s*yd³/i);
-            expect(match, `Step '${step.label}' should contain yd³ base volume`).toBeDefined();
-            const baseYdNum = parseFloat(match![1]);
-            expect(baseYdNum).toBeCloseTo(fixture.expected.baseCubicYards, 2);
-          } else if (lowerLabel.includes("allowance")) {
-            const match = cleanResult.match(/([\d.]+)\s*yd³/i);
-            expect(match, `Step '${step.label}' should contain yd³ order volume`).toBeDefined();
-            const orderYdNum = parseFloat(match![1]);
-            expect(orderYdNum).toBeCloseTo(fixture.expected.orderCubicYards, 2);
-          } else if (lowerLabel.includes("bag")) {
-            const match = cleanResult.match(/(\d+)\s*bags?/i);
-            expect(match, `Step '${step.label}' should contain bag count`).toBeDefined();
-            const bagNum = parseInt(match![1], 10);
-            if (
-              lowerLabel.includes("option") ||
-              (tool.slug === "mulch-calculator" && step.label.includes("3 cu ft")) ||
-              (tool.slug === "concrete-calculator" && step.label.includes("60 lb"))
-            ) {
-              const formulaMatch = step.formula.match(/([\d.]+)\s*cu\s*ft\s*÷\s*([\d.]+)\s*cu\s*ft/i);
-              if (formulaMatch) {
-                const totalCuFt = parseFloat(formulaMatch[1]);
-                const packCuFt = parseFloat(formulaMatch[2]);
-                const expectedAltBags = Math.ceil(totalCuFt / packCuFt - 1e-10);
-                expect(bagNum).toBe(expectedAltBags);
+          switch (step.category) {
+            case "surface_area": {
+              // Surface area (e.g. "300 sq ft" or "1,000 sq ft")
+              const match = cleanResult.match(/([\d.]+)\s*(?:sq\s*ft|square\s*feet|m²)/i);
+              expect(match, `Step '${step.label}' (${step.category}) must contain valid planar area numeric result`).toBeDefined();
+              const areaNum = parseFloat(match![1]);
+              expect(areaNum, `Surface area mismatch in '${step.label}'`).toBeCloseTo(fixture.expected.area, 1);
+              break;
+            }
+
+            case "base_volume": {
+              // Base geometric volume (e.g. "2.778 yd³")
+              const match = cleanResult.match(/([\d.]+)\s*yd³/i);
+              expect(match, `Step '${step.label}' (${step.category}) must contain valid base volume in yd³`).toBeDefined();
+              const baseYdNum = parseFloat(match![1]);
+              expect(baseYdNum, `Base volume mismatch in '${step.label}'`).toBeCloseTo(fixture.expected.baseCubicYards, 2);
+              break;
+            }
+
+            case "order_volume": {
+              // Post-allowance volume (e.g. "3.056 yd³")
+              const match = cleanResult.match(/([\d.]+)\s*yd³/i);
+              expect(match, `Step '${step.label}' (${step.category}) must contain valid order volume in yd³`).toBeDefined();
+              const orderYdNum = parseFloat(match![1]);
+              expect(orderYdNum, `Order volume mismatch in '${step.label}'`).toBeCloseTo(fixture.expected.orderCubicYards, 2);
+              break;
+            }
+
+            case "packaging_yield": {
+              // Bag or package count (e.g. "110 bags")
+              const match = cleanResult.match(/(\d+)\s*bags?/i);
+              expect(match, `Step '${step.label}' (${step.category}) must contain integer bag count`).toBeDefined();
+              const bagNum = parseInt(match![1], 10);
+              if (step.packageYieldCuFt) {
+                // Derived from packaging yield (e.g. alternative bag options or custom pack sizes)
+                const expectedBags = Math.ceil(result.cubicFeet / step.packageYieldCuFt - 1e-10);
+                expect(bagNum, `Bag yield mismatch for '${step.label}'`).toBe(expectedBags);
+              } else if (fixture.expected.bags !== null) {
+                expect(bagNum, `Primary bag count mismatch for '${step.label}'`).toBe(fixture.expected.bags);
+              } else {
+                expect.fail(`Step '${step.label}' has category 'packaging_yield' but fixture has no expected bags or packageYieldCuFt`);
               }
-            } else if (fixture.expected.bags !== null) {
-              expect(bagNum).toBe(fixture.expected.bags);
+              break;
             }
-          } else if (lowerLabel.includes("weight") && fixture.expected.weightLb !== null) {
-            const lbMatch = cleanResult.match(/(\d+)\s*lbs?/i);
-            if (lbMatch) {
-              const lbs = parseInt(lbMatch[1], 10);
-              expect(lbs).toBe(fixture.expected.weightLb);
+
+            case "total_weight": {
+              // Total weight: Validate pounds, US short tons, metric tonnes, and UK long tons
+              const fullWeightText = (step.result + " " + step.explanation).replace(/,/g, "");
+
+              if (fixture.expected.weightLb !== null) {
+                const lbMatch = fullWeightText.match(/(\d+)\s*lbs?/i);
+                expect(lbMatch, `Step '${step.label}' must contain pounds weight`).toBeDefined();
+                const lbs = parseInt(lbMatch![1], 10);
+                expect(lbs, `Pounds weight mismatch in '${step.label}'`).toBe(fixture.expected.weightLb);
+              }
+
+              if (fixture.expected.weightShortTons !== null) {
+                const tonMatch = fullWeightText.match(/([\d.]+)\s*short\s*tons?/i);
+                expect(tonMatch, `Step '${step.label}' must contain US short tons`).toBeDefined();
+                const shortTons = parseFloat(tonMatch![1]);
+                expect(shortTons, `Short tons mismatch in '${step.label}'`).toBeCloseTo(fixture.expected.weightShortTons, 2);
+              }
+
+              if (fixture.expected.weightMetricTonnes !== null) {
+                const metricMatch = fullWeightText.match(/([\d.]+)\s*metric\s*tonnes?/i);
+                expect(metricMatch, `Step '${step.label}' must contain metric tonnes`).toBeDefined();
+                const metricTonnes = parseFloat(metricMatch![1]);
+                expect(metricTonnes, `Metric tonnes mismatch in '${step.label}'`).toBeCloseTo(fixture.expected.weightMetricTonnes, 2);
+              }
+
+              if (fixture.expected.weightLongTons !== null) {
+                const longMatch = fullWeightText.match(/([\d.]+)\s*long\s*tons?/i);
+                expect(longMatch, `Step '${step.label}' must contain UK long tons`).toBeDefined();
+                const longTons = parseFloat(longMatch![1]);
+                expect(longTons, `Long tons mismatch in '${step.label}'`).toBeCloseTo(fixture.expected.weightLongTons, 2);
+              }
+              break;
             }
-            const tonMatch = cleanResult.match(/([\d.]+)\s*short\s*tons?/i);
-            if (tonMatch) {
-              const tons = parseFloat(tonMatch[1]);
-              expect(tons).toBeCloseTo(fixture.expected.weightShortTons!, 2);
+
+            case "metric_equivalent": {
+              // Metric equivalent (e.g. "4.485 m³" or "2.141 m³")
+              const match = cleanResult.match(/([\d.]+)\s*m³/i);
+              expect(match, `Step '${step.label}' (${step.category}) must contain valid m³ result`).toBeDefined();
+              const metricNum = parseFloat(match![1]);
+              expect(metricNum, `Metric volume mismatch in '${step.label}'`).toBeCloseTo(fixture.expected.orderCubicMetres, 2);
+              break;
+            }
+
+            default: {
+              // Fail on any unexpected or unsupported step category
+              const unknownStep = step as { category?: unknown };
+              expect.fail(`Encountered unexpected or unsupported step category: '${String(unknownStep.category)}' in step '${step.label}'`);
             }
           }
         }
+
+        // Verify that essential core categories were verified
+        expect(validatedCategories.has("surface_area"), `Tool '${tool.slug}' must validate surface_area`).toBe(true);
+        expect(validatedCategories.has("base_volume"), `Tool '${tool.slug}' must validate base_volume`).toBe(true);
+        expect(validatedCategories.has("order_volume"), `Tool '${tool.slug}' must validate order_volume`).toBe(true);
       });
     }
   });
@@ -611,7 +701,10 @@ describe("Content Validation & Calculation Integrity", () => {
       expect(paverTool?.metaTitle).toBe("Paver Base Calculator | Geometric Volume & Allowance Estimator");
       expect(paverTool?.formula).toContain("Allowance%");
       expect(paverTool?.formulaExplanation.dimensionalExplanation).toContain("calculator settings");
-      expect(paverTool?.authoritativeSources[0].url).toBe("https://www.cmha.org/resource/pav-tec-004/");
+      const tec002 = paverTool?.authoritativeSources.find((s) => s.url.includes("pav-tec-002"));
+      const tec004 = paverTool?.authoritativeSources.find((s) => s.url.includes("pav-tec-004"));
+      expect(tec002, "Must cite CMHA PAV-TEC-002").toBeDefined();
+      expect(tec004, "Must cite CMHA PAV-TEC-004").toBeDefined();
     });
 
     it("ensures concrete calculator does not give universal thickness prescription or prefilled bags", () => {

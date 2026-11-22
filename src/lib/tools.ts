@@ -179,7 +179,7 @@ export const tools: ToolDefinition[] = [
     ],
     authoritativeSources: [
       { organization: "Cornell University Turfgrass Program", standardOrDocument: "Lawn Care: The Easiest Steps to an Attractive Environmental Asset", citation: "Cornell University College of Agriculture and Life Sciences.", url: "https://turf.cals.cornell.edu/lawn/lawn-care-the-easiest-steps-to-an-attractive-environmental-asset/" },
-      { organization: "Penn State Extension", standardOrDocument: "Agronomy Facts 62: Soil Amendments and Turfgrass Establishment", citation: "Pennsylvania State University.", url: "https://extension.psu.edu/lawn-establishment" }
+      { organization: "Penn State Extension", standardOrDocument: "Lawn Establishment: Preparing the Soil and Grading", citation: "Penn State Extension, College of Agricultural Sciences (Peter Landschoot, Ph.D.).", url: "https://extension.psu.edu/lawn-establishment" }
     ],
     faqs: [
       { question: "How much topsoil do I need for a 1,000 sq ft lawn?", answer: "At a standard 4-inch depth for new seeding or sod, 1,000 sq ft requires 12.35 cubic yards. With a 10% allowance for settling, order 13.6 cubic yards." },
@@ -362,7 +362,7 @@ export const tools: ToolDefinition[] = [
     ],
     authoritativeSources: [
       { organization: "ASTM International", standardOrDocument: "ASTM C33 / C33M-23: Standard Specification for Concrete Aggregates (Coarse Aggregate Gradation)", citation: "West Conshohocken, PA.", url: "https://www.astm.org/c0033_c0033m-23.html" },
-      { organization: "American Society of Landscape Architects (ASLA)", standardOrDocument: "Landscape Architecture Technical Information Series: Aggregate Surfacing", citation: "Washington, DC.", url: "https://www.asla.org/" }
+      { organization: "USDA Forest Service / Federal Highway Administration (FHWA)", standardOrDocument: "Trail Construction and Maintenance Notebook (0723-2806-MTDC): Tread Materials and Surfacing", citation: "U.S. Department of Agriculture & U.S. Department of Transportation.", url: "https://www.fhwa.dot.gov/environment/recreational_trails/publications/fs_publications/07232806/page09.cfm" }
     ],
     faqs: [
       { question: "How many bags of pea gravel are in a cubic yard?", answer: "One cubic yard weighs approximately 2,700 lbs. If using 50 lb bags, it takes 54 bags to equal one cubic yard (27 cubic feet)." },
@@ -848,19 +848,19 @@ export const tools: ToolDefinition[] = [
     formula: "Length (ft) × Width (ft) × Depth (in) ÷ 324 = Neat Geometric Volume (yd³). Estimated Order Volume = Geometric Volume × (1 + Allowance% ÷ 100). (Confirm compaction and waste allowances with your aggregate supplier or project specifications).",
     howTo: [
       "Measure your patio or walkway plan area, adding 6 inches of over-excavation beyond the paver edge on all sides.",
-      "Enter design compacted depth (4 inches for walkways/patios; 6 to 8 inches for residential driveways).",
+      "Enter design compacted depth (4 inches for walkways/patios on well-drained soil; 6 inches for residential driveways per CMHA PAV-TEC-002).",
       "Optionally include a planning allowance (confirm recommended loose-to-compacted factor with your supplier).",
       "Review the loose order volume in cubic yards and weight in short tons."
     ],
     quickAnswer: {
-      directAnswer: "CMHA (formerly ICPI) guidelines for pedestrian walkways and residential patios on suitable subgrades commonly specify a minimum 4-inch (10 cm) compacted base of dense-graded aggregate conforming to ASTM D2940 grading specifications. This calculator determines neat geometric volume from plan dimensions and design depth (81.0 sq ft per cubic yard at 4 inches). Because vibratory plate compaction reduces loose aggregate bulk volume, aggregate suppliers often suggest a planning allowance (commonly estimated at 15% to 20% depending on rock gradation and moisture); confirm exact compaction and delivery factors with your quarry.",
-      ruleOfThumb: "A 200 sq ft patio at 4 inches depth requires 2.47 cubic yards of neat base. Applying a 20% manual compaction allowance indicates ordering 2.96 cubic yards of loose aggregate (approx. 4.1 tons).",
+      directAnswer: "Per CMHA Tech Spec 2 (PAV-TEC-002), pedestrian walkways and residential patios on well-drained soils require a minimum 4-inch (100 mm) compacted base of dense-graded aggregate conforming to ASTM D2940 grading specifications, while residential vehicular driveways require a minimum 6-inch (150 mm) base. For heavier vehicular loads, weak clay subgrades, or commercial traffic, CMHA Tech Spec 4 (PAV-TEC-004) provides structural design methods where aggregate base thickness typically increases to 8 to 12 inches or more based on subgrade California Bearing Ratio (CBR) and axle loads. This calculator determines neat geometric volume from plan dimensions and design depth (81.0 sq ft per cubic yard at 4 inches). Because mechanical plate compaction consolidates loose aggregate, users may apply an optional manual planning allowance to estimate loose bulk ordering.",
+      ruleOfThumb: "A 200 sq ft patio at 4 inches depth requires 2.47 cubic yards of neat base. If the user applies an illustrative 20% manual planning allowance, the estimated order volume is 2.96 cubic yards (approx. 4.1 tons at 1.4 tons/yd³).",
       tableCaption: "Paver Base Depth & Geometric Coverage Benchmarks (Neat Volume)",
       benchmarkTable: [
-        { depth: "4.0 inches (10 cm)", coverageSqFt: "81.0 sq ft / yd³", coverageSqM: "7.5 m²", typicalUse: "Pedestrian walkway & residential patio base" },
-        { depth: "6.0 inches (15 cm)", coverageSqFt: "54.0 sq ft / yd³", coverageSqM: "5.0 m²", typicalUse: "Hot tub pad, outdoor kitchen, light vehicle driveway" },
-        { depth: "8.0 inches (20 cm)", coverageSqFt: "40.5 sq ft / yd³", coverageSqM: "3.8 m²", typicalUse: "Standard residential paver driveway base" },
-        { depth: "12.0 inches (30 cm)", coverageSqFt: "27.0 sq ft / yd³", coverageSqM: "2.5 m²", typicalUse: "Commercial parking, clay subgrades, heavy truck access" }
+        { depth: "4.0 inches (10 cm)", coverageSqFt: "81.0 sq ft / yd³", coverageSqM: "7.5 m²", typicalUse: "Pedestrian walkway & residential patio base on well-drained soil (CMHA PAV-TEC-002 minimum)" },
+        { depth: "6.0 inches (15 cm)", coverageSqFt: "54.0 sq ft / yd³", coverageSqM: "5.0 m²", typicalUse: "Residential driveway base on well-drained soil (CMHA PAV-TEC-002 minimum); heavy concentrated patio loads" },
+        { depth: "8.0 inches (20 cm)", coverageSqFt: "40.5 sq ft / yd³", coverageSqM: "3.8 m²", typicalUse: "Driveway base on low-strength subgrade or heavier passenger traffic (CMHA PAV-TEC-004 structural design)" },
+        { depth: "12.0 inches (30 cm)", coverageSqFt: "27.0 sq ft / yd³", coverageSqM: "2.5 m²", typicalUse: "Heavy vehicular access, low CBR clay subgrade, or commercial parking (CMHA PAV-TEC-004 structural design)" }
       ]
     },
     formulaExplanation: {
@@ -880,7 +880,7 @@ export const tools: ToolDefinition[] = [
     inputsGuide: {
       lengthWidth: "Always extend your base area 6 inches beyond the paver perimeter on all sides to anchor edge restraints firmly.",
       depthGuidance: "Compact base in lifts no thicker than 2 inches at a time; plate compactors cannot consolidate thicker lifts thoroughly.",
-      allowanceRecommendation: "Contractors commonly enter a 15% to 20% planning allowance for dense-graded base compaction, or 5% to 10% for open-graded drainage stone. Confirm exact compaction shrinkage factors with your material supplier.",
+      allowanceRecommendation: "The calculator computes neat geometric volume with a 0% default allowance. If your site conditions, excavation tolerance, or aggregate supplier suggest accounting for loose-to-compacted consolidation, enter your chosen percentage in the extra allowance field (e.g. 10% to 20% as an illustrative planning figure).",
       packagingGuidance: "Base material is sold loose by the ton from quarries or in 50 lb bags at home centers (approx. 0.45 cu ft each)."
     },
     materialSpecifics: {
@@ -907,14 +907,15 @@ export const tools: ToolDefinition[] = [
       }
     ],
     authoritativeSources: [
+      { organization: "Concrete Masonry & Hardscapes Association (CMHA)", standardOrDocument: "Tech Spec 2 (PAV-TEC-002): Construction of Interlocking Concrete Pavements", citation: "Herndon, VA.", url: "https://www.cmha.org/resource/pav-tec-002/" },
       { organization: "Concrete Masonry & Hardscapes Association (CMHA)", standardOrDocument: "Tech Spec 4 (PAV-TEC-004): Structural Design of Interlocking Concrete Pavements", citation: "Herndon, VA.", url: "https://www.cmha.org/resource/pav-tec-004/" },
       { organization: "ASTM International", standardOrDocument: "ASTM D2940 / D2940M-20: Standard Specification for Graded Aggregate Material for Bases or Subbases", citation: "West Conshohocken, PA.", url: "https://www.astm.org/d2940_d2940m-20.html" }
     ],
     faqs: [
-      { question: "How thick should paver base be?", answer: "Walkways and pedestrian patios require a minimum of 4 inches of compacted base. Patios supporting hot tubs or heavy fire pits require 6 inches; residential paver driveways require 8 to 12 inches." },
+      { question: "How thick should paver base be?", answer: "Per CMHA PAV-TEC-002, pedestrian walkways and residential patios on well-drained subgrades require a minimum of 4 inches (100 mm) of compacted aggregate base. Residential driveways on well-drained soil require a minimum of 6 inches (150 mm). Where subgrades consist of low-strength clay or when supporting heavy concentrated loads or frequent truck traffic, base thickness should be structurally designed per CMHA PAV-TEC-004, often requiring 8 to 12 inches or more." },
       { question: "What is the best material for a paver base?", answer: "Dense-graded aggregate containing 3/4-inch fractured stone down to stone dust (sold as Crusher Run, #411, CR-6, Road Base, or Quarry Process) is the industry standard." },
       { question: "Can I use sand instead of crushed stone for the base?", answer: "No. Sand shifts and washes away under water and foot traffic. Sand is used only as a thin 1-inch bedding layer on top of a firm crushed aggregate base." },
-      { question: "How many tons of paver base do I need for a 10x10 patio?", answer: "A 10×10 patio (11×11 with over-dig = 121 sq ft) at 4 inches compacted depth requires 1.8 cubic yards of loose stone, which weighs approximately 2.5 short tons (5,000 lbs)." }
+      { question: "How many tons of paver base do I need for a 10x10 patio?", answer: "A 10×10 patio (11×11 with 6-inch over-excavation = 121 sq ft) at 4 inches compacted depth requires 1.49 cubic yards of neat base. If an illustrative 20% user allowance is added, order volume is approximately 1.8 cubic yards, which weighs roughly 2.5 short tons (5,000 lbs at 1.4 tons/yd³)." }
     ],
     relatedGuides: [
       { slug: "how-to-calculate-material-weight-bulk-density", title: "Material Weight and Bulk Density Guide" },
@@ -998,7 +999,7 @@ export const tools: ToolDefinition[] = [
     ],
     authoritativeSources: [
       { organization: "Federal Highway Administration (FHWA)", standardOrDocument: "Gravel Roads Construction and Maintenance Guide (FHWA-FLH-15-004)", citation: "U.S. Department of Transportation.", url: "https://www.fhwa.dot.gov/pavement/pub_details.cfm?id=968" },
-      { organization: "Penn State Center for Dirt and Gravel Road Studies", standardOrDocument: "Driving Surface Aggregate Standards & Maintenance", citation: "Pennsylvania State University.", url: "https://www.dirtandgravel.psu.edu/" }
+      { organization: "Penn State Center for Dirt and Gravel Road Studies", standardOrDocument: "Technical Bulletin: Driving Surface Aggregate (DSA) Specifications and Maintenance", citation: "Pennsylvania State University College of Agricultural Sciences.", url: "https://dirtandgravel.psu.edu/wp-content/uploads/Tech-Bulletin_Driving_Surface_Aggregate_2025.pdf" }
     ],
     faqs: [
       { question: "How many tons of gravel do I need for a 100-foot driveway?", answer: "For a 100 ft long by 10 ft wide driveway with a 2-inch resurfacing layer: you need 6.17 cubic yards. At 1.4 tons per yard, you need approximately 8.6 tons of gravel." },
@@ -1089,7 +1090,7 @@ export const tools: ToolDefinition[] = [
     ],
     authoritativeSources: [
       { organization: "American Concrete Institute (ACI)", standardOrDocument: "ACI 302.1R-15: Guide to Concrete Floor and Slab Construction", citation: "Farmington Hills, MI.", url: "https://www.concrete.org/store/productdetail.aspx?ItemID=302115" },
-      { organization: "Portland Cement Association (PCA)", standardOrDocument: "Design and Control of Concrete Mixtures (EB001)", citation: "Skokie, IL.", url: "https://www.cement.org/intelligence-resources/store/design-control-of-concrete-mixtures/" }
+      { organization: "Portland Cement Association (PCA)", standardOrDocument: "Design and Control of Concrete Mixtures (EB001)", citation: "Skokie, IL.", url: "https://www.cement.org/cement-concrete/" }
     ],
     faqs: [
       { question: "How many 80 lb bags of concrete make a cubic yard?", answer: "It takes exactly 45 bags of 80 lb concrete mix to equal one cubic yard (27 cubic feet), because each 80 lb bag yields 0.60 cubic feet (27 ÷ 0.60 = 45)." },

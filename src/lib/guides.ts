@@ -123,7 +123,7 @@ export const guides: GuideDefinition[] = [
       }
     ],
     sources: [
-      { title: "Agronomy Facts 62: Estimating Soil and Amendment Quantities", publisher: "Penn State Extension", citation: "Pennsylvania State University College of Agricultural Sciences.", url: "https://extension.psu.edu/lawn-establishment" },
+      { title: "Lawn Establishment: Preparing the Soil and Grading", publisher: "Penn State Extension", citation: "Penn State Extension, College of Agricultural Sciences (Peter Landschoot, Ph.D.).", url: "https://extension.psu.edu/lawn-establishment" },
       { title: "National Engineering Handbook, Part 650: Engineering Field Handbook (Chapter 1: Surveying & Volumes)", publisher: "USDA Natural Resources Conservation Service (NRCS)", citation: "United States Department of Agriculture.", url: "https://directives.nrcs.usda.gov/sites/default/files2/1712930938/Part%20650%20-%20Engineering%20Field%20Handbook.pdf" }
     ],
     relatedTools: ["cubic-yard-calculator", "topsoil-calculator", "mulch-calculator", "crushed-stone-calculator"],
@@ -452,7 +452,7 @@ export const guides: GuideDefinition[] = [
     ],
     sources: [
       { title: "ASTM C29 / C29M-23: Standard Test Method for Bulk Density ('Unit Weight') and Voids in Aggregate", publisher: "ASTM International", citation: "West Conshohocken, PA.", url: "https://www.astm.org/c0029_c0029m-23.html" },
-      { title: "Geotechnical Engineering Circular No. 5: Evaluation of Soil and Rock Properties", publisher: "Federal Highway Administration (FHWA)", citation: "U.S. Department of Transportation, Publication FHWA-IF-02-034.", url: "https://www.fhwa.dot.gov/pavement/pub_details.cfm?id=968" }
+      { title: "Geotechnical Engineering Circular No. 5: Evaluation of Soil and Rock Properties", publisher: "Federal Highway Administration (FHWA)", citation: "U.S. Department of Transportation, Publication FHWA-IF-02-034.", url: "https://www.fhwa.dot.gov/engineering/geotech/library_listing.cfm" }
     ],
     relatedTools: ["pea-gravel-calculator", "crushed-stone-calculator", "sand-calculator", "cubic-yard-calculator"],
     relatedGuides: ["cubic-yards-vs-cubic-feet", "gravel-driveway-material-estimation"]
@@ -528,7 +528,7 @@ export const guides: GuideDefinition[] = [
     ],
     sources: [
       { title: "Gravel Roads Construction and Maintenance Guide", publisher: "Federal Highway Administration (FHWA)", citation: "Publication FHWA-FLH-15-004.", url: "https://www.fhwa.dot.gov/pavement/pub_details.cfm?id=968" },
-      { title: "Environmentally Sensitive Maintenance for Dirt and Gravel Roads", publisher: "Penn State Center for Dirt and Gravel Road Studies", citation: "Pennsylvania State University.", url: "https://www.dirtandgravel.psu.edu/" }
+      { title: "Technical Bulletin: Driving Surface Aggregate (DSA) Specifications and Maintenance", publisher: "Penn State Center for Dirt and Gravel Road Studies", citation: "Pennsylvania State University College of Agricultural Sciences.", url: "https://dirtandgravel.psu.edu/wp-content/uploads/Tech-Bulletin_Driving_Surface_Aggregate_2025.pdf" }
     ],
     relatedTools: ["gravel-driveway-calculator", "crushed-stone-calculator", "paver-base-calculator", "cubic-yard-calculator"],
     relatedGuides: ["how-to-calculate-material-weight-bulk-density", "cubic-yards-vs-cubic-feet"]

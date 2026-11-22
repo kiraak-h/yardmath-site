@@ -1,6 +1,23 @@
 import type { CalculatorInput } from "./calculation";
 import type { ToolSlug } from "./tools";
 
+export type WorkedExampleStepCategory =
+  | "surface_area"
+  | "base_volume"
+  | "order_volume"
+  | "packaging_yield"
+  | "total_weight"
+  | "metric_equivalent";
+
+export interface WorkedExampleStep {
+  category: WorkedExampleStepCategory;
+  label: string;
+  formula: string;
+  result: string;
+  explanation: string;
+  packageYieldCuFt?: number;
+}
+
 export interface WorkedExampleFixture {
   slug: ToolSlug;
   title: string;
@@ -18,12 +35,7 @@ export interface WorkedExampleFixture {
     weightMetricTonnes: number | null;
     weightLongTons: number | null;
   };
-  steps: {
-    label: string;
-    formula: string;
-    result: string;
-    explanation: string;
-  }[];
+  steps: WorkedExampleStep[];
   finalSummary: string;
 }
 
@@ -59,11 +71,11 @@ export const workedExampleFixtures: Record<ToolSlug, WorkedExampleFixture> = {
       weightLongTons: 3.00,
     },
     steps: [
-      { label: "1. Surface Area", formula: "20 ft × 15 ft", result: "300 sq ft", explanation: "Calculates the base planar rectangle area." },
-      { label: "2. Base Geometric Volume", formula: "300 sq ft × 3 in ÷ 324", result: "2.778 yd³", explanation: "Neat geometric volume before allowance (75.0 cu ft)." },
-      { label: "3. Volume with 10% Allowance", formula: "2.778 yd³ × 1.10", result: "3.056 yd³", explanation: "Applies user-selected 10% allowance for low spots and settling (82.5 cu ft)." },
-      { label: "4. Retail Bag Estimate (0.75 cu ft)", formula: "82.5 cu ft ÷ 0.75 cu ft/bag", result: "110 bags", explanation: "Rounded up to next whole bag." },
-      { label: "5. Total Delivered Weight", formula: "3.056 yd³ × 2,200 lb/yd³", result: "6,722 lbs (3.36 short tons / 3.00 long tons)", explanation: "Based on moist loam topsoil density of 2,200 lb/yd³ (3.05 metric tonnes)." },
+      { category: "surface_area", label: "1. Surface Area", formula: "20 ft × 15 ft", result: "300 sq ft", explanation: "Calculates the base planar rectangle area." },
+      { category: "base_volume", label: "2. Base Geometric Volume", formula: "300 sq ft × 3 in ÷ 324", result: "2.778 yd³", explanation: "Neat geometric volume before allowance (75.0 cu ft)." },
+      { category: "order_volume", label: "3. Volume with 10% Allowance", formula: "2.778 yd³ × 1.10", result: "3.056 yd³", explanation: "Applies user-selected 10% allowance for low spots and settling (82.5 cu ft)." },
+      { category: "packaging_yield", label: "4. Retail Bag Estimate (0.75 cu ft)", formula: "82.5 cu ft ÷ 0.75 cu ft/bag", result: "110 bags", explanation: "Rounded up to next whole bag.", packageYieldCuFt: 0.75 },
+      { category: "total_weight", label: "5. Total Delivered Weight", formula: "3.056 yd³ × 2,200 lb/yd³", result: "6,722 lbs (3.36 short tons / 3.00 long tons)", explanation: "Based on moist loam topsoil density of 2,200 lb/yd³ (3.05 metric tonnes)." },
     ],
     finalSummary: "Order 3.1 cubic yards in bulk or purchase 110 bags (0.75 cu ft each).",
   },
@@ -99,10 +111,10 @@ export const workedExampleFixtures: Record<ToolSlug, WorkedExampleFixture> = {
       weightLongTons: null,
     },
     steps: [
-      { label: "1. Square Footage", formula: "24 ft × 12 ft", result: "288 sq ft", explanation: "Total horizontal excavation area." },
-      { label: "2. Base Neat Volume", formula: "288 sq ft × 6 in ÷ 324", result: "5.333 yd³", explanation: "Geometric excavation volume (144.0 cu ft)." },
-      { label: "3. Order Volume with 10% Allowance", formula: "5.333 yd³ × 1.10", result: "5.867 yd³", explanation: "Includes 10% allowance for subgrade unevenness (158.4 cu ft)." },
-      { label: "4. Metric Volume Equivalent", formula: "5.867 yd³ × 0.764555", result: "4.485 m³", explanation: "Exact metric equivalent for international specifications." },
+      { category: "surface_area", label: "1. Square Footage", formula: "24 ft × 12 ft", result: "288 sq ft", explanation: "Total horizontal excavation area." },
+      { category: "base_volume", label: "2. Base Neat Volume", formula: "288 sq ft × 6 in ÷ 324", result: "5.333 yd³", explanation: "Geometric excavation volume (144.0 cu ft)." },
+      { category: "order_volume", label: "3. Order Volume with 10% Allowance", formula: "5.333 yd³ × 1.10", result: "5.867 yd³", explanation: "Includes 10% allowance for subgrade unevenness (158.4 cu ft)." },
+      { category: "metric_equivalent", label: "4. Metric Volume Equivalent", formula: "5.867 yd³ × 0.764555", result: "4.485 m³", explanation: "Exact metric equivalent for international specifications." },
     ],
     finalSummary: "Order 5.9 cubic yards (approx. 4.5 cubic metres) of fill or aggregate.",
   },
@@ -138,11 +150,11 @@ export const workedExampleFixtures: Record<ToolSlug, WorkedExampleFixture> = {
       weightLongTons: 1.18,
     },
     steps: [
-      { label: "1. Pathway Area", formula: "30 ft × 4 ft", result: "120 sq ft", explanation: "Plan area of walkway." },
-      { label: "2. Base Volume", formula: "120 sq ft × 2.5 in ÷ 324", result: "0.926 yd³", explanation: "Neat geometric volume (25.0 cu ft)." },
-      { label: "3. Volume with 10% Allowance", formula: "0.926 yd³ × 1.10", result: "1.019 yd³", explanation: "Accounts for grade dips and edging loss (27.5 cu ft)." },
-      { label: "4. Bag Count (0.5 cu ft / 50 lb bags)", formula: "27.5 cu ft ÷ 0.5 cu ft/bag", result: "55 bags", explanation: "Calculates standard retail bag count." },
-      { label: "5. Quarry Weight", formula: "1.019 yd³ × 2,600 lb/yd³", result: "2,648 lbs (1.32 short tons / 1.18 long tons)", explanation: "Based on clean dry pea gravel density of 2,600 lb/yd³ (1.20 metric tonnes)." },
+      { category: "surface_area", label: "1. Pathway Area", formula: "30 ft × 4 ft", result: "120 sq ft", explanation: "Plan area of walkway." },
+      { category: "base_volume", label: "2. Base Volume", formula: "120 sq ft × 2.5 in ÷ 324", result: "0.926 yd³", explanation: "Neat geometric volume (25.0 cu ft)." },
+      { category: "order_volume", label: "3. Volume with 10% Allowance", formula: "0.926 yd³ × 1.10", result: "1.019 yd³", explanation: "Accounts for grade dips and edging loss (27.5 cu ft)." },
+      { category: "packaging_yield", label: "4. Bag Count (0.5 cu ft / 50 lb bags)", formula: "27.5 cu ft ÷ 0.5 cu ft/bag", result: "55 bags", explanation: "Calculates standard retail bag count.", packageYieldCuFt: 0.5 },
+      { category: "total_weight", label: "5. Quarry Weight", formula: "1.019 yd³ × 2,600 lb/yd³", result: "2,648 lbs (1.32 short tons / 1.18 long tons)", explanation: "Based on clean dry pea gravel density of 2,600 lb/yd³ (1.20 metric tonnes)." },
     ],
     finalSummary: "Order 1.0 to 1.1 cubic yards in bulk or 55 retail bags (0.5 cu ft each).",
   },
@@ -178,11 +190,11 @@ export const workedExampleFixtures: Record<ToolSlug, WorkedExampleFixture> = {
       weightLongTons: 1.11,
     },
     steps: [
-      { label: "1. Planting Bed Area", formula: "40 ft × 8 ft", result: "320 sq ft", explanation: "Plan rectangular bed area." },
-      { label: "2. Base Volume", formula: "320 sq ft × 3 in ÷ 324", result: "2.963 yd³", explanation: "Neat geometric volume (80.0 cu ft)." },
-      { label: "3. Volume with 5% Allowance", formula: "2.963 yd³ × 1.05", result: "3.111 yd³", explanation: "Adds 5% for contouring around established plants (84.0 cu ft)." },
-      { label: "4. 2 cu ft Bag Count", formula: "84.0 cu ft ÷ 2 cu ft/bag", result: "42 bags", explanation: "Most popular retail packaging." },
-      { label: "5. 3 cu ft Bag Option", formula: "84.0 cu ft ÷ 3 cu ft/bag", result: "28 bags", explanation: "Alternative large bag count." },
+      { category: "surface_area", label: "1. Planting Bed Area", formula: "40 ft × 8 ft", result: "320 sq ft", explanation: "Plan rectangular bed area." },
+      { category: "base_volume", label: "2. Base Volume", formula: "320 sq ft × 3 in ÷ 324", result: "2.963 yd³", explanation: "Neat geometric volume (80.0 cu ft)." },
+      { category: "order_volume", label: "3. Volume with 5% Allowance", formula: "2.963 yd³ × 1.05", result: "3.111 yd³", explanation: "Adds 5% for contouring around established plants (84.0 cu ft)." },
+      { category: "packaging_yield", label: "4. 2 cu ft Bag Count", formula: "84.0 cu ft ÷ 2 cu ft/bag", result: "42 bags", explanation: "Most popular retail packaging.", packageYieldCuFt: 2.0 },
+      { category: "packaging_yield", label: "5. 3 cu ft Bag Option", formula: "84.0 cu ft ÷ 3 cu ft/bag", result: "28 bags", explanation: "Alternative large bag count.", packageYieldCuFt: 3.0 },
     ],
     finalSummary: "Order 3.2 cubic yards bulk mulch or 42 bags of 2 cu ft (28 bags of 3 cu ft).",
   },
@@ -218,10 +230,10 @@ export const workedExampleFixtures: Record<ToolSlug, WorkedExampleFixture> = {
       weightLongTons: 2.88,
     },
     steps: [
-      { label: "1. Total Garden Area", formula: "3 beds × (12 ft × 4 ft)", result: "144 sq ft", explanation: "Calculates total square footage across 3 identical beds." },
-      { label: "2. Base Volume", formula: "144 sq ft × 6 in ÷ 324", result: "2.667 yd³", explanation: "Base geometric volume (72.0 cu ft)." },
-      { label: "3. Volume with 10% Allowance", formula: "2.667 yd³ × 1.10", result: "2.933 yd³", explanation: "Compensates for soil settling after watering (79.2 cu ft)." },
-      { label: "4. Bag Count (1.5 cu ft bags)", formula: "79.2 cu ft ÷ 1.5 cu ft/bag", result: "53 bags", explanation: "Rounded up to next full bag." },
+      { category: "surface_area", label: "1. Total Garden Area", formula: "3 beds × (12 ft × 4 ft)", result: "144 sq ft", explanation: "Calculates total square footage across 3 identical beds." },
+      { category: "base_volume", label: "2. Base Volume", formula: "144 sq ft × 6 in ÷ 324", result: "2.667 yd³", explanation: "Base geometric volume (72.0 cu ft)." },
+      { category: "order_volume", label: "3. Volume with 10% Allowance", formula: "2.667 yd³ × 1.10", result: "2.933 yd³", explanation: "Compensates for soil settling after watering (79.2 cu ft)." },
+      { category: "packaging_yield", label: "4. Bag Count (1.5 cu ft bags)", formula: "79.2 cu ft ÷ 1.5 cu ft/bag", result: "53 bags", explanation: "Rounded up to next full bag.", packageYieldCuFt: 1.5 },
     ],
     finalSummary: "Order 3.0 cubic yards of bulk soil or purchase 53 retail bags (1.5 cu ft each).",
   },
@@ -257,10 +269,10 @@ export const workedExampleFixtures: Record<ToolSlug, WorkedExampleFixture> = {
       weightLongTons: 1.67,
     },
     steps: [
-      { label: "1. Combined Plan Area", formula: "2 beds × (8 ft × 4 ft)", result: "64 sq ft", explanation: "Interior planter box plan area." },
-      { label: "2. Base Fill Volume", formula: "64 sq ft × 10 in ÷ 324", result: "1.975 yd³", explanation: "Geometric soil volume (53.33 cu ft)." },
-      { label: "3. Order Volume with 5% Allowance", formula: "1.975 yd³ × 1.05", result: "2.074 yd³", explanation: "Accounts for settling after first soak (56.0 cu ft)." },
-      { label: "4. Bag Estimate (1.5 cu ft bags)", formula: "56.0 cu ft ÷ 1.5 cu ft/bag", result: "38 bags", explanation: "Standard bagged organic raised bed mix." },
+      { category: "surface_area", label: "1. Combined Plan Area", formula: "2 beds × (8 ft × 4 ft)", result: "64 sq ft", explanation: "Interior planter box plan area." },
+      { category: "base_volume", label: "2. Base Fill Volume", formula: "64 sq ft × 10 in ÷ 324", result: "1.975 yd³", explanation: "Geometric soil volume (53.33 cu ft)." },
+      { category: "order_volume", label: "3. Order Volume with 5% Allowance", formula: "1.975 yd³ × 1.05", result: "2.074 yd³", explanation: "Accounts for settling after first soak (56.0 cu ft)." },
+      { category: "packaging_yield", label: "4. Bag Estimate (1.5 cu ft bags)", formula: "56.0 cu ft ÷ 1.5 cu ft/bag", result: "38 bags", explanation: "Standard bagged organic raised bed mix.", packageYieldCuFt: 1.5 },
     ],
     finalSummary: "Order 2.1 cubic yards bulk or 38 bags of 1.5 cu ft (19 bags per bed).",
   },
@@ -296,10 +308,10 @@ export const workedExampleFixtures: Record<ToolSlug, WorkedExampleFixture> = {
       weightLongTons: 0.91,
     },
     steps: [
-      { label: "1. Lawn Square Footage", formula: "50 ft × 20 ft", result: "1,000 sq ft", explanation: "Total turf area to topdress." },
-      { label: "2. Base Volume", formula: "1,000 sq ft × 0.5 in ÷ 324", result: "1.543 yd³", explanation: "Neat geometric volume (41.67 cu ft)." },
-      { label: "3. Order Volume with 10% Allowance", formula: "1.543 yd³ × 1.10", result: "1.698 yd³", explanation: "Accounts for raking variance and settling into turf canopy (45.83 cu ft)." },
-      { label: "4. Bag Count (1.0 cu ft bags)", formula: "45.83 cu ft ÷ 1.0 cu ft/bag", result: "46 bags", explanation: "Standard bag count rounded up." },
+      { category: "surface_area", label: "1. Lawn Square Footage", formula: "50 ft × 20 ft", result: "1,000 sq ft", explanation: "Total turf area to topdress." },
+      { category: "base_volume", label: "2. Base Volume", formula: "1,000 sq ft × 0.5 in ÷ 324", result: "1.543 yd³", explanation: "Neat geometric volume (41.67 cu ft)." },
+      { category: "order_volume", label: "3. Order Volume with 10% Allowance", formula: "1.543 yd³ × 1.10", result: "1.698 yd³", explanation: "Accounts for raking variance and settling into turf canopy (45.83 cu ft)." },
+      { category: "packaging_yield", label: "4. Bag Count (1.0 cu ft bags)", formula: "45.83 cu ft ÷ 1.0 cu ft/bag", result: "46 bags", explanation: "Standard bag count rounded up.", packageYieldCuFt: 1.0 },
     ],
     finalSummary: "Order 1.7 cubic yards in bulk or 46 retail bags (1.0 cu ft each).",
   },
@@ -335,11 +347,11 @@ export const workedExampleFixtures: Record<ToolSlug, WorkedExampleFixture> = {
       weightLongTons: 0.79,
     },
     steps: [
-      { label: "1. Screed Area", formula: "16 ft × 12 ft", result: "192 sq ft", explanation: "Plan patio surface area." },
-      { label: "2. Base Volume", formula: "192 sq ft × 1.0 in ÷ 324", result: "0.593 yd³", explanation: "Neat geometric bedding sand volume (16.0 cu ft)." },
-      { label: "3. Volume with 10% Allowance", formula: "0.593 yd³ × 1.10", result: "0.652 yd³", explanation: "Accounts for screed guide waste and minor subbase dips (17.6 cu ft)." },
-      { label: "4. Quarry Weight", formula: "0.652 yd³ × 2,700 lb/yd³", result: "1,760 lbs (0.88 short tons / 0.79 long tons)", explanation: "Based on dry ASTM C33 sand density of 2,700 lb/yd³ (0.80 metric tonnes)." },
-      { label: "5. 50 lb Bag Count (0.45 cu ft yield)", formula: "17.6 cu ft ÷ 0.45 cu ft/bag", result: "40 bags", explanation: "Retail 50 lb bag estimate rounded up." },
+      { category: "surface_area", label: "1. Screed Area", formula: "16 ft × 12 ft", result: "192 sq ft", explanation: "Plan patio surface area." },
+      { category: "base_volume", label: "2. Base Volume", formula: "192 sq ft × 1.0 in ÷ 324", result: "0.593 yd³", explanation: "Neat geometric bedding sand volume (16.0 cu ft)." },
+      { category: "order_volume", label: "3. Volume with 10% Allowance", formula: "0.593 yd³ × 1.10", result: "0.652 yd³", explanation: "Accounts for screed guide waste and minor subbase dips (17.6 cu ft)." },
+      { category: "total_weight", label: "4. Quarry Weight", formula: "0.652 yd³ × 2,700 lb/yd³", result: "1,760 lbs (0.88 short tons / 0.79 long tons)", explanation: "Based on dry ASTM C33 sand density of 2,700 lb/yd³ (0.80 metric tonnes)." },
+      { category: "packaging_yield", label: "5. 50 lb Bag Count (0.45 cu ft yield)", formula: "17.6 cu ft ÷ 0.45 cu ft/bag", result: "40 bags", explanation: "Retail 50 lb bag estimate rounded up.", packageYieldCuFt: 0.45 },
     ],
     finalSummary: "Order 0.7 cubic yards in bulk or purchase 40 bags (50 lb each).",
   },
@@ -347,8 +359,8 @@ export const workedExampleFixtures: Record<ToolSlug, WorkedExampleFixture> = {
   "paver-base-calculator": {
     slug: "paver-base-calculator",
     title: "Walkway Paver Base Geometric Worked Example",
-    scenario: "Preparing the subbase for an 8 ft × 20 ft walkway. Adding 6 inches of perimeter over-excavation yields a 9 ft × 21 ft footprint (189 sq ft) at 4 inches finished compacted depth. A manual 20% allowance is applied in the calculator settings to account for compaction volume reduction and spillage.",
-    dimensionsDescription: "189 sq ft over-dug area × 4 in depth, 20% manual compaction allowance",
+    scenario: "Preparing the subbase for an 8 ft × 20 ft walkway. Adding 6 inches of perimeter over-excavation yields a 9 ft × 21 ft footprint (189 sq ft) at 4 inches finished compacted depth (the CMHA PAV-TEC-002 pedestrian minimum on well-drained soil). An illustrative 20% manual planning allowance is entered in calculator settings to account for compaction volume reduction and spillage.",
+    dimensionsDescription: "189 sq ft over-dug area × 4 in depth, 20% illustrative manual allowance",
     input: {
       shape: "rectangle",
       system: "imperial",
@@ -375,11 +387,11 @@ export const workedExampleFixtures: Record<ToolSlug, WorkedExampleFixture> = {
       weightLongTons: 3.50,
     },
     steps: [
-      { label: "1. Over-Dug Plan Area", formula: "9 ft × 21 ft", result: "189 sq ft", explanation: "Includes 6-inch perimeter base extension for edge restraints." },
-      { label: "2. Compacted Neat Geometric Volume", formula: "189 sq ft × 4 in ÷ 324", result: "2.333 yd³", explanation: "Target geometric finished base volume (63.0 cu ft)." },
-      { label: "3. Loose Order Volume (20% Manual Allowance)", formula: "2.333 yd³ × 1.20", result: "2.800 yd³", explanation: "Calculated via user-selected 20% allowance input to account for mechanical compaction consolidation (75.6 cu ft)." },
-      { label: "4. Total Delivered Weight", formula: "2.800 yd³ × 2,800 lb/yd³", result: "7,840 lbs (3.92 short tons / 3.50 long tons)", explanation: "Based on dense-graded aggregate density of 2,800 lb/yd³ (3.56 metric tonnes)." },
-      { label: "5. Metric Equivalent", formula: "2.800 yd³ × 0.764555", result: "2.141 m³", explanation: "Equivalent loose metric volume." },
+      { category: "surface_area", label: "1. Over-Dug Plan Area", formula: "9 ft × 21 ft", result: "189 sq ft", explanation: "Includes 6-inch perimeter base extension for edge restraints." },
+      { category: "base_volume", label: "2. Compacted Neat Geometric Volume", formula: "189 sq ft × 4 in ÷ 324", result: "2.333 yd³", explanation: "Target geometric finished base volume (63.0 cu ft)." },
+      { category: "order_volume", label: "3. Loose Order Volume (20% Manual Allowance)", formula: "2.333 yd³ × 1.20", result: "2.800 yd³", explanation: "Calculated via user-selected 20% illustrative allowance input to account for mechanical compaction consolidation (75.6 cu ft)." },
+      { category: "total_weight", label: "4. Total Delivered Weight", formula: "2.800 yd³ × 2,800 lb/yd³", result: "7,840 lbs (3.92 short tons / 3.50 long tons)", explanation: "Based on dense-graded aggregate density of 2,800 lb/yd³ (3.56 metric tonnes)." },
+      { category: "metric_equivalent", label: "5. Metric Equivalent", formula: "2.800 yd³ × 0.764555", result: "2.141 m³", explanation: "Equivalent loose metric volume." },
     ],
     finalSummary: "Order 2.8 cubic yards (approx. 3.9 US short tons / 3.5 UK long tons / 3.6 metric tonnes) of dense-graded road base (#411 / Crusher Run).",
   },
@@ -415,10 +427,10 @@ export const workedExampleFixtures: Record<ToolSlug, WorkedExampleFixture> = {
       weightLongTons: 5.89,
     },
     steps: [
-      { label: "1. Driveway Plan Area", formula: "60 ft × 12 ft", result: "720 sq ft", explanation: "Plan surface area." },
-      { label: "2. Single-Layer Base Volume", formula: "720 sq ft × 2 in ÷ 324", result: "4.444 yd³", explanation: "Geometric volume for this single layer (120.0 cu ft)." },
-      { label: "3. Volume with 10% Allowance", formula: "4.444 yd³ × 1.10", result: "4.889 yd³", explanation: "Applies 10% allowance for subgrade unevenness (132.0 cu ft)." },
-      { label: "4. Quarry Weight in Tons", formula: "4.889 yd³ × 2,700 lb/yd³", result: "13,200 lbs (6.60 short tons / 5.89 long tons)", explanation: "Based on clean crushed limestone density of 2,700 lb/yd³ (5.99 metric tonnes)." },
+      { category: "surface_area", label: "1. Driveway Plan Area", formula: "60 ft × 12 ft", result: "720 sq ft", explanation: "Plan surface area." },
+      { category: "base_volume", label: "2. Single-Layer Base Volume", formula: "720 sq ft × 2 in ÷ 324", result: "4.444 yd³", explanation: "Geometric volume for this single layer (120.0 cu ft)." },
+      { category: "order_volume", label: "3. Volume with 10% Allowance", formula: "4.444 yd³ × 1.10", result: "4.889 yd³", explanation: "Applies 10% allowance for subgrade unevenness (132.0 cu ft)." },
+      { category: "total_weight", label: "4. Quarry Weight in Tons", formula: "4.889 yd³ × 2,700 lb/yd³", result: "13,200 lbs (6.60 short tons / 5.89 long tons)", explanation: "Based on clean crushed limestone density of 2,700 lb/yd³ (5.99 metric tonnes)." },
     ],
     finalSummary: "Order 4.9 cubic yards (approx. 6.6 US short tons / 5.9 UK long tons / 6.0 metric tonnes) of #57 driveway gravel.",
   },
@@ -454,11 +466,11 @@ export const workedExampleFixtures: Record<ToolSlug, WorkedExampleFixture> = {
       weightLongTons: 3.54,
     },
     steps: [
-      { label: "1. Slab Surface Area", formula: "12 ft × 12 ft", result: "144 sq ft", explanation: "Internal formwork plan area." },
-      { label: "2. Base Neat Volume", formula: "144 sq ft × 4 in ÷ 324", result: "1.778 yd³", explanation: "Geometric concrete volume (48.0 cu ft)." },
-      { label: "3. Volume with 10% Allowance", formula: "1.778 yd³ × 1.10", result: "1.956 yd³", explanation: "Compensates for subgrade dips and formwork bulge (52.8 cu ft)." },
-      { label: "4. 80 lb Bags (0.60 cu ft yield)", formula: "52.8 cu ft ÷ 0.60 cu ft/bag", result: "88 bags", explanation: "Based on manufacturer printed yield for standard 80 lb dry mix." },
-      { label: "5. 60 lb Bag Option (0.45 cu ft yield)", formula: "52.8 cu ft ÷ 0.45 cu ft/bag", result: "118 bags", explanation: "Alternative bag count using manufacturer printed yield of 0.45 cu ft per 60 lb bag." },
+      { category: "surface_area", label: "1. Slab Surface Area", formula: "12 ft × 12 ft", result: "144 sq ft", explanation: "Internal formwork plan area." },
+      { category: "base_volume", label: "2. Base Neat Volume", formula: "144 sq ft × 4 in ÷ 324", result: "1.778 yd³", explanation: "Geometric concrete volume (48.0 cu ft)." },
+      { category: "order_volume", label: "3. Volume with 10% Allowance", formula: "1.778 yd³ × 1.10", result: "1.956 yd³", explanation: "Compensates for subgrade dips and formwork bulge (52.8 cu ft)." },
+      { category: "packaging_yield", label: "4. 80 lb Bags (0.60 cu ft yield)", formula: "52.8 cu ft ÷ 0.60 cu ft/bag", result: "88 bags", explanation: "Based on manufacturer printed yield for standard 80 lb dry mix.", packageYieldCuFt: 0.60 },
+      { category: "packaging_yield", label: "5. 60 lb Bag Option (0.45 cu ft yield)", formula: "52.8 cu ft ÷ 0.45 cu ft/bag", result: "118 bags", explanation: "Alternative bag count using manufacturer printed yield of 0.45 cu ft per 60 lb bag.", packageYieldCuFt: 0.45 },
     ],
     finalSummary: "Order 2.0 cubic yards of ready-mix concrete, or purchase 88 bags of 80 lb mix (118 bags of 60 lb mix).",
   },
@@ -494,10 +506,10 @@ export const workedExampleFixtures: Record<ToolSlug, WorkedExampleFixture> = {
       weightLongTons: 4.09,
     },
     steps: [
-      { label: "1. Foundation Pad Area", formula: "25 ft × 10 ft", result: "250 sq ft", explanation: "Plan rectangular shed footprint." },
-      { label: "2. Base Volume", formula: "250 sq ft × 4 in ÷ 324", result: "3.086 yd³", explanation: "Neat geometric volume (83.33 cu ft)." },
-      { label: "3. Order Volume with 10% Allowance", formula: "3.086 yd³ × 1.10", result: "3.395 yd³", explanation: "Accounts for ground slope and edge spillage (91.67 cu ft)." },
-      { label: "4. Quarry Weight in Tons", formula: "3.395 yd³ × 2,700 lb/yd³", result: "9,167 lbs (4.58 short tons / 4.09 long tons)", explanation: "Based on clean #57 crushed limestone density of 2,700 lb/yd³ (4.16 metric tonnes)." },
+      { category: "surface_area", label: "1. Foundation Pad Area", formula: "25 ft × 10 ft", result: "250 sq ft", explanation: "Plan rectangular shed footprint." },
+      { category: "base_volume", label: "2. Base Volume", formula: "250 sq ft × 4 in ÷ 324", result: "3.086 yd³", explanation: "Neat geometric volume (83.33 cu ft)." },
+      { category: "order_volume", label: "3. Order Volume with 10% Allowance", formula: "3.086 yd³ × 1.10", result: "3.395 yd³", explanation: "Accounts for ground slope and edge spillage (91.67 cu ft)." },
+      { category: "total_weight", label: "4. Quarry Weight in Tons", formula: "3.395 yd³ × 2,700 lb/yd³", result: "9,167 lbs (4.58 short tons / 4.09 long tons)", explanation: "Based on clean #57 crushed limestone density of 2,700 lb/yd³ (4.16 metric tonnes)." },
     ],
     finalSummary: "Order 3.4 cubic yards (approx. 4.6 US short tons / 4.1 UK long tons / 4.2 metric tonnes) of clean crushed stone.",
   },
