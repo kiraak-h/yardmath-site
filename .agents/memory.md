@@ -56,6 +56,13 @@
   - Executed Lighthouse lab audit on production build: 100 Performance, 100 Accessibility, 100 Best Practices, 66 SEO (staging guard), 100 Agentic Browsing (`scratch/lighthouse-topsoil-final.report.*`).
   - Updated `FINAL_SEARCH_INTEGRITY_REPORT.md` with all empirical results and pre-launch guidance.
 - [x] Step 28: Git stage, commit, and push final changes to `main`.
+- [x] Step 29: Resolution of independent review discrepancies:
+  - Fixed source audit: Replaced broken USBR 404 URL with USACE Engineer Manual EM 1110-1-1005 (Chapter 8: Earthwork Volume Computations); mapped generic homepages to exact publication links (CMHA PAV-TEC-002 & 004, NSSGA/SME Aggregates Handbook, USDA NRCS NEH Part 650, Cornell turfgrass, RHS garden plan). Audit totals: 40 HTTP 200, 2 HTTP 403 (Cloudflare bot challenge on ASLA and USCC, verified indeterminate), 0 HTTP 404.
+  - Concrete Calculator: Removed universal 4.0" (3.5" for 2x4s) minimum and 3,500+ PSI prescriptions; explained dressed 2x4 form boards (3.5") set perimeter pour height rather than structural suitability; qualified thickness and strength by local code, exposure, subgrade, and loads; accurately cited ACI 302.1R-15 and PCA EB001.
+  - Paver Base Calculator: Described 18%–20% compaction allowance as an optional planning assumption to verify with suppliers; linked CMHA PAV-TEC-004 directly; noted ASTM D2940 governs aggregate grading and quality rather than shrinkage percentage.
+  - Strengthened Content & Calculation Tests: Expanded `src/lib/content-validation.test.ts` to 42 tests (52 total across project). Validates every displayed step against calculation engine, tests benchmark single values and both range endpoints ($324 / D_{max}$ and $324 / D_{min}$), and tests rejection of invalid/non-finite inputs (NaN, Infinity, negative, zero dimensions, invalid quantities/allowances) with zero network calls.
+  - Matched Lighthouse metrics in `FINAL_SEARCH_INTEGRITY_REPORT.md` to committed JSON artifact (`scratch/lighthouse-topsoil-final.report.json`: FCP: 1.2s, LCP: 1.2s, TBT: 60ms, CLS: 0.000, Speed Index: 1.2s, single-route mobile emulation). Qualified automated accessibility vs universal WCAG and noted SEO requires live domain check after `NEXT_PUBLIC_SITE_URL` deployment.
+  - Verified clean `npm run verify` pipeline (ESLint clean, TypeScript clean, 52/52 Vitest passed, Next.js build 34/34 static prerendered).
 
 ## Burn Book (Updated)
 - Next.js Turbopack Route Validation: When deleting an existing App Router directory (e.g. `src/app/guides/how-to-measure-landscaping-materials/`), Next.js caches route validators in `.next/types/validator.ts`. Run `Remove-Item -Recurse -Force .next` prior to `tsc --noEmit` to clear stale route validator references.

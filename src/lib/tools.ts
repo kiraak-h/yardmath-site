@@ -178,7 +178,7 @@ export const tools: ToolDefinition[] = [
       }
     ],
     authoritativeSources: [
-      { organization: "Cornell Cooperative Extension", standardOrDocument: "Lawn Care Guidelines: Topdressing and Soil Health", citation: "Cornell University College of Agriculture and Life Sciences.", url: "https://turf.cals.cornell.edu/" },
+      { organization: "Cornell University Turfgrass Program", standardOrDocument: "Lawn Care: The Easiest Steps to an Attractive Environmental Asset", citation: "Cornell University College of Agriculture and Life Sciences.", url: "https://turf.cals.cornell.edu/lawn/lawn-care-the-easiest-steps-to-an-attractive-environmental-asset/" },
       { organization: "Penn State Extension", standardOrDocument: "Agronomy Facts 62: Soil Amendments and Turfgrass Establishment", citation: "Pennsylvania State University.", url: "https://extension.psu.edu/lawn-establishment" }
     ],
     faqs: [
@@ -271,7 +271,7 @@ export const tools: ToolDefinition[] = [
     ],
     authoritativeSources: [
       { organization: "National Institute of Standards and Technology (NIST)", standardOrDocument: "Handbook 44: Specifications and Tolerances for Measuring Devices", citation: "U.S. Department of Commerce.", url: "https://www.nist.gov/pml/weights-and-measures/publications/nist-handbooks" },
-      { organization: "Bureau of Reclamation", standardOrDocument: "Earth Manual: Earth Materials and Measurement Principles", citation: "U.S. Department of the Interior.", url: "https://www.usbr.gov/tsc/techreferences/manualsandguidelines/manuals.html" }
+      { organization: "U.S. Army Corps of Engineers (USACE)", standardOrDocument: "Engineer Manual EM 1110-1-1005: Control and Topographic Surveying (Chapter 8: Earthwork Volume Computations)", citation: "Washington, DC.", url: "https://www.publications.usace.army.mil/portals/76/publications/engineermanuals/em_1110-1-1005.pdf" }
     ],
     faqs: [
       { question: "How many cubic feet are in a cubic yard?", answer: "There are exactly 27 cubic feet in one cubic yard (3 ft × 3 ft × 3 ft = 27 cu ft)." },
@@ -818,7 +818,7 @@ export const tools: ToolDefinition[] = [
     ],
     authoritativeSources: [
       { organization: "ASTM International", standardOrDocument: "ASTM C33 / C33M-23: Standard Specification for Concrete Aggregates (Fine Aggregate)", citation: "West Conshohocken, PA.", url: "https://www.astm.org/c0033_c0033m-23.html" },
-      { organization: "Interlocking Concrete Pavement Institute (ICPI)", standardOrDocument: "Tech Spec 2: Construction of Interlocking Concrete Pavements", citation: "Chantilly, VA.", url: "https://masonryandhardscapes.org/" }
+      { organization: "Concrete Masonry & Hardscapes Association (CMHA)", standardOrDocument: "Tech Spec 2 (PAV-TEC-002): Construction of Interlocking Concrete Pavements", citation: "Herndon, VA.", url: "https://www.cmha.org/resource/pav-tec-002/" }
     ],
     faqs: [
       { question: "How many 50 lb bags of sand are in a cubic yard?", answer: "Dry sand weighs approximately 2,700 lbs per cubic yard. It takes 54 fifty-pound bags to equal one cubic yard (27 cubic feet)." },
@@ -840,20 +840,20 @@ export const tools: ToolDefinition[] = [
     category: "Stone & aggregate",
     metaTitle: "Paver Base Calculator | Geometric Volume & Allowance Estimator",
     metaDescription: "Calculate geometric volume for patio and walkway aggregate base layers. Enter dimensions and depth, then apply your chosen allowance for loose-to-compacted ordering.",
-    description: "Estimate geometric volume for a patio, walkway, or paver base layer. Enter project dimensions and depth, then apply a manual allowance (such as 18%–20% for dense-graded aggregate compaction) to determine loose order quantities.",
+    description: "Estimate geometric volume for a patio, walkway, or paver base layer from entered dimensions and design thickness. Users can apply an optional manual allowance based on project specifications or supplier recommendations to plan for loose-to-compacted bulk ordering.",
     cardDescription: "Estimate aggregate quantities for patios, paths and paver foundations.",
     icon: "▦",
     material: "Paver base aggregate",
     bestFor: ["Patio foundations", "Walkway base layers", "Paver project material planning"],
-    formula: "Length (ft) × Width (ft) × Depth (in) ÷ 324 = Base Geometric Volume (yd³). Loose Order Volume = Base Volume × (1 + Allowance% ÷ 100). (Set Allowance to 18%–20% for dense-graded aggregate compaction).",
+    formula: "Length (ft) × Width (ft) × Depth (in) ÷ 324 = Neat Geometric Volume (yd³). Estimated Order Volume = Geometric Volume × (1 + Allowance% ÷ 100). (Confirm compaction and waste allowances with your aggregate supplier or project specifications).",
     howTo: [
       "Measure your patio or walkway plan area, adding 6 inches of over-excavation beyond the paver edge on all sides.",
       "Enter design compacted depth (4 inches for walkways/patios; 6 to 8 inches for residential driveways).",
-      "Include a compaction and spillage allowance (typically 18% to 20% for dense-graded Crusher Run / road base).",
+      "Optionally include a planning allowance (confirm recommended loose-to-compacted factor with your supplier).",
       "Review the loose order volume in cubic yards and weight in short tons."
     ],
     quickAnswer: {
-      directAnswer: "Residential patios and walkways over granular subgrades typically specify a minimum compacted base depth of 4 inches (10 cm) of dense-graded aggregate (ASTM D2940 Crusher Run / road base) per ICPI guidelines. This tool calculates neat geometric volume from your input dimensions; because aggregate consolidates under vibratory plate compaction, apply a loose-to-compacted allowance (typically 18% to 20%) in the project allowance field to determine order quantities. 1 loose cubic yard covers 81 sq ft at 4 inches before mechanical compaction.",
+      directAnswer: "CMHA (formerly ICPI) guidelines for pedestrian walkways and residential patios on suitable subgrades commonly specify a minimum 4-inch (10 cm) compacted base of dense-graded aggregate conforming to ASTM D2940 grading specifications. This calculator determines neat geometric volume from plan dimensions and design depth (81.0 sq ft per cubic yard at 4 inches). Because vibratory plate compaction reduces loose aggregate bulk volume, aggregate suppliers often suggest a planning allowance (commonly estimated at 15% to 20% depending on rock gradation and moisture); confirm exact compaction and delivery factors with your quarry.",
       ruleOfThumb: "A 200 sq ft patio at 4 inches depth requires 2.47 cubic yards of neat base. Applying a 20% manual compaction allowance indicates ordering 2.96 cubic yards of loose aggregate (approx. 4.1 tons).",
       tableCaption: "Paver Base Depth & Geometric Coverage Benchmarks (Neat Volume)",
       benchmarkTable: [
@@ -866,7 +866,7 @@ export const tools: ToolDefinition[] = [
     formulaExplanation: {
       usCustomary: "Base Volume (yd³) = Area (ft²) × Depth (in) ÷ 324. Order Volume = Base Volume × (1 + Allowance% ÷ 100)",
       metric: "Base Volume (m³) = Area (m²) × Depth (cm) ÷ 100. Order Volume = Base Volume × (1 + Allowance% ÷ 100)",
-      dimensionalExplanation: "The calculator computes exact neat geometric volume from your input dimensions. To account for plate compaction shrinkage (which typically compresses dense-graded road base by 15% to 20%), apply the loose-to-compacted factor by setting the project Allowance to 18% or 20% in the calculator settings.",
+      dimensionalExplanation: "The calculator computes exact neat geometric volume from your input dimensions. Compaction behavior varies with aggregate gradation, moisture, and compaction effort (ASTM D2940 governs grading and quality requirements, not a fixed shrinkage percentage). Users planning for vibratory compaction should enter an optional allowance in calculator settings based on supplier or site specifications.",
       circleNote: "For round patios: Area = π × [(Diameter + 1.0 ft over-excavation) ÷ 2]².",
       triangleNote: "For triangular layouts: Area = (Base × Height) ÷ 2."
     },
@@ -880,7 +880,7 @@ export const tools: ToolDefinition[] = [
     inputsGuide: {
       lengthWidth: "Always extend your base area 6 inches beyond the paver perimeter on all sides to anchor edge restraints firmly.",
       depthGuidance: "Compact base in lifts no thicker than 2 inches at a time; plate compactors cannot consolidate thicker lifts thoroughly.",
-      allowanceRecommendation: "Use an 18% to 20% compaction allowance for dense-graded aggregate; use 5% for washed open-graded base.",
+      allowanceRecommendation: "Contractors commonly enter a 15% to 20% planning allowance for dense-graded base compaction, or 5% to 10% for open-graded drainage stone. Confirm exact compaction shrinkage factors with your material supplier.",
       packagingGuidance: "Base material is sold loose by the ton from quarries or in 50 lb bags at home centers (approx. 0.45 cu ft each)."
     },
     materialSpecifics: {
@@ -901,13 +901,13 @@ export const tools: ToolDefinition[] = [
         prevention: "Spread and compact the base aggregate in sequential 2-inch lifts, running the compactor 3 to 4 times per lift."
       },
       {
-        mistake: "Omitting the compaction factor when ordering",
-        impact: "Homeowners order exact geometric volume and find themselves 20% short of stone after compacting.",
-        prevention: "Always multiply compacted geometric volume by 1.20 to calculate loose delivery quantities."
+        mistake: "Omitting an allowance for compaction and jobsite variation",
+        impact: "Ordering exact neat geometric volume without an allowance can leave a project short after mechanical plate compaction consolidates loose aggregate.",
+        prevention: "Consult your aggregate supplier for the loose-to-compacted yield ratio of their material and set the calculator allowance accordingly."
       }
     ],
     authoritativeSources: [
-      { organization: "Interlocking Concrete Pavement Institute (ICPI)", standardOrDocument: "Tech Spec 4: Structural Design of Interlocking Concrete Pavements", citation: "Chantilly, VA.", url: "https://masonryandhardscapes.org/" },
+      { organization: "Concrete Masonry & Hardscapes Association (CMHA)", standardOrDocument: "Tech Spec 4 (PAV-TEC-004): Structural Design of Interlocking Concrete Pavements", citation: "Herndon, VA.", url: "https://www.cmha.org/resource/pav-tec-004/" },
       { organization: "ASTM International", standardOrDocument: "ASTM D2940 / D2940M-20: Standard Specification for Graded Aggregate Material for Bases or Subbases", citation: "West Conshohocken, PA.", url: "https://www.astm.org/d2940_d2940m-20.html" }
     ],
     faqs: [
@@ -1028,17 +1028,17 @@ export const tools: ToolDefinition[] = [
     formula: "Length (ft) × Width (ft) × Thickness (in) ÷ 324 = Cubic Yards. Bag count is calculated by dividing total cubic feet by the manufacturer's printed bag yield (e.g. 0.60 cu ft for 80 lb; 0.45 cu ft for 60 lb).",
     howTo: [
       "Measure internal formwork length and width in feet (use cylinder mode for round sonotubes/post holes).",
-      "Enter exact pour thickness in inches (remember: a 2x4 form board has an actual depth of 3.5 inches).",
+      "Enter the engineered pour thickness in inches based on your project requirements (note: nominal 2x4 form lumber measures 3.5 inches dressed, which sets form edge height rather than determining structural thickness).",
       "Include a 10% allowance for formwork deflection, subgrade dips, and spillage.",
       "Review the total in cubic yards, cubic metres, or bags by entering your bag's printed volumetric yield (e.g. 0.60 cu ft for 80 lb; 0.45 cu ft for 60 lb) into the Pack Volume field."
     ],
     quickAnswer: {
-      directAnswer: "Residential concrete slabs require a minimum thickness of 4.0 inches (3.5 inches if framed with standard dressed 2x4s) of 3,500+ PSI concrete. Multiply slab length (ft) by width (ft) by thickness (in) and divide by 324 to find cubic yards. One cubic yard covers 81 sq ft at 4 inches thick. At standard bag yields (0.60 cu ft for 80 lb; 0.45 cu ft for 60 lb), 1 cubic yard requires 45 eighty-pound bags or 60 sixty-pound bags; enter your bag's printed yield to calculate exact package quantities.",
+      directAnswer: "For common illustrative residential slabs (such as garden walkways or light patios), a nominal 4.0-inch pour thickness is frequently modeled, yielding 81.0 sq ft per cubic yard. However, actual slab thickness and compressive strength (commonly 2,500 to 4,000+ PSI) must be specified based on local building code, subgrade bearing support, intended vehicle or equipment loads, and environmental exposure. Multiply slab length (ft) by width (ft) by thickness (in) and divide by 324 to calculate neat cubic yards. At standard bag yields (0.60 cu ft for 80 lb; 0.45 cu ft for 60 lb), 1 cubic yard requires 45 eighty-pound bags or 60 sixty-pound bags; enter your bag's printed yield to calculate exact package quantities.",
       ruleOfThumb: "A standard 10 ft × 10 ft patio slab at 4 inches thick (100 sq ft) requires 1.23 cubic yards of concrete (or 1.36 cubic yards with a 10% allowance, requiring 62 eighty-pound bags).",
       tableCaption: "Concrete Slab Volume & Bag Yield Benchmarks",
       benchmarkTable: [
-        { depth: "3.5 inches (8.9 cm)", coverageSqFt: "92.6 sq ft / yd³", coverageSqM: "8.6 m² / yd³", typicalUse: "Framed with dressed 2x4 lumber; light walkways" },
-        { depth: "4.0 inches (10.2 cm)", coverageSqFt: "81.0 sq ft / yd³", coverageSqM: "7.5 m² / yd³", typicalUse: "Standard residential patio & shed pad" },
+        { depth: "3.5 inches (8.9 cm)", coverageSqFt: "92.6 sq ft / yd³", coverageSqM: "8.6 m² / yd³", typicalUse: "Common form height using dressed 2x4 edge lumber; illustrative light garden paths where permitted by local code" },
+        { depth: "4.0 inches (10.2 cm)", coverageSqFt: "81.0 sq ft / yd³", coverageSqM: "7.5 m² / yd³", typicalUse: "Illustrative residential patio, walkway, or light shed pad (verify local code and subgrade bearing)" },
         { depth: "5.0 inches (12.7 cm)", coverageSqFt: "64.8 sq ft / yd³", coverageSqM: "6.0 m² / yd³", typicalUse: "Passenger vehicle residential driveway" },
         { depth: "6.0 inches (15.2 cm)", coverageSqFt: "54.0 sq ft / yd³", coverageSqM: "5.0 m² / yd³", typicalUse: "Heavy RV parking pad, workshop floor, reinforced slab" },
         { depth: "8.0 to 12.0 inches", coverageSqFt: "27.0 to 40.5 sq ft / yd³", coverageSqM: "2.5 to 3.8 m²", typicalUse: "Commercial equipment footers & grade beams" }
@@ -1060,21 +1060,21 @@ export const tools: ToolDefinition[] = [
     },
     inputsGuide: {
       lengthWidth: "Measure the inside faces of your wooden form boards. Form boards must be securely braced with wooden stakes every 2 feet.",
-      depthGuidance: "Remember dimensional lumber sizes: a standard 2x4 is 3.5 inches wide, producing a 3.5-inch slab unless excavation dips below the board.",
+      depthGuidance: "Formwork dimensions establish the perimeter pour height, not the engineered suitability of the slab. Dressed 2x4 lumber measures 3.5 inches; specify slab thickness based on structural loading, subgrade conditions, and local code rather than form board size alone.",
       allowanceRecommendation: "Always add 10% for concrete slabs. Running short by 1 wheelbarrow load ruins a pour, creating unsightly cold joints.",
       packagingGuidance: "Standard bag yields: an 80 lb bag yields 0.60 cu ft; a 60 lb bag yields 0.45 cu ft; a 50 lb bag yields 0.375 cu ft."
     },
     materialSpecifics: {
       compactionBehavior: "Fresh wet concrete does not compress like soil, but internal air pockets must be consolidated with a screed and bull float to eliminate honeycombing.",
       moistureAndWeight: "Cured standard concrete weighs approximately 145 to 150 lb/cu ft (3,900 to 4,050 lb/yd³ or 2,400 kg/m³).",
-      subgradePreparation: "Never pour concrete directly over loose topsoil or mud; pour over a minimum 4-inch compacted crushed stone base with vapor barrier.",
+      subgradePreparation: "Never pour concrete directly over uncompacted subgrade, topsoil, or organic matter; ACI 302.1R emphasizes a uniform, well-drained, compacted granular subbase to provide consistent slab support and prevent uneven settlement.",
       orderingRule: "For projects requiring more than 1.5 cubic yards (68 bags of 80 lb), order ready-mix delivery by truck to avoid mixing fatigue."
     },
     commonMistakes: [
       {
-        mistake: "Assuming a 2x4 form board produces a 4.0-inch slab",
-        impact: "Dressed 2x4s are actually 3.5 inches wide. Assuming 4 inches results in 14% excess concrete delivered.",
-        prevention: "Check the exact lumber dimension and measure depth from sub-base to top of form board."
+        mistake: "Assuming a 2x4 form board establishes an engineered 4.0-inch slab",
+        impact: "Dressed 2x4s are 3.5 inches wide. Relying on form height alone without excavating or blocking yields a 3.5-inch pour that may fall short of 4-inch code or structural specifications.",
+        prevention: "Set form elevation to achieve your engineered slab depth, measuring from the compacted subbase to the top screed line."
       },
       {
         mistake: "Ordering exact volume with zero allowance",
@@ -1180,7 +1180,7 @@ export const tools: ToolDefinition[] = [
     ],
     authoritativeSources: [
       { organization: "ASTM International", standardOrDocument: "ASTM D448-12(2022): Standard Classification for Sizes of Aggregate for Road and Bridge Construction", citation: "West Conshohocken, PA.", url: "https://www.astm.org/d0448-12r22.html" },
-      { organization: "National Stone, Sand & Gravel Association (NSSGA)", standardOrDocument: "Aggregate Handbook: Gradation, Physical Properties and Uses", citation: "Alexandria, VA.", url: "https://www.nssga.org/" }
+      { organization: "National Stone, Sand & Gravel Association (NSSGA) / SME", standardOrDocument: "The Aggregates Handbook (2nd Edition): Gradation, Physical Properties and Structural Design", citation: "Society for Mining, Metallurgy, and Exploration / NSSGA.", url: "https://www.smenet.org/docs/public/aggregateshandbooksellsheet.pdf" }
     ],
     faqs: [
       { question: "How many tons is 1 cubic yard of crushed stone?", answer: "One cubic yard of crushed stone typically weighs between 1.35 and 1.45 short tons (2,700 to 2,900 lbs). A safe planning estimate is 1.4 tons per cubic yard." },

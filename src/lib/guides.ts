@@ -124,7 +124,7 @@ export const guides: GuideDefinition[] = [
     ],
     sources: [
       { title: "Agronomy Facts 62: Estimating Soil and Amendment Quantities", publisher: "Penn State Extension", citation: "Pennsylvania State University College of Agricultural Sciences.", url: "https://extension.psu.edu/lawn-establishment" },
-      { title: "National Engineering Handbook, Part 642: Measurement of Areas and Earthwork", publisher: "USDA Natural Resources Conservation Service (NRCS)", citation: "United States Department of Agriculture.", url: "https://www.nrcs.usda.gov/" }
+      { title: "National Engineering Handbook, Part 650: Engineering Field Handbook (Chapter 1: Surveying & Volumes)", publisher: "USDA Natural Resources Conservation Service (NRCS)", citation: "United States Department of Agriculture.", url: "https://directives.nrcs.usda.gov/sites/default/files2/1712930938/Part%20650%20-%20Engineering%20Field%20Handbook.pdf" }
     ],
     relatedTools: ["cubic-yard-calculator", "topsoil-calculator", "mulch-calculator", "crushed-stone-calculator"],
     relatedGuides: ["cubic-yards-vs-cubic-feet", "measuring-irregular-landscaping-areas", "how-much-topsoil-do-i-need"]
@@ -208,7 +208,7 @@ export const guides: GuideDefinition[] = [
       }
     ],
     sources: [
-      { title: "Lawn Establishment and Renovation Guide", publisher: "Cornell Cooperative Extension", citation: "Cornell University College of Agriculture and Life Sciences.", url: "https://turf.cals.cornell.edu/" },
+      { title: "Lawn Care: The Easiest Steps to an Attractive Environmental Asset", publisher: "Cornell University Turfgrass Program", citation: "Cornell University College of Agriculture and Life Sciences.", url: "https://turf.cals.cornell.edu/lawn/lawn-care-the-easiest-steps-to-an-attractive-environmental-asset/" },
       { title: "Soil Management for Lawns and Gardens", publisher: "University of Maryland Extension", citation: "Home & Garden Information Center, Publication HG-110.", url: "https://extension.umd.edu/resource/organic-matter-and-soil-amendments" }
     ],
     relatedTools: ["topsoil-calculator", "soil-calculator", "raised-bed-soil-calculator", "compost-calculator"],
@@ -600,8 +600,8 @@ export const guides: GuideDefinition[] = [
         answer: "A standard fence post hole is 10 to 12 inches in diameter and 36 inches deep. After subtracting the space occupied by a 4×4 treated wood post, the hole requires approximately 1.5 to 2.0 cubic feet of concrete, which equals three to four 50-lb bags or two to three 80-lb bags per post."
       },
       {
-        question: "What is the minimum recommended thickness for a concrete patio or walkway?",
-        answer: "Residential walkways and patios require a minimum thickness of 4 inches (10 cm) of 3,500 to 4,000 PSI concrete over a compacted aggregate base. Driveways accommodating passenger vehicles should be 4 to 5 inches thick; heavy trucks or RV pads require 6 inches with steel rebar reinforcement."
+        question: "What is the recommended thickness for a concrete patio or walkway?",
+        answer: "Residential walkways and light garden patios are commonly modeled at 4.0 inches (10 cm) nominal pour thickness for illustrative planning. However, engineering slab thickness and compressive strength (e.g. 2,500 to 4,000+ PSI) must be specified based on local building code, subgrade soil bearing capacity, freeze-thaw exposure, and intended vehicular or static loads per ACI 302.1R guidance. Driveways carrying passenger vehicles often require 4 to 5+ inches on compacted granular subbase; heavy loads or poor soils require structural design and reinforcement."
       }
     ],
     sources: [
@@ -758,8 +758,8 @@ export const guides: GuideDefinition[] = [
       }
     ],
     sources: [
-      { title: "National Engineering Handbook: Surveying and Geometric Earthwork Measurements", publisher: "USDA Natural Resources Conservation Service (NRCS)", citation: "United States Department of Agriculture.", url: "https://www.nrcs.usda.gov/" },
-      { title: "RHS Practical Landscaping Guides: Measuring Your Garden", publisher: "Royal Horticultural Society (RHS)", citation: "London, UK.", url: "https://www.rhs.org.uk" }
+      { title: "National Engineering Handbook, Part 650: Engineering Field Handbook (Chapter 1: Surveying & Volumes)", publisher: "USDA Natural Resources Conservation Service (NRCS)", citation: "United States Department of Agriculture.", url: "https://directives.nrcs.usda.gov/sites/default/files2/1712930938/Part%20650%20-%20Engineering%20Field%20Handbook.pdf" },
+      { title: "Creating Your Garden Plan: Measuring and Scale Principles", publisher: "Royal Horticultural Society (RHS)", citation: "Wisley, UK.", url: "https://www.rhs.org.uk/garden-inspiration/design/creating-your-garden-plan" }
     ],
     relatedTools: ["cubic-yard-calculator", "topsoil-calculator", "mulch-calculator", "pea-gravel-calculator"],
     relatedGuides: ["how-to-measure-landscaping-materials", "cubic-yards-vs-cubic-feet"]
