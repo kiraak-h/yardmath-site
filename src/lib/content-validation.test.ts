@@ -774,7 +774,7 @@ describe("Content Validation & Calculation Integrity", () => {
   });
 
   describe("Cross-Page Construction Guidance & Report Regression Suite", () => {
-    it("ensures gravel driveway guide does not prescribe three layers or 8-12 inches as universally required", () => {
+    it("ensures gravel driveway guide does not prescribe three layers, 8-12 inches, or permanent barrier fabric as universally required", () => {
       const drivewayGuide = guides.find((g) => g.slug === "gravel-driveway-material-estimation");
       expect(drivewayGuide, "Gravel driveway guide must exist").toBeDefined();
 
@@ -791,39 +791,154 @@ describe("Content Validation & Calculation Integrity", () => {
       expect(allGuideText).not.toMatch(/requires a tiered three-layer aggregate profile rather than/i);
       expect(allGuideText).not.toMatch(/consists of three distinct layers/i);
       expect(allGuideText).not.toMatch(/profile depth should range from 8 to 12 inches on typical residential soils/i);
+      expect(allGuideText).not.toMatch(/permanent barrier/i);
+      expect(allGuideText).not.toMatch(/heavy non-woven geotextile separation fabric/i);
 
       // Must distinguish design options and qualify site-specific conditions
       expect(allGuideText).toMatch(/single-layer/i);
       expect(allGuideText).toMatch(/site-specific/i);
       expect(allGuideText).toMatch(/FHWA/i);
       expect(allGuideText).toMatch(/rather than a universal statutory building code/i);
+      expect(allGuideText).toMatch(/woven for subgrade stabilization or non-woven for/i);
 
       // FAQ must explicitly clarify three layers are not universally required
       const layerFaq = drivewayGuide?.faqs.find((f) => f.question.includes("three separate layers"));
       expect(layerFaq, "Must have FAQ addressing whether 3 layers are required").toBeDefined();
       expect(layerFaq?.answer).toMatch(/^No\./i);
+
+      // FAQ 4 must not call geotextile a permanent barrier and must distinguish woven vs non-woven
+      const fabricFaq = drivewayGuide?.faqs.find((f) => f.question.includes("geotextile fabric"));
+      expect(fabricFaq, "Must have geotextile FAQ").toBeDefined();
+      expect(fabricFaq?.answer).not.toMatch(/permanent barrier/i);
+      expect(fabricFaq?.answer).toMatch(/woven for stabilization or non-woven for filtration/i);
     });
 
-    it("ensures concrete calculator does not contain universal mandatory 10% allowance language", () => {
+    it("ensures gravel driveway calculator copy reflects optional allowances, conditional geotextile, and aggregate distinction", () => {
+      const drivewayTool = tools.find((t) => t.slug === "gravel-driveway-calculator");
+      expect(drivewayTool, "Gravel driveway calculator must exist").toBeDefined();
+
+      // HowTo and InputsGuide must emphasize optional allowance
+      expect(drivewayTool?.howTo[2]).toMatch(/optional planning allowance/i);
+      expect(drivewayTool?.inputsGuide.allowanceRecommendation).toMatch(/optional user selections/i);
+      expect(drivewayTool?.inputsGuide.allowanceRecommendation).toMatch(/verify expected yields with your local aggregate supplier/i);
+
+      // Quick answer must label depths as illustrative planning figures
+      expect(drivewayTool?.quickAnswer.directAnswer).toMatch(/illustrative planning figure/i);
+      expect(drivewayTool?.quickAnswer.directAnswer).toMatch(/ranging from an illustrative 4-to-6-inch single dense-graded course/i);
+      expect(drivewayTool?.quickAnswer.ruleOfThumb).toMatch(/neat volume of 6\.17 cubic yards/i);
+      expect(drivewayTool?.quickAnswer.ruleOfThumb).toMatch(/optional 10% planning allowance/i);
+
+      // Benchmark table must distinguish open-graded from dense-graded with fines
+      const tableUses = drivewayTool?.quickAnswer.benchmarkTable.map((r) => r.typicalUse).join(" ") || "";
+      expect(tableUses).toMatch(/open-graded/i);
+      expect(tableUses).toMatch(/dense-graded/i);
+
+      // Formulas must separate neat volume and order volume
+      expect(drivewayTool?.formulaExplanation.usCustomary).toContain("Neat Volume");
+      expect(drivewayTool?.formulaExplanation.usCustomary).toContain("Order Volume");
+      expect(drivewayTool?.formulaExplanation.metric).toContain("Neat Volume");
+      expect(drivewayTool?.formulaExplanation.metric).toContain("Order Volume");
+
+      // Geotextile and crowning in material specifics & mistakes must be conditional
+      expect(drivewayTool?.materialSpecifics.orderingRule).toMatch(/On weak, wet, or silty subgrades/i);
+      expect(drivewayTool?.materialSpecifics.orderingRule).toMatch(/unnecessary/i);
+      expect(drivewayTool?.materialSpecifics.orderingRule).toMatch(/woven stabilization vs\. non-woven filtration/i);
+      expect(drivewayTool?.materialSpecifics.subgradePreparation).toMatch(/drainage design practice/i);
+
+      // Common mistakes must distinguish stone types and conditional subgrade stabilization
+      const mistakePreventions = drivewayTool?.commonMistakes.map((m) => m.prevention).join(" ") || "";
+      expect(mistakePreventions).toMatch(/woven for stabilization or non-woven for drainage/i);
+      expect(mistakePreventions).toMatch(/drainage design consideration/i);
+      expect(mistakePreventions).toMatch(/open-graded stone \(#57\)/i);
+      expect(mistakePreventions).toMatch(/dense-graded aggregate with fines/i);
+
+      // FAQs must distinguish neat volume from optional allowance and qualify thickness
+      const faq1 = drivewayTool?.faqs.find((f) => f.question.includes("How many tons of gravel"));
+      expect(faq1?.answer).toMatch(/neat geometric volume is 6\.17 cubic yards/i);
+      expect(faq1?.answer).toMatch(/optional 10% allowance/i);
+
+      const faq3 = drivewayTool?.faqs.find((f) => f.question.includes("How thick should a new gravel driveway be"));
+      expect(faq3?.answer).toMatch(/There is no single universal thickness/i);
+      expect(faq3?.answer).toMatch(/where soft soil conditions warrant it/i);
+    });
+
+    it("ensures driveway guide and calculator maintain consistent aggregate, crowning, and multi-tier guidance", () => {
+      const drivewayTool = tools.find((t) => t.slug === "gravel-driveway-calculator");
+      const drivewayGuide = guides.find((g) => g.slug === "gravel-driveway-material-estimation");
+      expect(drivewayTool).toBeDefined();
+      expect(drivewayGuide).toBeDefined();
+
+      // Both cite FHWA Gravel Roads Guide and Penn State DSA Technical Bulletin
+      const toolSources = drivewayTool?.authoritativeSources.map((s) => s.url).join(" ") || "";
+      const guideSources = drivewayGuide?.sources.map((s) => s.url).join(" ") || "";
+      expect(toolSources).toContain("fhwa.dot.gov");
+      expect(toolSources).toContain("dirtandgravel.psu.edu");
+      expect(guideSources).toContain("fhwa.dot.gov");
+      expect(guideSources).toContain("dirtandgravel.psu.edu");
+
+      // Both qualify crowning slope as a drainage design consideration (1/4 to 1/2 in/ft)
+      expect(drivewayTool?.materialSpecifics.subgradePreparation).toContain("1/4 to 1/2 inch");
+      const guideText = drivewayGuide?.sections.flatMap((s) => s.paragraphs).join(" ") || "";
+      expect(guideText).toContain("1/4 to 1/2 inch");
+
+      // Both explain dense-graded aggregates bind under compaction into a crust
+      expect(drivewayTool?.faqs[1].answer).toMatch(/dense-graded/i);
+      expect(drivewayTool?.faqs[1].answer).toMatch(/bind tightly when compacted/i);
+      const allDrivewayGuideText = [
+        drivewayGuide?.summary,
+        drivewayGuide?.description,
+        ...(drivewayGuide?.keyTakeaways || []),
+        ...(drivewayGuide?.sections.flatMap((s) => [
+          s.heading,
+          ...s.paragraphs,
+          ...(s.table ? s.table.rows.flat() : []),
+        ]) || []),
+        ...(drivewayGuide?.faqs.flatMap((f) => [f.question, f.answer]) || []),
+      ].join(" ");
+      expect(allDrivewayGuideText).toMatch(/binds|bind together/i);
+    });
+
+    it("ensures concrete calculator copy across all fields reflects optional allowance and non-universal thickness", () => {
       const concreteTool = tools.find((t) => t.slug === "concrete-calculator");
       expect(concreteTool, "Concrete calculator tool must exist").toBeDefined();
 
-      // Must not contain universal 'always add 10%' prescriptions
-      expect(concreteTool?.inputsGuide.allowanceRecommendation).not.toMatch(/always add 10%/i);
-      expect(concreteTool?.formulaExplanation.dimensionalExplanation).not.toMatch(/always add a 10% allowance/i);
-      expect(concreteTool?.commonMistakes.some((m) => /always include a 10% allowance/i.test(m.prevention))).toBe(false);
+      // HowTo: non-mandatory allowance
+      expect(concreteTool?.howTo[2]).toMatch(/optional order allowance/i);
 
-      // Formula must structure neat volume and optional allowance separately
+      // Quick answer: illustrative slab and code qualification
+      expect(concreteTool?.quickAnswer.directAnswer).toMatch(/illustrative residential slabs/i);
+      expect(concreteTool?.quickAnswer.directAnswer).not.toContain("Residential concrete slabs require a minimum thickness of 4.0 inches");
+      expect(concreteTool?.quickAnswer.directAnswer).toMatch(/must be specified based on local building code/i);
+      expect(concreteTool?.quickAnswer.ruleOfThumb).toMatch(/neat concrete/i);
+      expect(concreteTool?.quickAnswer.ruleOfThumb).toMatch(/optional 10% user planning allowance/i);
+
+      // InputsGuide: form height vs engineered slab thickness and optional allowance
+      expect(concreteTool?.inputsGuide.depthGuidance).toContain("establish the perimeter pour height");
+      expect(concreteTool?.inputsGuide.allowanceRecommendation).toMatch(/optional allowance/i);
+      expect(concreteTool?.inputsGuide.allowanceRecommendation).not.toMatch(/always add 10%/i);
+
+      // FormulaExplanation: neat volume and order volume separation
       expect(concreteTool?.formulaExplanation.usCustomary).toContain("Neat Volume");
       expect(concreteTool?.formulaExplanation.usCustomary).toContain("Order Volume");
       expect(concreteTool?.formulaExplanation.usCustomary).not.toContain("÷ 324 × 1.10");
-
       expect(concreteTool?.formulaExplanation.metric).toContain("Neat Volume");
       expect(concreteTool?.formulaExplanation.metric).toContain("Order Volume");
       expect(concreteTool?.formulaExplanation.metric).not.toContain("÷ 100 × 1.10");
+
+      // CommonMistakes: non-mandatory allowance prevention
+      expect(concreteTool?.commonMistakes.some((m) => /always include a 10% allowance/i.test(m.prevention))).toBe(false);
+      expect(concreteTool?.commonMistakes.some((m) => /e\.g\. 5% to 10%/i.test(m.prevention))).toBe(true);
+
+      // FAQs: neat vs optional allowance and subbase qualified
+      const slabFaq = concreteTool?.faqs.find((f) => f.question.includes("10x10 slab at 4 inches"));
+      expect(slabFaq?.answer).toMatch(/neat geometric volume of 1\.23 cubic yards/i);
+      expect(slabFaq?.answer).toMatch(/optional 10% planning allowance/i);
+
+      const subbaseFaq = concreteTool?.faqs.find((f) => f.question.includes("gravel or crushed stone base"));
+      expect(subbaseFaq?.answer).toMatch(/evaluated separately from the structural concrete slab thickness/i);
     });
 
-    it("verifies the search-integrity report source verification counts are internally consistent", () => {
+    it("verifies the search-integrity report source verification counts and arithmetic consistency", () => {
       const reportPath = path.resolve(process.cwd(), "FINAL_SEARCH_INTEGRITY_REPORT.md");
       const reportContent = fs.readFileSync(reportPath, "utf-8");
 
@@ -838,6 +953,34 @@ describe("Content Validation & Calculation Integrity", () => {
       // Must NOT overstate manual verification as 100% programmatically verified
       expect(reportContent).not.toContain("100% Programmatically Verified");
       expect(reportContent).not.toContain("all 45 claims were substantively verified");
+
+      // Arithmetic checks
+      const http200Match = reportContent.match(/(\d+)\/45 HTTP 200 reachable/);
+      const http403Match = reportContent.match(/(\d+)\/45 HTTP 403 bot-indeterminate/);
+      const http404Match = reportContent.match(/(\d+)\s+HTTP 404 broken links/);
+      expect(http200Match, "HTTP 200 count pattern must match").toBeDefined();
+      expect(http403Match, "HTTP 403 count pattern must match").toBeDefined();
+      expect(http404Match, "HTTP 404 count pattern must match").toBeDefined();
+
+      const c200 = parseInt(http200Match![1], 10);
+      const c403 = parseInt(http403Match![1], 10);
+      const c404 = parseInt(http404Match![1], 10);
+      expect(c200 + c403 + c404).toBe(45);
+
+      const verifiedMatch = reportContent.match(/(\d+)\s+Substantively Verified/);
+      const indetMatch = reportContent.match(/(\d+)\s+Indeterminate/);
+      expect(verifiedMatch, "Verified count pattern must match").toBeDefined();
+      expect(indetMatch, "Indeterminate count pattern must match").toBeDefined();
+
+      const cVerified = parseInt(verifiedMatch![1], 10);
+      const cIndet = parseInt(indetMatch![1], 10);
+      expect(cVerified + cIndet).toBe(45);
+
+      // Verify test counts in report match exact test suite count (10 calculation + 50 content = 60 total)
+      expect(reportContent).toContain("60/60 Vitest unit & content tests");
+      expect(reportContent).toContain("src/lib/calculation.test.ts (10 tests)");
+      expect(reportContent).toContain("src/lib/content-validation.test.ts (50 tests)");
+      expect(reportContent).toContain("Tests  60 passed (60)");
     });
   });
 });

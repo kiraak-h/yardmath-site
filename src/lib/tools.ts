@@ -936,28 +936,28 @@ export const tools: ToolDefinition[] = [
     icon: "▰",
     material: "Driveway gravel",
     bestFor: ["Driveway resurfacing", "New gravel driveway planning", "Driveway base or wearing-course estimates"],
-    formula: "Length (ft) × Width (ft) × Depth (in) ÷ 324 = Cubic Yards. Weight (tons) = Cubic Yards × 1.35 to 1.45 tons/yd³.",
+    formula: "Neat Volume: Length (ft) × Width (ft) × Depth (in) ÷ 324 = Cubic Yards. Order Volume = Neat Volume × (1 + Allowance% ÷ 100). Weight (tons) = Cubic Yards × 1.35 to 1.45 tons/yd³.",
     howTo: [
       "Measure the length of your driveway and its average width in feet.",
       "Enter the intended depth for the single layer you are currently calculating (run the calculator separately for each distinct layer in a multi-tier profile).",
-      "Add an allowance (10% to 15%) for mechanical compaction and subgrade displacement.",
+      "Select an optional planning allowance (e.g. 5% to 15%) if you wish to account for subgrade irregularities, loose-to-compacted consolidation, or wheel spillage.",
       "Review the total in loose cubic yards and estimated quarry weight (tons)."
     ],
     quickAnswer: {
-      directAnswer: "This calculator evaluates a single aggregate layer at a time. For refreshing an existing driveway, a 1.5-to-2-inch surface replenishment layer is commonly placed. For constructing a new gravel driveway, the total aggregate structure depends on native subgrade strength, drainage, vehicle loads, and climate. Multi-layer profiles over weak soils often combine a coarse foundation stone, a dense-graded base course, and a tailored wearing course (either clean angular stone or a dense-graded aggregate with fines). Calculate each layer separately using its specific layer depth, allowance, and supplier density.",
-      ruleOfThumb: "A standard 100 ft × 10 ft driveway (1,000 sq ft) resurfaced with 2 inches of gravel requires 6.17 cubic yards (approx. 8.6 tons of crushed stone).",
+      directAnswer: "This calculator evaluates a single aggregate layer at a time. For refreshing an existing driveway, a 1.5-to-2-inch surface replenishment layer is an illustrative planning figure. For constructing a new gravel driveway, total aggregate thickness depends on native subgrade strength, drainage, vehicle loads, and climate—ranging from an illustrative 4-to-6-inch single dense-graded course on firm subgrades to engineered multi-tier profiles over weak or wet soils. Multi-tier profiles often combine coarse foundation ballast, a dense-graded base course, and a tailored wearing course (either clean angular stone or a dense-graded aggregate with fines). Calculate each layer separately using its specific layer depth, optional allowance, and supplier density.",
+      ruleOfThumb: "A standard 100 ft × 10 ft driveway (1,000 sq ft) resurfaced with an illustrative 2 inches of gravel has a neat volume of 6.17 cubic yards (approx. 8.6 tons of crushed stone at 1.4 tons/yd³); adding an optional 10% planning allowance yields ~6.8 cubic yards (approx. 9.5 tons).",
       tableCaption: "Driveway Gravel Layer Guidelines & Material Sizing",
       benchmarkTable: [
-        { depth: "1.5 to 2.0 in (3.8 to 5 cm)", coverageSqFt: "162 to 216 sq ft / yd³", coverageSqM: "15 to 20 m²", typicalUse: "Surface top-dress (#57 washed crushed limestone / granite)" },
-        { depth: "3.0 to 4.0 in (7.5 to 10 cm)", coverageSqFt: "81 to 108 sq ft / yd³", coverageSqM: "7.5 to 10 m²", typicalUse: "Middle binding base (Crusher Run / #411 dense-graded)" },
-        { depth: "6.0 in (15 cm)", coverageSqFt: "54 sq ft / yd³", coverageSqM: "5.0 m²", typicalUse: "Heavy sub-base foundation stone (#3 or #4 ballast)" },
-        { depth: "8.0 to 12.0 in (20 to 30 cm)", coverageSqFt: "27 to 40.5 sq ft / yd³", coverageSqM: "2.5 to 3.8 m²", typicalUse: "Illustrative heavy profile for unpaved roads or weak subgrades (requires site-specific engineering)" }
+        { depth: "1.5 to 2.0 in (3.8 to 5 cm)", coverageSqFt: "162 to 216 sq ft / yd³", coverageSqM: "15 to 20 m²", typicalUse: "Surface top-dress with open-graded stone (#57 washed crushed limestone/granite for drainage and traction)" },
+        { depth: "3.0 to 4.0 in (7.5 to 10 cm)", coverageSqFt: "81 to 108 sq ft / yd³", coverageSqM: "7.5 to 10 m²", typicalUse: "Dense-graded binding base or wearing course (Crusher Run / #411 with fines that compacts into a tight crust)" },
+        { depth: "6.0 in (15 cm)", coverageSqFt: "54 sq ft / yd³", coverageSqM: "5.0 m²", typicalUse: "Illustrative heavy sub-base foundation stone (#3 or #4 ballast over weak subgrades)" },
+        { depth: "8.0 to 12.0 in (20 to 30 cm)", coverageSqFt: "27 to 40.5 sq ft / yd³", coverageSqM: "2.5 to 3.8 m²", typicalUse: "Illustrative multi-tier total profile for low-bearing soils or heavy truck access (requires site-specific engineering)" }
       ]
     },
     formulaExplanation: {
-      usCustomary: "Cubic Yards = Length (ft) × Width (ft) × Layer Depth (in) ÷ 324 × Allowance Factor",
-      metric: "Cubic Metres = Length (m) × Width (m) × Layer Depth (cm) ÷ 100 × Allowance Factor",
-      dimensionalExplanation: "Length (ft) × Width (ft) gives square footage. Multiplying by depth in inches and dividing by 324 converts directly to cubic yards. Multiply cubic yards by 1.4 tons/yd³ to estimate quarry delivery weight.",
+      usCustomary: "1. Neat Volume: Cubic Yards = Length (ft) × Width (ft) × Layer Depth (in) ÷ 324\n2. Order Volume: Neat Volume × (1 + Allowance% ÷ 100)",
+      metric: "1. Neat Volume: Cubic Metres = Length (m) × Width (m) × Layer Depth (cm) ÷ 100\n2. Order Volume: Neat Volume × (1 + Allowance% ÷ 100)",
+      dimensionalExplanation: "Length (ft) × Width (ft) gives surface area in square feet. Multiplying by layer depth in inches and dividing by 324 calculates neat geometric volume in cubic yards. Applying an optional user-selected planning allowance yields total order volume. Multiplying cubic yards by your supplier's bulk density (typically 1.35 to 1.45 tons/yd³) estimates quarry delivery weight in short tons.",
       circleNote: "For circular turnaround areas: Area = π × (Diameter ÷ 2)².",
       triangleNote: "For driveway entrance flares: Area = (Flare Base × Flare Length) ÷ 2."
     },
@@ -971,30 +971,30 @@ export const tools: ToolDefinition[] = [
     inputsGuide: {
       lengthWidth: "Measure the center length and take width measurements at multiple points; gravel driveways frequently spread wider near the road entrance.",
       depthGuidance: "Calculate base layers and surface layers separately; never combine them into a single mathematical pass because stone sizes and compaction rates differ.",
-      allowanceRecommendation: "Add 10% for resurfacing existing hard gravel; add 15% to 20% for uncompacted new road cuts.",
+      allowanceRecommendation: "Allowances are optional user selections. For refreshing an existing hard gravel drive, a 5% to 10% allowance is an illustrative figure to cover minor low spots and edge loss. For dense-graded base stone over uncompacted soil, contractors often plan an illustrative 15% to 20% allowance for roller consolidation and subgrade intrusion. Actual aggregate yield depends on stone gradation, moisture, subgrade firmness, lift thickness, and compaction equipment; verify expected yields with your local aggregate supplier.",
       packagingGuidance: "Driveway aggregate is delivered exclusively in bulk dump truck loads (single-axle ~6 tons; tri-axle ~15–18 tons)."
     },
     materialSpecifics: {
       compactionBehavior: "Dense-graded base stone consolidation varies with quarry gradation and moisture; contractors commonly plan for an optional illustrative 15% to 20% compaction allowance when ordering loose volume. Open-graded washed stone (#57) contains minimal fines and undergoes minor reorientation—often estimated with an optional ~5% planning allowance—though actual yield depends on subgrade firmness and rolling equipment.",
       moistureAndWeight: "Crushed limestone and granite weigh between 2,700 and 2,900 lb/yd³ (1.35 to 1.45 tons/yd³).",
-      subgradePreparation: "Grade a 1/2-inch-per-foot crown from center to shoulders to shed surface water into side swales.",
-      orderingRule: "Lay a woven geotextile fabric between the raw subgrade dirt and your first coarse stone layer."
+      subgradePreparation: "On dense-graded unpaved surfaces, crowning the driveway with a slope of 1/4 to 1/2 inch of rise per linear foot from shoulder to centerline is a proven drainage design practice to shed surface runoff into roadside ditches or vegetated swales.",
+      orderingRule: "On weak, wet, or silty subgrades, installing a geotextile separation fabric between native soil and aggregate helps prevent stone loss and subgrade pumping; on firm, rocky, or well-drained ground, fabric may be unnecessary. Verify fabric specification (woven stabilization vs. non-woven filtration) with project requirements."
     },
     commonMistakes: [
       {
         mistake: "Pouring surface gravel directly on bare mud or dirt",
         impact: "Vehicle tires immediately pump stone into the mud, causing deep ruts, tire spin, and disappearing gravel.",
-        prevention: "Install a 4-to-6-inch coarse aggregate sub-base over heavy non-woven geotextile fabric."
+        prevention: "On weak or moist soils, stabilize the subgrade with a suitable geotextile separation fabric (woven for stabilization or non-woven for drainage) beneath an aggregate base course; on firm ground, compact aggregate in uniform lifts."
       },
       {
         mistake: "Building a flat driveway with no centerline crown",
         impact: "Rainwater pools on the surface; moving vehicle tires create hydraulic action that ejects stone dust, carving deep potholes.",
-        prevention: "Crown the center of the driveway 2 to 3 inches higher than the shoulder edges."
+        prevention: "For dense-graded surfaces, establish a crown slope (typically 1/4 to 1/2 inch rise per foot from shoulder to center) as a drainage design consideration to shed runoff."
       },
       {
         mistake: "Using round river rock or pea gravel on vehicle drives",
         impact: "Round pebbles act like ball bearings under car tires, sliding away and creating impassable wheel ruts.",
-        prevention: "Use angular, fractured crushed quarry stone (#57 or Crusher Run) that locks mechanically together under traffic."
+        prevention: "Use angular, fractured quarry aggregate: choose open-graded stone (#57) for drainage and surface traction, or dense-graded aggregate with fines (such as Crusher Run or DSA) that compacts into an interlocked, rut-resistant driving crust."
       }
     ],
     authoritativeSources: [
@@ -1002,9 +1002,9 @@ export const tools: ToolDefinition[] = [
       { organization: "Penn State Center for Dirt and Gravel Road Studies", standardOrDocument: "Technical Bulletin: Driving Surface Aggregate (DSA) Specifications and Maintenance", citation: "Pennsylvania State University College of Agricultural Sciences.", url: "https://dirtandgravel.psu.edu/wp-content/uploads/Tech-Bulletin_Driving_Surface_Aggregate_2025.pdf" }
     ],
     faqs: [
-      { question: "How many tons of gravel do I need for a 100-foot driveway?", answer: "For a 100 ft long by 10 ft wide driveway with a 2-inch resurfacing layer: you need 6.17 cubic yards. At 1.4 tons per yard, you need approximately 8.6 tons of gravel." },
+      { question: "How many tons of gravel do I need for a 100-foot driveway?", answer: "For a 100 ft long by 10 ft wide driveway (1,000 sq ft) with an illustrative 2-inch resurfacing layer, neat geometric volume is 6.17 cubic yards (approx. 8.6 tons at 1.4 tons/yd³). If you select an optional 10% allowance for subgrade dips and edge spreading, order volume increases to approx. 6.8 cubic yards (approx. 9.5 tons)." },
       { question: "What is the best gravel size for a driveway surface?", answer: "Driveway wearing courses vary based on climate, slope, and whether surface binding or free drainage is desired. Clean angular gravel like #57 stone (approx. 3/4-inch washed stone) provides good traction and drainage, but loose unbonded stone can shift on steep grades. Dense-graded aggregate mixtures containing fines (such as Driving Surface Aggregate or quarry process stone) bind tightly when compacted to form a semi-impervious, rut-resistant surface, though they require positive crown drainage to prevent softening during heavy rain." },
-      { question: "How thick should a new gravel driveway be?", answer: "There is no single universal thickness for all driveways. Total aggregate thickness depends on vehicle traffic volume and axle loads, native subgrade bearing capacity (such as firm gravel vs soft clay), drainage, and local freeze-thaw climate. While light-duty residential driveways over stable subgrades often perform well with a 4-to-6-inch compacted aggregate structure, heavier installations or weak, wet subgrades may require an 8-to-12-inch multi-layer profile (e.g., coarse foundation stone, dense-graded base, and a dedicated wearing course) over geotextile fabric. The FHWA Gravel Roads Guide emphasizes proper crown slope (typically 1/2 inch per foot) and drainage maintenance for unpaved roads, but site-specific private driveway construction should be tailored to local soil conditions and supplier gradations." },
+      { question: "How thick should a new gravel driveway be?", answer: "There is no single universal thickness for all driveways. Total aggregate thickness depends on vehicle traffic volume and axle loads, native subgrade bearing capacity (such as firm gravel vs soft clay), drainage, and local freeze-thaw climate. While light-duty residential driveways over stable subgrades often perform well with a 4-to-6-inch compacted aggregate structure, heavier installations or weak, wet subgrades may require an 8-to-12-inch multi-layer profile (e.g., coarse foundation stone, dense-graded base, and a dedicated wearing course) over geotextile separation fabric where soft soil conditions warrant it. The FHWA Gravel Roads Guide emphasizes proper crown slope (typically 1/4 to 1/2 inch per foot) and drainage maintenance for unpaved roads, but site-specific private driveway construction should be tailored to local soil conditions and supplier gradations." },
       { question: "How often does a gravel driveway need to be resurfaced?", answer: "With proper crowning and drainage, a gravel driveway typically requires a 1-to-2-inch surface top-up every 2 to 4 years to replace aggregate lost to plowing and shoulder displacement." }
     ],
     relatedGuides: [

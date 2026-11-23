@@ -7,7 +7,7 @@
 **Status:** Verification Complete — Delineated by Methodology:
 - **Automated Network & Meta Audits:** 44/45 HTTP 200 reachable, 1/45 HTTP 403 bot-indeterminate, 0 HTTP 404 broken links, with automated title extraction and redirect tracking.
 - **Manual Substantive Literature Review:** 45 citations assessed and documented (44 substantively verified with exact titles, sections, and excerpts; 1 classified as indeterminate due to USCC STA HTTP 403 bot defense).
-- **Automated Calculation & Content Tests:** 100% automated test pipeline passed (55/55 Vitest unit & content tests, strict TypeScript, ESLint, Next.js SSG build).  
+- **Automated Calculation & Content Tests:** 100% automated test pipeline passed (60/60 Vitest unit & content tests, strict TypeScript, ESLint, Next.js SSG build).  
 
 ---
 
@@ -165,9 +165,9 @@ Lighthouse audit executed against the production Next.js build on `http://localh
 > vitest run
  RUN  v3.2.7 G:/Antigravity/yardmath-site
  ✓ src/lib/calculation.test.ts (10 tests)
- ✓ src/lib/content-validation.test.ts (45 tests)
+ ✓ src/lib/content-validation.test.ts (50 tests)
  Test Files  2 passed (2)
-      Tests  55 passed (55)
+      Tests  60 passed (60)
    Duration  969ms
 
 > next build

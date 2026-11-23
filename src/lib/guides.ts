@@ -514,7 +514,7 @@ export const guides: GuideDefinition[] = [
         paragraphs: [
           "Standing water is the primary cause of gravel driveway deterioration. When water pools on dense unpaved surfaces, vehicle tires create hydraulic pumping action that ejects binding fines, forming potholes and washboard corrugations.",
           "Where dense-graded surfaces are used, crowning the center of the driveway (typically 1/4 to 1/2 inch of rise per linear foot from shoulder to center) sheds surface runoff into roadside ditches or vegetated swales before it can soften the aggregate.",
-          "On soft clay, silt, or chronically damp subgrades, installing a heavy non-woven geotextile separation fabric directly over native soil before placing aggregate prevents stone from sinking into mud while blocking subsoil fines from migrating upward into the rock voids. On firm, well-draining rocky subgrades, geotextile is typically optional."
+          "On soft clay, silt, or chronically damp subgrades, installing a geotextile separation fabric (selected as woven for subgrade stabilization or non-woven for subsurface filtration) directly over native soil before placing aggregate prevents stone from sinking into mud while blocking subsoil fines from migrating upward into rock voids. On firm, rocky, or well-drained native ground, separation fabric may be unnecessary."
         ]
       }
     ],
@@ -533,7 +533,7 @@ export const guides: GuideDefinition[] = [
       },
       {
         question: "Why should I consider geotextile fabric under a gravel driveway?",
-        answer: "On soft, clay, or wet silt subgrades, vehicle tires drive stone downward while pumping soft mud upward. A heavy geotextile separation fabric creates a permanent barrier that preserves aggregate structural thickness. However, on well-draining, firm, or rocky native subgrades, fabric is often optional."
+        answer: "On soft, clay, or wet silt subgrades, vehicle tires drive stone downward while pumping soft mud upward. Installing a suitable geotextile separation fabric (selected as woven for stabilization or non-woven for filtration) preserves aggregate structural thickness by keeping coarse stone from sinking into soft subsoil while preventing fine mud from pumping upward. On firm, rocky, or well-drained native subgrades, fabric is generally unnecessary."
       },
       {
         question: "Can I use round river pea gravel on a driveway?",
