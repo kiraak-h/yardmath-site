@@ -86,6 +86,104 @@ describe("measurement conversions", () => {
     expect(convertUnitPrice(pricePerMetre, "metric", "imperial")).toBeCloseTo(pricePerYard, 10);
   });
 
+  it("preserves exact calculated volume when switching measurement systems with full precision", () => {
+    // Starting with imperial: 20 ft x 15 ft x 3 in, 5% waste
+    const imperialCalc = calculateMaterial({
+      system: "imperial",
+      shape: "rectangle",
+      length: 20,
+      width: 15,
+      depth: 3,
+      quantity: 1,
+      wastePercent: 5,
+      bagSize: 0,
+      density: null,
+      densityUnit: "kg-m3",
+      pricePerVolume: null,
+      deliveryFee: 0,
+    });
+
+    // Converted to metric full precision
+    const metricLen = convertLength(20, "imperial", "metric"); // 6.096 m
+    const metricW = convertLength(15, "imperial", "metric");   // 4.572 m
+    const metricD = convertDepth(3, "imperial", "metric");     // 7.62 cm
+
+    const metricCalc = calculateMaterial({
+      system: "metric",
+      shape: "rectangle",
+      length: metricLen,
+      width: metricW,
+      depth: metricD,
+      quantity: 1,
+      wastePercent: 5,
+      bagSize: 0,
+      density: null,
+      densityUnit: "kg-m3",
+      pricePerVolume: null,
+      deliveryFee: 0,
+    });
+
+    // The physical volumes must be identical across systems
+    expect(metricCalc.cubicYards).toBeCloseTo(imperialCalc.cubicYards, 10);
+    expect(metricCalc.cubicMetres).toBeCloseTo(imperialCalc.cubicMetres, 10);
+    expect(metricCalc.cubicFeet).toBeCloseTo(imperialCalc.cubicFeet, 10);
+  });
+
+  it("preserves calculated volume without drift across 20 consecutive full-precision conversions", () => {
+    // Starting with arbitrary metric values: 5.5 m x 3.2 m x 12.5 cm
+    let currentSystem: "imperial" | "metric" = "metric";
+    let len = 5.5;
+    let w = 3.2;
+    let d = 12.5;
+
+    const initialMetricCalc = calculateMaterial({
+      system: "metric",
+      shape: "rectangle",
+      length: len,
+      width: w,
+      depth: d,
+      quantity: 1,
+      wastePercent: 5,
+      bagSize: 0,
+      density: null,
+      densityUnit: "kg-m3",
+      pricePerVolume: null,
+      deliveryFee: 0,
+    });
+
+    for (let i = 0; i < 20; i++) {
+      const nextSystem: "imperial" | "metric" = currentSystem === "metric" ? "imperial" : "metric";
+      len = convertLength(len, currentSystem, nextSystem);
+      w = convertLength(w, currentSystem, nextSystem);
+      d = convertDepth(d, currentSystem, nextSystem);
+      currentSystem = nextSystem;
+    }
+
+    // After 20 conversions (even number), we are back in metric
+    expect(currentSystem).toBe("metric");
+    expect(len).toBeCloseTo(5.5, 12);
+    expect(w).toBeCloseTo(3.2, 12);
+    expect(d).toBeCloseTo(12.5, 12);
+
+    const finalMetricCalc = calculateMaterial({
+      system: "metric",
+      shape: "rectangle",
+      length: len,
+      width: w,
+      depth: d,
+      quantity: 1,
+      wastePercent: 5,
+      bagSize: 0,
+      density: null,
+      densityUnit: "kg-m3",
+      pricePerVolume: null,
+      deliveryFee: 0,
+    });
+
+    expect(finalMetricCalc.cubicMetres).toBeCloseTo(initialMetricCalc.cubicMetres, 10);
+    expect(finalMetricCalc.cubicYards).toBeCloseTo(initialMetricCalc.cubicYards, 10);
+  });
+
   it("maintains precision and stability over repeated bi-directional conversion cycles", () => {
     // Starting with 20 ft
     let lengthFt = 20;

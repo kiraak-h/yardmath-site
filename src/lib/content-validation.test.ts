@@ -1101,11 +1101,11 @@ describe("Content Validation & Calculation Integrity", () => {
       const cIndet = parseInt(indetMatch![1], 10);
       expect(cVerified + cIndet).toBe(45);
 
-      // Verify test counts in report match exact test suite count (13 calculation + 50 content = 63 total)
-      expect(reportContent).toContain("63/63 Vitest unit & content tests");
-      expect(reportContent).toContain("src/lib/calculation.test.ts (13 tests)");
+      // Verify test counts in report match exact test suite count (15 calculation + 50 content = 65 total)
+      expect(reportContent).toContain("65/65 Vitest unit & content tests");
+      expect(reportContent).toContain("src/lib/calculation.test.ts (15 tests)");
       expect(reportContent).toContain("src/lib/content-validation.test.ts (50 tests)");
-      expect(reportContent).toContain("Tests  63 passed (63)");
+      expect(reportContent).toContain("Tests  65 passed (65)");
     });
   });
 });

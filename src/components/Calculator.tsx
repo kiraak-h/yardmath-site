@@ -55,15 +55,52 @@ export default function Calculator({ tool }: { tool: ToolDefinition }) {
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [copyState, setCopyState] = useState("Copy estimate");
 
+  // Full-precision internal measurements preserved across unit switches to prevent calculation drift
+  const [internalLength, setInternalLength] = useState<number | null>(20);
+  const [internalWidth, setInternalWidth] = useState<number | null>(15);
+  const [internalDepth, setInternalDepth] = useState<number | null>(3);
+  const [internalBagSize, setInternalBagSize] = useState<number | null>(null);
+  const [internalPrice, setInternalPrice] = useState<number | null>(null);
+
+  function handleLengthChange(val: string) {
+    setLength(val);
+    const n = Number(val);
+    setInternalLength(Number.isFinite(n) && n > 0 ? n : null);
+  }
+
+  function handleWidthChange(val: string) {
+    setWidth(val);
+    const n = Number(val);
+    setInternalWidth(Number.isFinite(n) && n > 0 ? n : null);
+  }
+
+  function handleDepthChange(val: string) {
+    setDepth(val);
+    const n = Number(val);
+    setInternalDepth(Number.isFinite(n) && n > 0 ? n : null);
+  }
+
+  function handleBagSizeChange(val: string) {
+    setBagSize(val);
+    const n = Number(val);
+    setInternalBagSize(val.trim() !== "" && Number.isFinite(n) && n >= 0 ? n : null);
+  }
+
+  function handlePriceChange(val: string) {
+    setPrice(val);
+    const n = Number(val);
+    setInternalPrice(val.trim() !== "" && Number.isFinite(n) && n >= 0 ? n : null);
+  }
+
   const parsed = {
-    length: Number(length),
-    width: Number(width),
-    depth: Number(depth),
+    length: internalLength ?? Number(length),
+    width: internalWidth ?? Number(width),
+    depth: internalDepth ?? Number(depth),
     quantity: Number(quantity),
     waste: Number(waste),
-    bagSize: bagSize.trim() === "" ? 0 : Number(bagSize),
+    bagSize: internalBagSize ?? (bagSize.trim() === "" ? 0 : Number(bagSize)),
     density: density.trim() === "" ? null : Number(density),
-    price: price.trim() === "" ? null : Number(price),
+    price: internalPrice ?? (price.trim() === "" ? null : Number(price)),
     delivery: delivery.trim() === "" ? 0 : Number(delivery),
   };
 
@@ -97,17 +134,48 @@ export default function Calculator({ tool }: { tool: ToolDefinition }) {
     } catch {
       return null;
     }
-  // Keep dependencies explicit; all values are primitive input state.
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [system, shape, length, width, depth, quantity, waste, bagSize, density, densityUnit, price, delivery, isValid]);
+    // Keep dependencies explicit; all values are primitive input state.
+  }, [system, shape, parsed.length, parsed.width, parsed.depth, parsed.quantity, parsed.waste, parsed.bagSize, parsed.density, densityUnit, parsed.price, parsed.delivery, isValid]);
 
   function switchSystem(next: MeasurementSystem) {
     if (next === system) return;
-    setLength(convertLength(Number(length), system, next).toFixed(next === "metric" ? 3 : 2));
-    setWidth(convertLength(Number(width), system, next).toFixed(next === "metric" ? 3 : 2));
-    setDepth(convertDepth(Number(depth), system, next).toFixed(2));
-    if (bagSize.trim() !== "") setBagSize(convertPackageVolume(Number(bagSize), system, next).toFixed(next === "metric" ? 1 : 2));
-    if (price.trim() !== "") setPrice(convertUnitPrice(Number(price), system, next).toFixed(2));
+
+    const currentLen = internalLength ?? Number(length);
+    const currentW = internalWidth ?? Number(width);
+    const currentD = internalDepth ?? Number(depth);
+    const currentBag = internalBagSize ?? (bagSize.trim() !== "" ? Number(bagSize) : null);
+    const currentP = internalPrice ?? (price.trim() !== "" ? Number(price) : null);
+
+    if (Number.isFinite(currentLen) && currentLen > 0) {
+      const convertedLen = convertLength(currentLen, system, next);
+      setInternalLength(convertedLen);
+      setLength(convertedLen.toFixed(next === "metric" ? 3 : 2));
+    }
+
+    if (Number.isFinite(currentW) && currentW > 0) {
+      const convertedW = convertLength(currentW, system, next);
+      setInternalWidth(convertedW);
+      setWidth(convertedW.toFixed(next === "metric" ? 3 : 2));
+    }
+
+    if (Number.isFinite(currentD) && currentD > 0) {
+      const convertedD = convertDepth(currentD, system, next);
+      setInternalDepth(convertedD);
+      setDepth(convertedD.toFixed(2));
+    }
+
+    if (currentBag !== null && Number.isFinite(currentBag) && currentBag >= 0) {
+      const convertedBag = convertPackageVolume(currentBag, system, next);
+      setInternalBagSize(convertedBag);
+      setBagSize(convertedBag.toFixed(next === "metric" ? 1 : 2));
+    }
+
+    if (currentP !== null && Number.isFinite(currentP) && currentP >= 0) {
+      const convertedPrice = convertUnitPrice(currentP, system, next);
+      setInternalPrice(convertedPrice);
+      setPrice(convertedPrice.toFixed(2));
+    }
+
     setSystem(next);
   }
 
@@ -127,6 +195,11 @@ export default function Calculator({ tool }: { tool: ToolDefinition }) {
     setCurrency("USD");
     setShowAdvanced(false);
     setCopyState("Copy estimate");
+    setInternalLength(20);
+    setInternalWidth(15);
+    setInternalDepth(3);
+    setInternalBagSize(null);
+    setInternalPrice(null);
   }
 
   const volumeLabel = system === "imperial" ? "cubic yards" : "cubic metres";
@@ -190,9 +263,9 @@ export default function Calculator({ tool }: { tool: ToolDefinition }) {
         </div>
 
         <div className="form-grid">
-          <NumberField label={shape === "circle" ? "Diameter" : shape === "triangle" ? "Base length" : "Length"} value={length} onChange={setLength} unit={dimensionUnit} />
-          {shape !== "circle" ? <NumberField label={shape === "triangle" ? "Perpendicular height" : "Width"} value={width} onChange={setWidth} unit={dimensionUnit} /> : null}
-          <NumberField label="Material depth" value={depth} onChange={setDepth} unit={depthUnit} hint="Use the specified finished layer depth." />
+          <NumberField label={shape === "circle" ? "Diameter" : shape === "triangle" ? "Base length" : "Length"} value={length} onChange={handleLengthChange} unit={dimensionUnit} />
+          {shape !== "circle" ? <NumberField label={shape === "triangle" ? "Perpendicular height" : "Width"} value={width} onChange={handleWidthChange} unit={dimensionUnit} /> : null}
+          <NumberField label="Material depth" value={depth} onChange={handleDepthChange} unit={depthUnit} hint="Use the specified finished layer depth." />
           <NumberField label={tool.slug === "raised-bed-soil-calculator" ? "Number of beds" : "Matching areas"} value={quantity} onChange={setQuantity} unit="count" min={1} step="1" hint="How many spaces share these dimensions?" />
         </div>
 
@@ -205,9 +278,9 @@ export default function Calculator({ tool }: { tool: ToolDefinition }) {
         {showAdvanced ? (
           <div className="advanced-fields">
             <div className="form-grid">
-              <NumberField label="Pack volume" value={bagSize} onChange={setBagSize} unit={bagUnit} min={0} hint="Enter the usable volume printed on the package." />
+              <NumberField label="Pack volume" value={bagSize} onChange={handleBagSizeChange} unit={bagUnit} min={0} hint="Enter the usable volume printed on the package." />
               <NumberField label="Bulk density" value={density} onChange={setDensity} unit={densityUnit === "kg-m3" ? "kg/m³" : "lb/yd³"} min={0.01} hint="Use the exact supplier density for a weight estimate." />
-              <NumberField label={`Price per ${system === "imperial" ? "cubic yard" : "cubic metre"}`} value={price} onChange={setPrice} unit={currency} min={0} hint="Optional material price before delivery." />
+              <NumberField label={`Price per ${system === "imperial" ? "cubic yard" : "cubic metre"}`} value={price} onChange={handlePriceChange} unit={currency} min={0} hint="Optional material price before delivery." />
               <NumberField label="Delivery fee" value={delivery} onChange={setDelivery} unit={currency} min={0} hint="Optional flat delivery charge." />
             </div>
             <div className="currency-row"><label htmlFor="density-unit-select">Density units</label><select id="density-unit-select" value={densityUnit} onChange={(event) => setDensityUnit(event.target.value as DensityUnit)}><option value="kg-m3">Kilograms per cubic metre</option><option value="lb-yd3">Pounds per cubic yard</option></select></div><div className="currency-row"><label htmlFor="currency-select">Display currency</label><select id="currency-select" value={currency} onChange={(event) => setCurrency(event.target.value as Currency)}>{currencies.map((item) => <option key={item.code} value={item.code}>{item.label}</option>)}</select></div>
