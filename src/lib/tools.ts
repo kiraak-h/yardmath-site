@@ -1026,16 +1026,16 @@ export const tools: ToolDefinition[] = [
     icon: "▧",
     material: "Concrete",
     bestFor: ["Concrete slabs and pads", "Simple rectangular footings", "Comparing ready-mix and bagged concrete volume"],
-    formula: "Length (ft) × Width (ft) × Thickness (in) ÷ 324 = Cubic Yards. Bag count is calculated by dividing total cubic feet by the manufacturer's printed bag yield (e.g. 0.60 cu ft for 80 lb; 0.45 cu ft for 60 lb).",
+    formula: "Neat Volume: Length (ft) × Width (ft) × Thickness (in) ÷ 324 = Cubic Yards. Estimated Order Volume = Neat Volume × (1 + Allowance% ÷ 100). Bag count = Order Cubic Feet ÷ Manufacturer Printed Bag Yield.",
     howTo: [
       "Measure internal formwork length and width in feet (use cylinder mode for round sonotubes/post holes).",
       "Enter the engineered pour thickness in inches based on your project requirements (note: nominal 2x4 form lumber measures 3.5 inches dressed, which sets form edge height rather than determining structural thickness).",
-      "Include a 10% allowance for formwork deflection, subgrade dips, and spillage.",
+      "Select an optional order allowance (e.g. 5% to 10%) to account for formwork deflection, subgrade variations, and spillage.",
       "Review the total in cubic yards, cubic metres, or bags by entering your bag's printed volumetric yield (e.g. 0.60 cu ft for 80 lb; 0.45 cu ft for 60 lb) into the Pack Volume field."
     ],
     quickAnswer: {
       directAnswer: "For common illustrative residential slabs (such as garden walkways or light patios), a nominal 4.0-inch pour thickness is frequently modeled, yielding 81.0 sq ft per cubic yard. However, actual slab thickness and compressive strength (commonly 2,500 to 4,000+ PSI) must be specified based on local building code, subgrade bearing support, intended vehicle or equipment loads, and environmental exposure. Multiply slab length (ft) by width (ft) by thickness (in) and divide by 324 to calculate neat cubic yards. At standard bag yields (0.60 cu ft for 80 lb; 0.45 cu ft for 60 lb), 1 cubic yard requires 45 eighty-pound bags or 60 sixty-pound bags; enter your bag's printed yield to calculate exact package quantities.",
-      ruleOfThumb: "A standard 10 ft × 10 ft patio slab at 4 inches thick (100 sq ft) requires 1.23 cubic yards of concrete (or 1.36 cubic yards with a 10% allowance, requiring 62 eighty-pound bags).",
+      ruleOfThumb: "A standard 10 ft × 10 ft patio slab at 4 inches thick (100 sq ft) requires 1.23 cubic yards of neat concrete (or 1.36 cubic yards if an optional 10% user planning allowance is selected, requiring 62 eighty-pound bags).",
       tableCaption: "Concrete Slab Volume & Bag Yield Benchmarks",
       benchmarkTable: [
         { depth: "3.5 inches (8.9 cm)", coverageSqFt: "92.6 sq ft / yd³", coverageSqM: "8.6 m² / yd³", typicalUse: "Common form height using dressed 2x4 edge lumber; illustrative light garden paths where permitted by local code" },
@@ -1046,11 +1046,11 @@ export const tools: ToolDefinition[] = [
       ]
     },
     formulaExplanation: {
-      usCustomary: "Cubic Yards = Length (ft) × Width (ft) × Thickness (in) ÷ 324 × 1.10",
-      metric: "Cubic Metres = Length (m) × Width (m) × Thickness (cm) ÷ 100 × 1.10",
-      dimensionalExplanation: "To find volume in cubic yards: Area (ft²) × [Thickness (in) ÷ 12 in/ft] ÷ 27 cu ft/yd³ = [L × W × T] ÷ 324. Always add a 10% allowance for form spreading and uneven sub-base.",
-      circleNote: "For round post holes or cylindrical columns: Volume (cu ft) = π × (Diameter in ft ÷ 2)² × Depth in ft. Divide by 27 for cubic yards.",
-      triangleNote: "For triangular pads: Volume (cu ft) = [(Base in ft × Height in ft) ÷ 2] × (Thickness in in ÷ 12)."
+      usCustomary: "1. Neat Volume: Cubic Yards = Length (ft) × Width (ft) × Thickness (in) ÷ 324\n2. Order Volume: Neat Volume × (1 + Allowance% ÷ 100)",
+      metric: "1. Neat Volume: Cubic Metres = Length (m) × Width (m) × Thickness (cm) ÷ 100\n2. Order Volume: Neat Volume × (1 + Allowance% ÷ 100)",
+      dimensionalExplanation: "Neat geometric volume converts planar area and slab thickness into cubic yards (dividing by 324) or cubic metres (dividing by 100). Project order volume applies a user-selected allowance to buffer against formwork deflection, subgrade unevenness, or batch minimums.",
+      circleNote: "For round post holes or cylindrical columns: Neat Volume (cu ft) = π × (Diameter in ft ÷ 2)² × Depth in ft. Divide by 27 for cubic yards.",
+      triangleNote: "For triangular pads: Neat Volume (cu ft) = [(Base in ft × Height in ft) ÷ 2] × (Thickness in in ÷ 12). Divide by 27 for cubic yards."
     },
     workedExample: {
       title: workedExampleFixtures["concrete-calculator"].title,
@@ -1062,7 +1062,7 @@ export const tools: ToolDefinition[] = [
     inputsGuide: {
       lengthWidth: "Measure the inside faces of your wooden form boards. Form boards must be securely braced with wooden stakes every 2 feet.",
       depthGuidance: "Formwork dimensions establish the perimeter pour height, not the engineered suitability of the slab. Dressed 2x4 lumber measures 3.5 inches; specify slab thickness based on structural loading, subgrade conditions, and local code rather than form board size alone.",
-      allowanceRecommendation: "Always add 10% for concrete slabs. Running short by 1 wheelbarrow load ruins a pour, creating unsightly cold joints.",
+      allowanceRecommendation: "Consider an optional allowance (commonly 5% to 10%) to account for formwork deflection, subgrade variations, and spillage. Running short by even one wheelbarrow load risks unsightly and structurally weak cold joints, so ordering buffers should be selected based on job complexity and supplier minimum batch increments.",
       packagingGuidance: "Standard bag yields: an 80 lb bag yields 0.60 cu ft; a 60 lb bag yields 0.45 cu ft; a 50 lb bag yields 0.375 cu ft."
     },
     materialSpecifics: {
@@ -1080,7 +1080,7 @@ export const tools: ToolDefinition[] = [
       {
         mistake: "Ordering exact volume with zero allowance",
         impact: "Running short near the end of a pour leaves a missing corner or an ugly structural cold joint while scrambling for bags.",
-        prevention: "Always include a 10% allowance on ready-mix truck orders and keep 2 to 3 spare bags on site."
+        prevention: "Evaluate formwork rigidity and subgrade variations to select an appropriate ordering allowance (e.g. 5% to 10%), or keep 2 to 3 spare bags on site as an emergency reserve."
       },
       {
         mistake: "Attempting to hand-mix more than 1.5 cubic yards",
@@ -1095,7 +1095,7 @@ export const tools: ToolDefinition[] = [
     faqs: [
       { question: "How many 80 lb bags of concrete make a cubic yard?", answer: "It takes exactly 45 bags of 80 lb concrete mix to equal one cubic yard (27 cubic feet), because each 80 lb bag yields 0.60 cubic feet (27 ÷ 0.60 = 45)." },
       { question: "How many 60 lb bags of concrete make a cubic yard?", answer: "It takes exactly 60 bags of 60 lb concrete mix to equal one cubic yard (27 cubic feet), because each 60 lb bag yields 0.45 cubic feet (27 ÷ 0.45 = 60)." },
-      { question: "How much concrete do I need for a 10x10 slab at 4 inches?", answer: "A 10×10 slab at 4 inches thick has a base volume of 1.23 cubic yards. With a 10% allowance, order 1.36 cubic yards (or 62 bags of 80 lb mix)." },
+      { question: "How much concrete do I need for a 10x10 slab at 4 inches?", answer: "A 10×10 slab at 4 inches thick has a neat geometric volume of 1.23 cubic yards. If an optional 10% planning allowance is selected for formwork flex and grade variation, order volume is approximately 1.36 cubic yards (requiring 62 bags of 80 lb mix)." },
       { question: "Do I need a gravel or crushed stone base under a concrete slab?", answer: "An aggregate subbase is commonly placed under residential slabs to provide uniform subgrade support, a capillary moisture break, and frost protection (4 inches is often cited as an illustrative residential reference). However, required base thickness depends on native soil bearing strength, moisture, expected loads, local climate, and project engineering—and must be evaluated separately from the structural concrete slab thickness." },
       { question: "How many bags of concrete do I need for a 4x4 fence post hole?", answer: "A standard 10-inch diameter hole that is 36 inches deep (with a 4x4 post inserted) requires approximately 1.5 to 2.0 cubic feet of concrete, which equals three 60 lb bags or two to three 80 lb bags per post." }
     ],

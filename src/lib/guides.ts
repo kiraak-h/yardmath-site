@@ -459,44 +459,49 @@ export const guides: GuideDefinition[] = [
   },
   {
     slug: "gravel-driveway-material-estimation",
-    title: "Gravel Driveway Material Estimation: 3-Layer Cross Sections and Compaction",
+    title: "Gravel Driveway Material Estimation: Cross-Section Options, Aggregate Sizing, and Compaction",
     shortTitle: "Gravel Driveway Cross-Sections",
     kicker: "CONSTRUCTION GUIDE · ROADS & ACCESS",
-    description: "Design and calculate aggregate quantities for stable, well-draining gravel driveways. Learn sub-base specifications, stone sizes (#3, #411, #57), crowns, and compaction factors.",
+    description: "Estimate aggregate volume and weight for gravel driveways. Compare single-layer resurfacing with multi-tier designs, select appropriate stone grades, and calculate compaction allowances.",
     publishedDate: "2026-11-20",
-    revisedDate: "2026-11-21",
+    revisedDate: "2026-11-23",
     readTime: "9 min read",
     category: "Construction",
-    summary: "A durable gravel driveway requires a tiered three-layer aggregate profile rather than a single stone type dumped over dirt. This engineering guide details aggregate sizing, compaction loss calculations, crown grading for drainage, and subgrade stabilization.",
+    summary: "Driveway aggregate requirements depend on native subgrade strength, traffic volume, and site drainage. This engineering guide explains when a simple single-layer surface replenishment suffices versus when tiered cross-sections are justified, compares dense-graded aggregate with open-graded stone, and details compaction allowances and crown grading.",
     keyTakeaways: [
-      "A long-lasting driveway consists of three distinct layers: sub-base, middle binding base, and surface wearing course.",
-      "Total aggregate profile depth should range from 8 to 12 inches on typical residential soils.",
-      "Dense-graded stone (#411 / CR-6) consolidates under rolling; contractors commonly apply an illustrative 15% to 20% order allowance based on quarry yield.",
-      "A driveway crown sloping 1/2 inch per linear foot from center to shoulder prevents puddle formation and pothole cratering.",
-      "Non-woven geotextile fabric between subgrade dirt and sub-base stone prevents heavy aggregate from sinking into muddy subsoils."
+      "Driveway construction is site-specific: existing stable drives often require only a 1.5-to-2-inch single-layer replenishment, while unpaved roads over weak soils may justify multi-tier profiles.",
+      "Aggregate depths vary by conditions: light residential drives over firm subgrades frequently use 4 to 6 inches of compacted aggregate, whereas heavy vehicle access or low-bearing clay may require 8 to 12 inches engineered across distinct courses.",
+      "Dense-graded stone (such as Crusher Run or DSA) contains fine particles that pack into a rut-resistant crust; open-graded stone (#57) provides rapid drainage but can shift without lateral confinement.",
+      "Dense-graded stone consolidates under rolling; contractors commonly apply an illustrative 15% to 20% ordering allowance based on local quarry yield.",
+      "Crown slope (typically 1/4 to 1/2 inch per foot) and geotextile separation fabric help shed surface water and prevent subgrade pumping where drainage or weak native soils demand it."
     ],
     sections: [
       {
-        heading: "1. The Engineered 3-Layer Driveway Cross-Section",
+        heading: "1. Driveway Cross-Section Options: Single-Layer vs. Multi-Tier Design",
         paragraphs: [
-          "Dumping 4 inches of round river gravel directly onto bare dirt will result in rutting, sinking stone, and muddy potholes after the first thaw or heavy rain. Heavy vehicle point loads must be distributed outward across progressively larger stone.",
-          "Civil roadway engineering guidelines prescribe three distinct courses: a stabilizing coarse sub-base, a dense-graded packing middle base, and a shed-water wearing surface."
+          "There is no single universal cross-section for every gravel driveway. The appropriate aggregate structure depends on native subgrade bearing capacity (CBR), site drainage, frost-heave potential, and expected vehicle axle loads.",
+          "For routine maintenance of an established, well-compacted driveway, a single-layer surface top-up of 1.5 to 2 inches of clean angular gravel is commonly placed to restore traction and replenish displaced stone.",
+          "When constructing a new driveway over stable, well-drained native soil for passenger vehicle use, a single 4-to-6-inch compacted course of dense-graded aggregate frequently provides sufficient support without requiring complex multi-tier excavation.",
+          "For challenging site conditions—such as heavy truck traffic, agricultural equipment, soft clay subgrades, or poor natural drainage—engineers and experienced road builders often specify a tiered cross-section. In such designs, each course serves a distinct structural function: a coarse ballast sub-base bridges soft ground, a dense-graded middle base locks aggregate in place, and a tailored wearing course provides traction.",
+          "Note on Standards: Publications such as the Federal Highway Administration (FHWA) Gravel Roads Construction and Maintenance Guide (FHWA-FLH-15-004) provide foundational civil engineering principles for public unpaved roads, forestry access, and county routes. While these principles regarding crown shape and aggregate interlock are instructive, they represent public highway maintenance guidance rather than a universal statutory building code for private residential driveways."
         ],
         table: {
-          caption: "Standard Driveway Aggregate Layers",
+          caption: "Common Driveway Aggregate Courses (Used in Multi-Tier Designs)",
           headers: ["Layer Name", "Stone Size / Grade", "Target Compacted Depth", "Primary Function"],
           rows: [
-            ["1. Sub-Base Course", "#3 or #4 ballast (2 to 3 inch fractured stone)", "4 to 6 inches (10 to 15 cm)", "Structural foundation; bridges soft subsoil moisture"],
-            ["2. Middle Base Course", "#411 / CR-6 Crusher Run (1 inch down to dust)", "3 to 4 inches (7.5 to 10 cm)", "Dense mechanical interlock; locks sub-base firmly in place"],
-            ["3. Wearing Surface", "#57 washed crushed limestone or angular gravel (3/4 inch)", "1.5 to 2 inches (3.8 to 5 cm)", "Smooth traction; sheds surface water into roadside swales"]
+            ["1. Sub-Base Course (Where Needed)", "#3 or #4 ballast (2 to 3 inch fractured stone)", "4 to 6 inches (10 to 15 cm)", "Structural foundation; bridges soft subsoil moisture in weak clay cuts"],
+            ["2. Middle Base Course", "#411 / CR-6 Crusher Run (1 inch down to dust)", "3 to 4 inches (7.5 to 10 cm)", "Dense mechanical interlock; binds base firmly into a semi-impervious pad"],
+            ["3. Wearing Surface Option A (Dense-Graded)", "Driving Surface Aggregate (DSA) or Crusher Run with fines", "1.5 to 2 inches (3.8 to 5 cm)", "Packs into a smooth, rut-resistant driving crust; requires positive crown drainage"],
+            ["4. Wearing Surface Option B (Open-Graded)", "#57 washed crushed limestone or granite (3/4 inch)", "1.5 to 2 inches (3.8 to 5 cm)", "Clean aesthetic and free-draining traction; prone to lateral shifting on steep grades"]
           ]
         }
       },
       {
-        heading: "2. Calculating Volume with Mechanical Compaction Loss",
+        heading: "2. Calculating Volume with Compaction and Ordering Allowances",
         paragraphs: [
           "Crushed stone with fine particles (such as #411, quarry process, or Crusher Run) contains stone dust that settles into voids when rolled with a heavy compactor. As a result, loose volume consolidates during installation.",
-          "To achieve 4 inches of compacted base, contractors often plan for an extra allowance (for example, a 15% to 20% illustrative expansion factor, requiring roughly 4.6 to 4.8 inches of loose stone). Because actual loose-to-compacted ratios depend on quarry moisture, stone geology, and roller weight, verify expected conversion yields with your local aggregate supplier."
+          "To achieve 4 inches of compacted base, contractors often plan for an extra allowance (for example, an optional 15% to 20% illustrative expansion factor, requiring roughly 4.6 to 4.8 inches of loose stone). Because actual loose-to-compacted ratios depend on quarry moisture, stone geology, and roller weight, verify expected conversion yields with your local aggregate supplier.",
+          "For single-layer resurfacing using clean washed stone (such as ASTM #57), compaction consolidation is minimal (typically modeled with an optional ~5% to 10% allowance for wheel-track displacement and subgrade dips)."
         ],
         formulaBox: {
           title: "Driveway Layer Calculation Formula",
@@ -505,21 +510,30 @@ export const guides: GuideDefinition[] = [
         }
       },
       {
-        heading: "3. Crown Grading and Water Shedding",
+        heading: "3. Drainage, Crowning, and Geotextile Considerations",
         paragraphs: [
-          "Water is the primary enemy of unpaved roadways. If water sits on a gravel surface, vehicle tires create hydraulic pumping action that ejects stone dust, forming potholes. The driveway must be graded with a parabolic crown.",
-          "A driveway 12 feet wide should have a centerline crown 3 inches higher than the shoulder edges (a slope of 1/2 inch rise per foot of cross-fall)."
+          "Standing water is the primary cause of gravel driveway deterioration. When water pools on dense unpaved surfaces, vehicle tires create hydraulic pumping action that ejects binding fines, forming potholes and washboard corrugations.",
+          "Where dense-graded surfaces are used, crowning the center of the driveway (typically 1/4 to 1/2 inch of rise per linear foot from shoulder to center) sheds surface runoff into roadside ditches or vegetated swales before it can soften the aggregate.",
+          "On soft clay, silt, or chronically damp subgrades, installing a heavy non-woven geotextile separation fabric directly over native soil before placing aggregate prevents stone from sinking into mud while blocking subsoil fines from migrating upward into the rock voids. On firm, well-draining rocky subgrades, geotextile is typically optional."
         ]
       }
     ],
     faqs: [
       {
         question: "How much gravel do I need for a 100-foot driveway?",
-        answer: "For a 100 ft long by 10 ft wide driveway with a 4-inch compacted wearing course: Area = 1,000 sq ft. Volume = 1,000 × 4 ÷ 324 = 12.35 cubic yards. Accounting for a 10% compaction and edge allowance, order 13.6 cubic yards (approx. 19 tons)."
+        answer: "For a 100 ft long by 10 ft wide driveway (1,000 sq ft) with an illustrative 2-inch surface replenishment layer: neat geometric volume is 1,000 × 2 ÷ 324 = 6.17 cubic yards. If an optional 10% allowance is added for low spots and shoulder spillage (6.17 × 1.10 = 6.79 cu yd), you should order approximately 6.8 cubic yards (approx. 9.5 short tons at 1.4 tons/yd³). For a new 4-inch base layer: neat volume is 12.35 cubic yards (approx. 13.6 cu yd with a 10% allowance, or ~19 tons)."
       },
       {
-        question: "Why should I use geotextile fabric under a gravel driveway?",
-        answer: "Heavy truck and vehicle traffic pushes heavy stone downward into soft underlying clay or silt subgrade, while pumping mud upward into the aggregate voids. A heavy non-woven geotextile fabric creates a permanent separation layer, preserving aggregate structural integrity."
+        question: "Does every residential gravel driveway need three separate layers?",
+        answer: "No. A three-layer system (#3 ballast, dense-graded base, and surface course) is an engineered design suited for weak soils, heavy truck traffic, or high-moisture rural lanes. Many residential driveways over stable subgrades perform exceptionally well with a single 4-to-6-inch compacted dense-graded aggregate structure, or a simple 1.5-to-2-inch surface top-up on an established driveway."
+      },
+      {
+        question: "Which aggregate is best for the driveway wearing surface?",
+        answer: "It depends on site priorities. Clean angular stone like #57 (approx. 3/4-inch washed stone) offers good traction and excellent surface drainage, but can shift laterally or track into grass under tire acceleration. Dense-graded mixtures containing fines (such as Crusher Run, #411, or Driving Surface Aggregate) bind together under compaction into a hard, rut-resistant surface, provided the driveway has a positive crown to shed water."
+      },
+      {
+        question: "Why should I consider geotextile fabric under a gravel driveway?",
+        answer: "On soft, clay, or wet silt subgrades, vehicle tires drive stone downward while pumping soft mud upward. A heavy geotextile separation fabric creates a permanent barrier that preserves aggregate structural thickness. However, on well-draining, firm, or rocky native subgrades, fabric is often optional."
       },
       {
         question: "Can I use round river pea gravel on a driveway?",

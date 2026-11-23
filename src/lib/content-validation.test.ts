@@ -1,3 +1,5 @@
+import fs from "node:fs";
+import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { tools } from "./tools";
 import { guides } from "./guides";
@@ -768,6 +770,74 @@ describe("Content Validation & Calculation Integrity", () => {
       expect(concreteTool?.quickAnswer.directAnswer).not.toContain("Residential concrete slabs require a minimum thickness of 4.0 inches");
       expect(concreteTool?.quickAnswer.directAnswer).toContain("illustrative residential slabs");
       expect(concreteTool?.inputsGuide.depthGuidance).toContain("establish the perimeter pour height");
+    });
+  });
+
+  describe("Cross-Page Construction Guidance & Report Regression Suite", () => {
+    it("ensures gravel driveway guide does not prescribe three layers or 8-12 inches as universally required", () => {
+      const drivewayGuide = guides.find((g) => g.slug === "gravel-driveway-material-estimation");
+      expect(drivewayGuide, "Gravel driveway guide must exist").toBeDefined();
+
+      // Must not state three layers are mandatory or universally required for all driveways
+      const allGuideText = [
+        drivewayGuide?.title,
+        drivewayGuide?.summary,
+        drivewayGuide?.description,
+        ...(drivewayGuide?.keyTakeaways || []),
+        ...(drivewayGuide?.sections.flatMap((s) => [s.heading, ...s.paragraphs]) || []),
+        ...(drivewayGuide?.faqs.flatMap((f) => [f.question, f.answer]) || []),
+      ].join(" ");
+
+      expect(allGuideText).not.toMatch(/requires a tiered three-layer aggregate profile rather than/i);
+      expect(allGuideText).not.toMatch(/consists of three distinct layers/i);
+      expect(allGuideText).not.toMatch(/profile depth should range from 8 to 12 inches on typical residential soils/i);
+
+      // Must distinguish design options and qualify site-specific conditions
+      expect(allGuideText).toMatch(/single-layer/i);
+      expect(allGuideText).toMatch(/site-specific/i);
+      expect(allGuideText).toMatch(/FHWA/i);
+      expect(allGuideText).toMatch(/rather than a universal statutory building code/i);
+
+      // FAQ must explicitly clarify three layers are not universally required
+      const layerFaq = drivewayGuide?.faqs.find((f) => f.question.includes("three separate layers"));
+      expect(layerFaq, "Must have FAQ addressing whether 3 layers are required").toBeDefined();
+      expect(layerFaq?.answer).toMatch(/^No\./i);
+    });
+
+    it("ensures concrete calculator does not contain universal mandatory 10% allowance language", () => {
+      const concreteTool = tools.find((t) => t.slug === "concrete-calculator");
+      expect(concreteTool, "Concrete calculator tool must exist").toBeDefined();
+
+      // Must not contain universal 'always add 10%' prescriptions
+      expect(concreteTool?.inputsGuide.allowanceRecommendation).not.toMatch(/always add 10%/i);
+      expect(concreteTool?.formulaExplanation.dimensionalExplanation).not.toMatch(/always add a 10% allowance/i);
+      expect(concreteTool?.commonMistakes.some((m) => /always include a 10% allowance/i.test(m.prevention))).toBe(false);
+
+      // Formula must structure neat volume and optional allowance separately
+      expect(concreteTool?.formulaExplanation.usCustomary).toContain("Neat Volume");
+      expect(concreteTool?.formulaExplanation.usCustomary).toContain("Order Volume");
+      expect(concreteTool?.formulaExplanation.usCustomary).not.toContain("÷ 324 × 1.10");
+
+      expect(concreteTool?.formulaExplanation.metric).toContain("Neat Volume");
+      expect(concreteTool?.formulaExplanation.metric).toContain("Order Volume");
+      expect(concreteTool?.formulaExplanation.metric).not.toContain("÷ 100 × 1.10");
+    });
+
+    it("verifies the search-integrity report source verification counts are internally consistent", () => {
+      const reportPath = path.resolve(process.cwd(), "FINAL_SEARCH_INTEGRITY_REPORT.md");
+      const reportContent = fs.readFileSync(reportPath, "utf-8");
+
+      // Verify exact counts are documented
+      expect(reportContent).toContain("45 Citations Assessed");
+      expect(reportContent).toContain("44/45 HTTP 200 reachable");
+      expect(reportContent).toContain("1/45 HTTP 403 bot-indeterminate");
+      expect(reportContent).toContain("0 HTTP 404 broken links");
+      expect(reportContent).toContain("44 Substantively Verified");
+      expect(reportContent).toContain("1 Indeterminate");
+
+      // Must NOT overstate manual verification as 100% programmatically verified
+      expect(reportContent).not.toContain("100% Programmatically Verified");
+      expect(reportContent).not.toContain("all 45 claims were substantively verified");
     });
   });
 });

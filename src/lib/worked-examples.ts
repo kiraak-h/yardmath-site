@@ -438,8 +438,8 @@ export const workedExampleFixtures: Record<ToolSlug, WorkedExampleFixture> = {
   "concrete-calculator": {
     slug: "concrete-calculator",
     title: "Patio Slab Concrete Worked Example",
-    scenario: "Pouring a 12 ft × 12 ft patio slab at 4 inches thickness (144 sq ft) with a 10% allowance for formwork deflection and subgrade dips. Comparing bulk ready-mix delivery against packaged bags based on manufacturer printed volumetric yields.",
-    dimensionsDescription: "12 ft × 12 ft area × 4 in thickness, 10% allowance, 80 lb bags (0.60 cu ft yield)",
+    scenario: "Pouring a 12 ft × 12 ft patio slab at 4 inches thickness (144 sq ft) with an optional 10% user-selected planning allowance for formwork deflection and subgrade variations. Comparing bulk ready-mix delivery against packaged bags based on manufacturer printed volumetric yields.",
+    dimensionsDescription: "12 ft × 12 ft area × 4 in thickness, 10% optional allowance, 80 lb bags (0.60 cu ft yield)",
     input: {
       shape: "rectangle",
       system: "imperial",
@@ -468,7 +468,7 @@ export const workedExampleFixtures: Record<ToolSlug, WorkedExampleFixture> = {
     steps: [
       { category: "surface_area", label: "1. Slab Surface Area", formula: "12 ft × 12 ft", result: "144 sq ft", explanation: "Internal formwork plan area." },
       { category: "base_volume", label: "2. Base Neat Volume", formula: "144 sq ft × 4 in ÷ 324", result: "1.778 yd³", explanation: "Geometric concrete volume (48.0 cu ft)." },
-      { category: "order_volume", label: "3. Volume with 10% Allowance", formula: "1.778 yd³ × 1.10", result: "1.956 yd³", explanation: "Compensates for subgrade dips and formwork bulge (52.8 cu ft)." },
+      { category: "order_volume", label: "3. Volume with 10% Allowance", formula: "1.778 yd³ × 1.10", result: "1.956 yd³", explanation: "Applies optional 10% user planning allowance for subgrade dips and formwork flex (52.8 cu ft)." },
       { category: "packaging_yield", label: "4. 80 lb Bags (0.60 cu ft yield)", formula: "52.8 cu ft ÷ 0.60 cu ft/bag", result: "88 bags", explanation: "Based on manufacturer printed yield for standard 80 lb dry mix.", packageYieldCuFt: 0.60 },
       { category: "packaging_yield", label: "5. 60 lb Bag Option (0.45 cu ft yield)", formula: "52.8 cu ft ÷ 0.45 cu ft/bag", result: "118 bags", explanation: "Alternative bag count using manufacturer printed yield of 0.45 cu ft per 60 lb bag.", packageYieldCuFt: 0.45 },
     ],
