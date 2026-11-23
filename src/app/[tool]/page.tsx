@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Calculator from "@/components/Calculator";
 import { getTool, tools } from "@/lib/tools";
+import { getCanonicalUrl, getValidatedSiteUrl } from "@/lib/site-config";
 
 export const dynamicParams = false;
 
@@ -15,8 +16,7 @@ export async function generateMetadata({ params }: { params: Promise<{ tool: str
   const tool = getTool(slug);
   if (!tool) return {};
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
-  const canonicalUrl = siteUrl ? `${siteUrl}/${tool.slug}/` : `/${tool.slug}/`;
+  const canonicalUrl = getCanonicalUrl(`/${tool.slug}/`);
 
   return {
     title: tool.metaTitle || tool.name,
@@ -52,8 +52,8 @@ export default async function ToolPage({ params }: { params: Promise<{ tool: str
     .sort((a, b) => Number(b.category === tool.category) - Number(a.category === tool.category))
     .slice(0, 3);
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
-  const pageUrl = siteUrl ? `${siteUrl}/${tool.slug}/` : `/${tool.slug}/`;
+  const siteUrl = getValidatedSiteUrl();
+  const pageUrl = getCanonicalUrl(`/${tool.slug}/`);
 
   const breadcrumbData = {
     "@context": "https://schema.org",

@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { guides } from "@/lib/guides";
+import { getCanonicalUrl, getValidatedSiteUrl } from "@/lib/site-config";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
-const canonicalUrl = siteUrl ? `${siteUrl}/guides/` : "/guides/";
+const siteUrl = getValidatedSiteUrl();
+const canonicalUrl = getCanonicalUrl("/guides/");
 
 export const metadata: Metadata = {
   title: "Landscaping Material Guides & Calculation Field Notes",

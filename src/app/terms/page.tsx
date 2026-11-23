@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { getCanonicalUrl } from "@/lib/site-config";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
-const canonicalUrl = siteUrl ? `${siteUrl}/terms/` : "/terms/";
+const canonicalUrl = getCanonicalUrl("/terms/");
 
 export const metadata: Metadata = {
   title: "Terms of Use | YardMath Project Planning Tools",

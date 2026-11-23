@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getGuide, guides } from "@/lib/guides";
 import { getTool } from "@/lib/tools";
+import { getCanonicalUrl, getValidatedSiteUrl } from "@/lib/site-config";
 
 export const dynamicParams = false;
 
@@ -15,8 +16,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const guide = getGuide(slug);
   if (!guide) return {};
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
-  const canonicalUrl = siteUrl ? `${siteUrl}/guides/${guide.slug}/` : `/guides/${guide.slug}/`;
+  const canonicalUrl = getCanonicalUrl(`/guides/${guide.slug}/`);
 
   return {
     title: guide.title,
@@ -58,8 +58,8 @@ export default async function GuideDetailPage({ params }: { params: Promise<{ sl
   const guide = getGuide(slug);
   if (!guide) notFound();
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
-  const pageUrl = siteUrl ? `${siteUrl}/guides/${guide.slug}/` : `/guides/${guide.slug}/`;
+  const siteUrl = getValidatedSiteUrl();
+  const pageUrl = getCanonicalUrl(`/guides/${guide.slug}/`);
 
   const breadcrumbData = {
     "@context": "https://schema.org",

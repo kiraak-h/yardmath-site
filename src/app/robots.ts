@@ -1,8 +1,9 @@
 import type { MetadataRoute } from "next";
+import { getValidatedSiteUrl, isSiteIndexable, type EnvRecord } from "@/lib/site-config";
 
-export default function robots(): MetadataRoute.Robots {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
-  if (!siteUrl) {
+export default function robots(env: EnvRecord = process.env): MetadataRoute.Robots {
+  const siteUrl = getValidatedSiteUrl(env);
+  if (!siteUrl || !isSiteIndexable(env)) {
     return {
       rules: {
         userAgent: "*",
@@ -14,12 +15,12 @@ export default function robots(): MetadataRoute.Robots {
   // GPTBot: OpenAI's model scraping and training crawler.
   // Disallowed by default to protect proprietary editorial guides and calculator data from bulk model training.
   // Set ALLOW_GPTBOT=true in environment variables to enable.
-  const allowGptBot = process.env.ALLOW_GPTBOT === "true";
+  const allowGptBot = env.ALLOW_GPTBOT === "true";
 
   // Google-Extended: Controls content usage for Google Gemini and Vertex AI generative training and grounding.
   // Note: Google-Extended does NOT affect standard Google Search indexing, ranking, or Google AI Overviews
   // (which are governed by Googlebot). Disallowed by default; set ALLOW_GOOGLE_EXTENDED=true to enable.
-  const allowGoogleExtended = process.env.ALLOW_GOOGLE_EXTENDED === "true";
+  const allowGoogleExtended = env.ALLOW_GOOGLE_EXTENDED === "true";
 
   return {
     rules: [

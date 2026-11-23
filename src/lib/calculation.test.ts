@@ -202,6 +202,147 @@ describe("measurement conversions", () => {
     // Stabilizes at 4.999 (0.02% variance, within tape measure tolerance) with zero ongoing drift
     expect(lengthM).toBe(4.999);
   });
+
+  describe("precision state synchronization and conversion edge cases", () => {
+    it("handles clearing measurement fields without calculation errors", () => {
+      // When a user clears length (value becomes 0 or invalid), calculation rejects gracefully
+      expect(() =>
+        calculateMaterial({
+          system: "imperial",
+          shape: "rectangle",
+          length: 0,
+          width: 15,
+          depth: 3,
+          quantity: 1,
+          wastePercent: 5,
+          bagSize: 0,
+          density: null,
+          densityUnit: "kg-m3",
+          pricePerVolume: null,
+          deliveryFee: 0,
+        })
+      ).toThrow();
+    });
+
+    it("correctly evaluates user modifications made after switching to metric", () => {
+      // 1. Initial imperial state: 20 ft x 15 ft x 3 in converted to metric
+      const convertedLen = convertLength(20, "imperial", "metric"); // 6.096 m
+      expect(convertedLen).toBeCloseTo(6.096, 3);
+      const convertedW = convertLength(15, "imperial", "metric");   // 4.572 m
+      const convertedD = convertDepth(3, "imperial", "metric");     // 7.62 cm
+
+      // 2. User edits metric length to 8.5 m
+      const userEditedLen = 8.5;
+      const result = calculateMaterial({
+        system: "metric",
+        shape: "rectangle",
+        length: userEditedLen,
+        width: convertedW,
+        depth: convertedD,
+        quantity: 1,
+        wastePercent: 0,
+        bagSize: 0,
+        density: null,
+        densityUnit: "kg-m3",
+        pricePerVolume: null,
+        deliveryFee: 0,
+      });
+
+      // Area = 8.5 m * 4.572 m = 38.862 m²
+      // Volume = 38.862 m² * (7.62 / 100 m) = 2.9612844 m³
+      expect(result.cubicMetres).toBeCloseTo(2.9612844, 6);
+      // Ensure no stale 20 ft length is present
+      expect(result.cubicMetres).not.toBeCloseTo(2.12376, 3);
+    });
+
+    it("handles empty optional bag-size and price fields during conversion", () => {
+      // When bagSize is 0 (empty) or price is null (empty)
+      expect(convertPackageVolume(0, "imperial", "metric")).toBe(0);
+      expect(convertPackageVolume(0, "metric", "imperial")).toBe(0);
+      expect(convertUnitPrice(0, "imperial", "metric")).toBe(0);
+      expect(convertUnitPrice(0, "metric", "imperial")).toBe(0);
+    });
+
+    it("accurately converts and synchronizes bag size and price across both systems", () => {
+      // 2 cu ft bag in imperial -> litres in metric
+      const bagCuFt = 2.0;
+      const bagLitres = convertPackageVolume(bagCuFt, "imperial", "metric");
+      expect(bagLitres).toBeCloseTo(56.6337, 3);
+
+      // User modifies metric bag size to 50 L -> converts back to cu ft
+      const userEditedBagL = 50.0;
+      const convertedBackCuFt = convertPackageVolume(userEditedBagL, "metric", "imperial");
+      expect(convertedBackCuFt).toBeCloseTo(1.7657, 3);
+
+      // Price per yd³ in imperial -> price per m³ in metric
+      const pricePerYd = 45.0;
+      const pricePerM3 = convertUnitPrice(pricePerYd, "imperial", "metric");
+      expect(pricePerM3).toBeCloseTo(58.8578, 3);
+
+      // User modifies metric price to $65.00 / m³ -> converts back to price per yd³
+      const userEditedPriceM3 = 65.0;
+      const convertedBackPriceYd = convertUnitPrice(userEditedPriceM3, "metric", "imperial");
+      expect(convertedBackPriceYd).toBeCloseTo(49.6961, 3);
+    });
+
+    it("maintains zero cumulative drift across 50 bi-directional conversion cycles for all dimensions", () => {
+      let l = 12.5;
+      let w = 8.25;
+      let d = 15.0;
+      let bag = 75.0;
+      let pr = 55.0;
+
+      for (let i = 0; i < 50; i++) {
+        // Metric -> Imperial
+        l = convertLength(l, "metric", "imperial");
+        w = convertLength(w, "metric", "imperial");
+        d = convertDepth(d, "metric", "imperial");
+        bag = convertPackageVolume(bag, "metric", "imperial");
+        pr = convertUnitPrice(pr, "metric", "imperial");
+
+        // Imperial -> Metric
+        l = convertLength(l, "imperial", "metric");
+        w = convertLength(w, "imperial", "metric");
+        d = convertDepth(d, "imperial", "metric");
+        bag = convertPackageVolume(bag, "imperial", "metric");
+        pr = convertUnitPrice(pr, "imperial", "metric");
+      }
+
+      expect(l).toBeCloseTo(12.5, 10);
+      expect(w).toBeCloseTo(8.25, 10);
+      expect(d).toBeCloseTo(15.0, 10);
+      expect(bag).toBeCloseTo(75.0, 10);
+      expect(pr).toBeCloseTo(55.0, 10);
+    });
+
+    it("ensures latest user inputs strictly override previous internal numeric state without stale leakage", () => {
+      // Sequence of rapid user updates on length
+      const updates = [20, 35, 12, 18.5, 40];
+      let finalResult = null;
+
+      for (const val of updates) {
+        finalResult = calculateMaterial({
+          system: "imperial",
+          shape: "rectangle",
+          length: val,
+          width: 15,
+          depth: 3,
+          quantity: 1,
+          wastePercent: 0,
+          bagSize: 0,
+          density: null,
+          densityUnit: "kg-m3",
+          pricePerVolume: null,
+          deliveryFee: 0,
+        });
+      }
+
+      // Expected for final length 40 ft:
+      // Area = 40 * 15 = 600 sq ft. Volume = 600 * (3 / 12) = 150 cu ft = 150 / 27 = 5.5555... yd³
+      expect(finalResult?.cubicYards).toBeCloseTo(5.555555, 5);
+      expect(finalResult?.cubicFeet).toBeCloseTo(150.0, 5);
+    });
+  });
 });
 
 describe("weight number formatting", () => {

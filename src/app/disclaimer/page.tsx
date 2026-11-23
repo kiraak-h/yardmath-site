@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { getCanonicalUrl } from "@/lib/site-config";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
-const canonicalUrl = siteUrl ? `${siteUrl}/disclaimer/` : "/disclaimer/";
+const canonicalUrl = getCanonicalUrl("/disclaimer/");
 
 export const metadata: Metadata = {
   title: "Calculation Disclaimer | Assumptions & Limitations",

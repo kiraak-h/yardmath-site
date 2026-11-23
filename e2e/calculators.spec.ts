@@ -178,3 +178,92 @@ for (const calc of calculators) {
     });
   });
 }
+
+test.describe('Precision State Synchronization & Unit Conversion Regressions', () => {
+  test('verifies clearing fields, metric edits, repeated conversions, and stale state prevention', async ({ page }) => {
+    await page.goto('/topsoil-calculator/');
+
+    const lengthInput = page.locator('#field-length');
+    const widthInput = page.locator('#field-width');
+    const depthInput = page.locator('#field-material-depth');
+    const metricToggle = page.locator('button:has-text("Metric")');
+    const imperialToggle = page.locator('button:has-text("US / Imperial")');
+    const primaryResult = page.locator('.primary-result strong');
+    const primaryUnit = page.locator('.primary-result span');
+    const resetBtn = page.locator('.reset-calculator');
+
+    // 1. Clearing a measurement field and switching systems
+    await lengthInput.fill('');
+    await expect(page.locator('.validation-message[role="alert"]')).toBeVisible();
+    await expect(page.locator('.empty-result')).toBeVisible();
+    await metricToggle.click();
+    // Field remains empty without crashing or outputting NaN
+    await expect(lengthInput).toHaveValue('');
+    // Entering a new metric measurement updates calculation accurately
+    await lengthInput.fill('6.096');
+    await expect(primaryResult).toHaveText('2.23'); // 2.1238 m3 + 5% = 2.23 m3
+    await expect(primaryUnit).toHaveText('cubic metres');
+    await expect(page.locator('.validation-message[role="alert"]')).not.toBeVisible();
+
+    // 2. Editing measurements after switching to metric
+    await lengthInput.fill('10.0');
+    // 10m * 4.572m * 0.0762m = 3.48386 m3 * 1.05 = 3.658 m3
+    await expect(primaryResult).toHaveText('3.658');
+
+    // 3. Repeated imperial/metric conversion (toggle 4 times)
+    await imperialToggle.click();
+    await expect(primaryUnit).toHaveText('cubic yards');
+    await metricToggle.click();
+    await expect(primaryUnit).toHaveText('cubic metres');
+    await imperialToggle.click();
+    await expect(primaryUnit).toHaveText('cubic yards');
+    await metricToggle.click();
+    await expect(primaryUnit).toHaveText('cubic metres');
+    await expect(primaryResult).toHaveText('3.658');
+
+    // 4. Empty optional bag-size and price fields remain empty during conversion
+    const advancedToggle = page.locator('.advanced-toggle');
+    await advancedToggle.click();
+    const bagInput = page.locator('#field-pack-volume');
+    const priceInput = page.locator('input#field-price-per-cubic-metre, input#field-price-per-cubic-yard');
+    await expect(bagInput).toHaveValue('');
+    await expect(priceInput).toHaveValue('');
+    await imperialToggle.click();
+    await expect(bagInput).toHaveValue('');
+    await expect(page.locator('input#field-price-per-cubic-yard')).toHaveValue('');
+
+    // 5. Editing bag size and price in both systems
+    await bagInput.fill('2'); // 2 cu ft
+    await page.locator('input#field-price-per-cubic-yard').fill('45'); // $45/yd3
+    await metricToggle.click();
+    // 2 cu ft converts to ~56.6 L
+    await expect(bagInput).toHaveValue('56.6');
+    // $45/yd3 converts to $58.86/m3
+    await expect(page.locator('input#field-price-per-cubic-metre')).toHaveValue('58.86');
+
+    // Edit in metric
+    await bagInput.fill('50');
+    await page.locator('input#field-price-per-cubic-metre').fill('60');
+    await imperialToggle.click();
+    // 50 L converts to ~1.77 cu ft
+    await expect(bagInput).toHaveValue('1.77');
+    // $60/m3 converts to $45.87/yd3
+    await expect(page.locator('input#field-price-per-cubic-yard')).toHaveValue('45.87');
+
+    // 6. Reset after multiple unit switches restores pristine defaults
+    await resetBtn.click();
+    await expect(lengthInput).toHaveValue('20');
+    await expect(widthInput).toHaveValue('15');
+    await expect(depthInput).toHaveValue('3');
+    await expect(primaryResult).toHaveText('2.917');
+    await expect(primaryUnit).toHaveText('cubic yards');
+
+    // 7. No stale internal numeric value overriding latest visible input
+    await lengthInput.fill('30');
+    await expect(primaryResult).toHaveText('4.375');
+    await lengthInput.fill('10');
+    await expect(primaryResult).toHaveText('1.458');
+    await lengthInput.fill('25');
+    await expect(primaryResult).toHaveText('3.646');
+  });
+});

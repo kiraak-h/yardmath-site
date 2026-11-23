@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { getCanonicalUrl } from "@/lib/site-config";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
-const canonicalUrl = siteUrl ? `${siteUrl}/privacy/` : "/privacy/";
+const canonicalUrl = getCanonicalUrl("/privacy/");
 
 export const metadata: Metadata = {
   title: "Privacy Policy | Zero-Tracker Architecture",

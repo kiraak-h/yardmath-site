@@ -1,9 +1,10 @@
 import type { MetadataRoute } from "next";
 import { tools } from "@/lib/tools";
 import { guides } from "@/lib/guides";
+import { getValidatedSiteUrl, type EnvRecord } from "@/lib/site-config";
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
+export default function sitemap(env: EnvRecord = process.env): MetadataRoute.Sitemap {
+  const siteUrl = getValidatedSiteUrl(env);
   if (!siteUrl) return [];
 
   // Use genuine, verifiable release/revision dates rather than generating dynamic 'new Date()' on every request

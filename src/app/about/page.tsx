@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { getCanonicalUrl } from "@/lib/site-config";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
-const canonicalUrl = siteUrl ? `${siteUrl}/about/` : "/about/";
+const canonicalUrl = getCanonicalUrl("/about/");
 
 export const metadata: Metadata = {
   title: "About YardMath | Calculation Methodology, Editorial Policy & Standards",

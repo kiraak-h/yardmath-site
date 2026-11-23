@@ -61,7 +61,8 @@ The site also includes a calculator search/filter interface, mobile navigation, 
    NEXT_PUBLIC_CONTACT_EMAIL=your-monitored-support-address@example.com
    ```
 
-   The domain must be the actual canonical HTTPS domain. The contact email must be monitored. Do not leave example values in production.
+   - `NEXT_PUBLIC_SITE_URL`: Must be the approved canonical HTTPS domain (e.g. `https://www.your-real-domain.com`). Localhost, IP addresses, HTTP schemes, and relative URLs are rejected.
+   - `NEXT_PUBLIC_CONTACT_EMAIL`: Monitored support email address. Do not leave placeholder values in production.
 
 5. Start the local development server:
 
@@ -71,22 +72,43 @@ The site also includes a calculator search/filter interface, mobile navigation, 
 
 6. Open `http://localhost:3000`.
 
-## Quality checks
+## Release Verification & Quality Checks
 
-Run the full verification sequence before deployment:
+YardMath enforces mandatory build and browser verification before any production deployment:
 
+### 1. Static Verification and Build Pipeline
 ```bash
 npm run verify
 ```
+This runs the full local verification pipeline:
+- `npm run lint` — ESLint 9 code quality checks (0 warnings, 0 errors).
+- `npm run typecheck` — TypeScript strict type validation (0 errors).
+- `npm run test` — Vitest unit and content test suite (86/86 passing across calculation formulas, worked examples, benchmark coverage, and site-config indexing policies).
+- `npm run build` — Next.js static production build (34/34 routes prerendered).
 
-This executes:
+### 2. End-to-End Browser Verification
+```bash
+npm run test:e2e
+```
+This runs the automated Playwright E2E browser test suite:
+- **Prerequisites:** Requires Google Chrome installed locally or Chromium (`npx playwright install chromium` with `PLAYWRIGHT_CHROMIUM=1`).
+- **Deterministic Server Startup:** Playwright requires a valid production build (`.next/BUILD_ID`), verified by `e2e/global-setup.ts`. Server reuse is disabled by default to guarantee testing against fresh production assets (override during local debugging with `PLAYWRIGHT_REUSE_SERVER=true`).
+- **Coverage:** Runs 13 comprehensive browser tests verifying all 12 calculators, responsive viewports (320px–430px), zero horizontal overflow, unit toggling, full-precision metric-to-imperial conversions, packaging calculations, cost estimates, reset controls, and rapid user input overrides.
 
-- `npm run lint` — ESLint
-- `npm run typecheck` — TypeScript checks
-- `npm run test` — calculation-engine unit tests
-- `npm run build` — optimized Next.js production build
+Both `npm run verify` and `npm run test:e2e` are required release gate gates before publishing.
 
-Individual commands are also available. `npm run test:watch` starts Vitest in watch mode.
+## Environment-Aware Indexing Protection
+
+To prevent accidental search indexing of staging or preview environments:
+
+1. **Production Builds:**
+   - Indexing is **only** enabled when the environment is confirmed as `production` (via `VERCEL_ENV=production`, `CONTEXT=production`, or `APP_ENV=production`) **AND** a valid, approved HTTPS domain is supplied in `NEXT_PUBLIC_SITE_URL`.
+   - When valid, the site outputs standard canonical URLs, Open Graph identity, robots directives (`index, follow`), and a populated XML sitemap.
+2. **Preview, Staging & Development Builds:**
+   - Any non-production environment (e.g. Vercel Preview, Netlify Deploy Preview, staging, local dev) strictly enforces `noindex, nofollow` metadata.
+   - `/robots.txt` outputs `User-agent: * Disallow: /`.
+   - `/sitemap.xml` emits an empty sitemap (`[]`).
+   - Even if `NEXT_PUBLIC_SITE_URL` is accidentally set in preview or staging, the site **never** becomes indexable.
 
 ## Deployment (Vercel)
 
@@ -94,14 +116,14 @@ The repository contains `vercel.json` configured for the Next.js framework.
 
 1. Create a Git repository and push this project.
 2. Import that repository into Vercel.
-3. Set `NEXT_PUBLIC_SITE_URL` to the final canonical HTTPS URL in the Vercel project environment variables.
-4. Set `NEXT_PUBLIC_CONTACT_EMAIL` to the real support inbox.
-5. Deploy and test the Vercel preview URL.
-6. Add the production domain in Vercel and configure the DNS records at the domain registrar.
-7. Confirm HTTPS, redirects, canonical URL, `/robots.txt`, `/sitemap.xml` and `/api/health` after the domain is connected.
-8. Submit the sitemap in Google Search Console after the public site is live.
-
-**Indexing safeguard:** if `NEXT_PUBLIC_SITE_URL` is missing, the site outputs `noindex` metadata and disallows crawling in `robots.txt`, and the sitemap is empty. Set the real domain before launch to enable indexing.
+3. Configure environment variables in Vercel:
+   - In **Production**: Set `NEXT_PUBLIC_SITE_URL` to your final canonical HTTPS domain (e.g. `https://www.yardmath.com`). Vercel automatically sets `VERCEL_ENV=production`.
+   - In **Preview / Development**: Leave `NEXT_PUBLIC_SITE_URL` unset or let it default. Staging protection prevents indexing.
+   - Set `NEXT_PUBLIC_CONTACT_EMAIL` to your real support email.
+4. Deploy and test the Vercel preview URL.
+5. Add the production domain in Vercel and configure DNS records at your domain registrar.
+6. Confirm HTTPS, redirects, canonical URL, `/robots.txt`, `/sitemap.xml` and `/api/health` once the domain is live.
+7. Submit the sitemap in Google Search Console after launch.
 
 ## Routes
 

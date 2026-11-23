@@ -3,9 +3,10 @@ import Link from "next/link";
 import ToolDirectory from "@/components/ToolDirectory";
 import { tools } from "@/lib/tools";
 import { guides } from "@/lib/guides";
+import { getCanonicalUrl, getValidatedSiteUrl } from "@/lib/site-config";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
-const canonicalUrl = siteUrl ? `${siteUrl}/` : "/";
+const siteUrl = getValidatedSiteUrl();
+const canonicalUrl = getCanonicalUrl("/");
 
 export const metadata: Metadata = {
   title: "Free Landscaping Calculators | Soil, Mulch, Gravel, Sand & Concrete",
