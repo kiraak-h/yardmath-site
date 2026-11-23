@@ -83,32 +83,51 @@ npm run verify
 This runs the full local verification pipeline:
 - `npm run lint` — ESLint 9 code quality checks (0 warnings, 0 errors).
 - `npm run typecheck` — TypeScript strict type validation (0 errors).
-- `npm run test` — Vitest unit and content test suite (86/86 passing across calculation formulas, worked examples, benchmark coverage, and site-config indexing policies).
-- `npm run build` — Next.js static production build (34/34 routes prerendered).
+- `npm run test` — Vitest unit, content, metadata, and fingerprint test suites (104/104 passing across 6 test files).
+- `npm run build` — Next.js static production build (34/34 routes prerendered) with cryptographic SHA-256 build fingerprinting.
 
 ### 2. End-to-End Browser Verification
 ```bash
 npm run test:e2e
 ```
 This runs the automated Playwright E2E browser test suite:
-- **Prerequisites:** Requires Google Chrome installed locally or Chromium (`npx playwright install chromium` with `PLAYWRIGHT_CHROMIUM=1`).
-- **Deterministic Server Startup:** Playwright requires a valid production build (`.next/BUILD_ID`), verified by `e2e/global-setup.ts`. Server reuse is disabled by default to guarantee testing against fresh production assets (override during local debugging with `PLAYWRIGHT_REUSE_SERVER=true`).
+- **Mandatory Release Sequence:** Execute `npm run verify` followed by `npm run test:e2e`.
+- **Cryptographic Build Freshness Gate:** Prior to running tests, `e2e/global-setup.ts` computes a SHA-256 fingerprint over all contributing source files (`src/`, `public/`, `next.config.ts`, `tsconfig.json`, `package.json`) and validates that `.next/BUILD_ID` matches. If source code was modified without running a build, or if `.next` contains stale assets, the gate halts test execution immediately with an actionable error.
+- **Dedicated Port & No Server Reuse:** Tests execute against a fresh Next.js production server on port 3005 (`npx next start -p 3005`). Server reuse is strictly prohibited in CI and off by default locally (opt-in debugging via `PLAYWRIGHT_REUSE_SERVER=true`).
+- **Browser Runtime:** Uses Google Chrome (`channel: 'chrome'`) by default. In headless CI containers or systems without Chrome, install Playwright Chromium (`npx playwright install chromium`) and execute with `PLAYWRIGHT_CHROMIUM=1 npm run test:e2e`.
 - **Coverage:** Runs 13 comprehensive browser tests verifying all 12 calculators, responsive viewports (320px–430px), zero horizontal overflow, unit toggling, full-precision metric-to-imperial conversions, packaging calculations, cost estimates, reset controls, and rapid user input overrides.
+
+#### What the Freshness Gate Proves and Does Not Prove
+- **What it proves:**
+  1. The production build in `.next/` was compiled from the exact current source tree (matching the cryptographic hash of source files, assets, and configs).
+  2. The build output contains all necessary manifests (`.next/BUILD_ID`, `.next/build-manifest.json`).
+  3. Browser E2E tests are executing against freshly compiled assets from the current commit, preventing silent test passes against obsolete code.
+- **What it cannot prove:**
+  1. It cannot prove that external third-party host systems or unpinned global Node modules have not changed if those changes did not alter source files or `package.json`.
+  2. It cannot prove runtime network parity with remote edge infrastructure (e.g. cloud DNS routing, edge CDN caches, origin hosting SSL termination).
+  3. It cannot guarantee that a running server is serving current assets if server reuse was explicitly overridden with `PLAYWRIGHT_REUSE_SERVER=true` (which is why reuse is disabled by default).
 
 Both `npm run verify` and `npm run test:e2e` are required release gate gates before publishing.
 
 ## Environment-Aware Indexing Protection
 
-To prevent accidental search indexing of staging or preview environments:
+To prevent accidental search indexing of staging, preview, or development environments:
 
-1. **Production Builds:**
-   - Indexing is **only** enabled when the environment is confirmed as `production` (via `VERCEL_ENV=production`, `CONTEXT=production`, or `APP_ENV=production`) **AND** a valid, approved HTTPS domain is supplied in `NEXT_PUBLIC_SITE_URL`.
-   - When valid, the site outputs standard canonical URLs, Open Graph identity, robots directives (`index, follow`), and a populated XML sitemap.
-2. **Preview, Staging & Development Builds:**
-   - Any non-production environment (e.g. Vercel Preview, Netlify Deploy Preview, staging, local dev) strictly enforces `noindex, nofollow` metadata.
-   - `/robots.txt` outputs `User-agent: * Disallow: /`.
-   - `/sitemap.xml` emits an empty sitemap (`[]`).
-   - Even if `NEXT_PUBLIC_SITE_URL` is accidentally set in preview or staging, the site **never** becomes indexable.
+1. **Authoritative Platform Precedence (`src/lib/site-config.ts`):**
+   - **1st Priority — Vercel:** If `VERCEL_ENV` is present, it is authoritative (`production`, `preview`, `development`).
+   - **2nd Priority — Netlify:** If `CONTEXT` is present, it is authoritative (`production`, `deploy-preview`, `branch-deploy`, `dev`).
+   - **3rd Priority — Generic Variables:** Only when neither platform variable is set may generic variables (`APP_ENV`, `NEXT_PUBLIC_APP_ENV`, `DEPLOYMENT_ENV`) be evaluated.
+   - **Failsafe:** Any unknown or conflicting value fails safely to `preview` (non-indexable). A preview deployment **never** becomes indexable simply because a generic variable states `production`.
+
+2. **Strict Canonical and Open Graph Suppression on Non-Indexable Deployments:**
+   - In preview, staging, development, or unconfigured production builds, `getCanonicalUrl()` returns `undefined`.
+   - Pages conditionally omit `<link rel="canonical">` and `<meta property="og:url">` entirely. They are **never** replaced with relative URLs, preview hostnames, localhost, or unapproved commercial domains.
+   - Social Open Graph and Twitter image tags (`og:image`, `twitter:image`) are conditionally omitted when no approved canonical production origin is configured, completely eliminating Next.js default fallback warnings and unwanted `http://localhost:3000` image URLs.
+   - JSON-LD structured data (`WebSite`, `WebApplication`, `BreadcrumbList`, `Article`) conditionally omits `url`, `item`, and `image` properties when no approved production domain exists, preventing preview hostnames or unapproved origins from being emitted.
+
+3. **Production Builds:**
+   - Indexing is enabled **only** when verified `production` environment coincides with a validated, approved HTTPS domain in `NEXT_PUBLIC_SITE_URL`.
+   - When valid, standard canonical links, Open Graph URLs, `index, follow` directives, and a populated 34-route XML sitemap are emitted.
 
 ## Deployment (Vercel)
 

@@ -7,7 +7,7 @@
 **Status:** Verification Complete — Delineated by Methodology:
 - **Automated Network & Meta Audits:** 44/45 HTTP 200 reachable, 1/45 HTTP 403 bot-indeterminate, 0 HTTP 404 broken links, with automated title extraction and redirect tracking.
 - **Manual Substantive Literature Review:** 45 citations assessed and documented (44 substantively verified with exact titles, sections, and excerpts; 1 classified as indeterminate due to USCC STA HTTP 403 bot defense).
-- **Automated Calculation & Content Tests:** 100% automated test pipeline passed (86/86 Vitest unit & content tests, strict TypeScript, ESLint, Next.js SSG build).  
+- **Automated Calculation & Content Tests:** 100% automated test pipeline passed (104/104 Vitest unit, content, site-config, metadata-resolution, rendered-HTML, and build-fingerprint tests; 13/13 Playwright E2E browser scenarios against fresh production build on port 3005; strict TypeScript; ESLint; Next.js SSG build).  
 
 ---
 
@@ -164,17 +164,25 @@ Lighthouse audit executed against the production Next.js build on `http://localh
 
 > vitest run
  RUN  v4.1.12 G:/Antigravity/yardmath-site
+ ✓ src/lib/rendered-html.test.ts (1 test)
  ✓ src/lib/calculation.test.ts (21 tests)
- ✓ src/lib/site-config.test.ts (15 tests)
+ ✓ src/lib/site-config.test.ts (20 tests)
+ ✓ src/lib/build-fingerprint.test.ts (6 tests)
  ✓ src/lib/content-validation.test.ts (50 tests)
- Test Files  3 passed (3)
-      Tests  86 passed (86)
-   Duration  969ms
+ ✓ src/lib/metadata-resolution.test.ts (6 tests)
+ Test Files  6 passed (6)
+      Tests  104 passed (104)
 
 > next build
 ▲ Next.js 16.4.6 (Turbopack)
 ✓ Compiled successfully
-✓ Generating static pages using 15 workers (34/34) in 950ms
+✓ Generating static pages using 15 workers (34/34)
+✓ Cryptographic build fingerprint verified
+
+> yardmath-landscaping-calculators@1.0.0 test:e2e
+> playwright test
+[Playwright E2E Gate] Verified fresh production build: BUILD_ID=ym-... matching current source fingerprint
+13 passed (Port 3005)
 ```
 
 ---

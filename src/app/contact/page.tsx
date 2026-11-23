@@ -7,14 +7,12 @@ const canonicalUrl = getCanonicalUrl("/contact/");
 export const metadata: Metadata = {
   title: "Contact YardMath | Feedback, Corrections & Support",
   description: "Contact the YardMath team with calculation feedback, bug reports, editorial corrections, or accessibility inquiries.",
-  alternates: {
-    canonical: canonicalUrl,
-  },
+  ...(canonicalUrl ? { alternates: { canonical: canonicalUrl } } : {}),
   openGraph: {
     title: "Contact YardMath | Editorial Corrections & Inquiries",
     description: "Submit calculation feedback, bug reports, or corrections to the YardMath team.",
     type: "website",
-    url: canonicalUrl,
+    ...(canonicalUrl ? { url: canonicalUrl } : {}),
   },
 };
 

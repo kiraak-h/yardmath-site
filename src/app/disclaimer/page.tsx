@@ -7,14 +7,12 @@ const canonicalUrl = getCanonicalUrl("/disclaimer/");
 export const metadata: Metadata = {
   title: "Calculation Disclaimer | Assumptions & Limitations",
   description: "Understand the mathematical assumptions, compaction realities, density variances, and limitations behind YardMath landscaping estimates.",
-  alternates: {
-    canonical: canonicalUrl,
-  },
+  ...(canonicalUrl ? { alternates: { canonical: canonicalUrl } } : {}),
   openGraph: {
     title: "Calculation Disclaimer | YardMath Material Estimations",
     description: "Understand the mathematical assumptions, compaction realities, and bulk density limitations of YardMath estimates.",
     type: "website",
-    url: canonicalUrl,
+    ...(canonicalUrl ? { url: canonicalUrl } : {}),
   },
 };
 

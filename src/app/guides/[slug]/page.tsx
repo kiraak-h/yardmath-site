@@ -16,35 +16,27 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const guide = getGuide(slug);
   if (!guide) return {};
 
+  const siteUrl = getValidatedSiteUrl();
   const canonicalUrl = getCanonicalUrl(`/guides/${guide.slug}/`);
 
   return {
     title: guide.title,
     description: guide.description,
-    alternates: {
-      canonical: canonicalUrl,
-    },
+    ...(canonicalUrl ? { alternates: { canonical: canonicalUrl } } : {}),
     openGraph: {
       title: `${guide.title} | YardMath Guides`,
       description: guide.description,
       type: "article",
       publishedTime: guide.publishedDate,
       modifiedTime: guide.revisedDate,
-      url: canonicalUrl,
-      images: [
-        {
-          url: "/og-image.png",
-          width: 1200,
-          height: 630,
-          alt: guide.title,
-        },
-      ],
+      ...(canonicalUrl ? { url: canonicalUrl } : {}),
+      ...(siteUrl ? { images: [{ url: "/og-image.png", width: 1200, height: 630, alt: guide.title }] } : {}),
     },
     twitter: {
       card: "summary_large_image",
       title: `${guide.title} | YardMath`,
       description: guide.description,
-      images: ["/og-image.png"],
+      ...(siteUrl ? { images: ["/og-image.png"] } : {}),
     },
   };
 }
@@ -67,7 +59,7 @@ export default async function GuideDetailPage({ params }: { params: Promise<{ sl
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", ...(siteUrl ? { item: siteUrl } : {}) },
       { "@type": "ListItem", position: 2, name: "Guides", ...(siteUrl ? { item: `${siteUrl}/guides/` } : {}) },
-      { "@type": "ListItem", position: 3, name: guide.shortTitle, ...(siteUrl ? { item: pageUrl } : {}) },
+      { "@type": "ListItem", position: 3, name: guide.shortTitle, ...(siteUrl && pageUrl ? { item: pageUrl } : {}) },
     ],
   };
 
@@ -78,16 +70,13 @@ export default async function GuideDetailPage({ params }: { params: Promise<{ sl
     description: guide.description,
     datePublished: guide.publishedDate,
     dateModified: guide.revisedDate,
-    mainEntityOfPage: pageUrl,
-    image: siteUrl ? `${siteUrl}/og-image.png` : "/og-image.png",
+    ...(siteUrl && pageUrl ? { mainEntityOfPage: pageUrl } : {}),
+    ...(siteUrl ? { image: `${siteUrl}/og-image.png` } : {}),
     publisher: {
       "@type": "Organization",
       name: "YardMath",
       ...(siteUrl ? { url: siteUrl } : {}),
-      logo: {
-        "@type": "ImageObject",
-        url: siteUrl ? `${siteUrl}/favicon.svg` : "/favicon.svg",
-      },
+      ...(siteUrl ? { logo: { "@type": "ImageObject", url: `${siteUrl}/favicon.svg` } } : {}),
     },
     author: {
       "@type": "Organization",

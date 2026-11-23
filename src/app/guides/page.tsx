@@ -9,19 +9,19 @@ const canonicalUrl = getCanonicalUrl("/guides/");
 export const metadata: Metadata = {
   title: "Landscaping Material Guides & Calculation Field Notes",
   description: "Comprehensive guides to measuring yard projects, calculating topsoil, mulch, concrete, gravel driveway cross-sections, and bulk density weight conversions.",
-  alternates: {
-    canonical: canonicalUrl,
-  },
+  ...(canonicalUrl ? { alternates: { canonical: canonicalUrl } } : {}),
   openGraph: {
     title: "Landscaping Material Guides | YardMath Field Notes",
     description: "Practical engineering and horticultural guides to estimating materials, calculating volumes, and avoiding costly landscaping mistakes.",
     type: "website",
-    url: canonicalUrl,
+    ...(canonicalUrl ? { url: canonicalUrl } : {}),
+    ...(siteUrl ? { images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Landscaping Material Guides" }] } : {}),
   },
   twitter: {
     card: "summary_large_image",
     title: "Landscaping Material Guides | YardMath",
     description: "In-depth calculation guides for soil, gravel, concrete, mulch, and irregular area measurement.",
+    ...(siteUrl ? { images: ["/og-image.png"] } : {}),
   },
 };
 
@@ -33,7 +33,7 @@ export default function GuidesPage() {
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", ...(siteUrl ? { item: siteUrl } : {}) },
-      { "@type": "ListItem", position: 2, name: "Guides", ...(siteUrl ? { item: canonicalUrl } : {}) },
+      { "@type": "ListItem", position: 2, name: "Guides", ...(siteUrl && canonicalUrl ? { item: canonicalUrl } : {}) },
     ],
   };
 

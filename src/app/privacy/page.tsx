@@ -7,14 +7,12 @@ const canonicalUrl = getCanonicalUrl("/privacy/");
 export const metadata: Metadata = {
   title: "Privacy Policy | Zero-Tracker Architecture",
   description: "Read how YardMath protects user privacy with zero client tracking, zero marketing cookies, and strictly local client-side calculations.",
-  alternates: {
-    canonical: canonicalUrl,
-  },
+  ...(canonicalUrl ? { alternates: { canonical: canonicalUrl } } : {}),
   openGraph: {
     title: "Privacy Policy | YardMath Landscaping Calculators",
     description: "YardMath operates a zero-tracking, cookie-free client-side calculation platform.",
     type: "website",
-    url: canonicalUrl,
+    ...(canonicalUrl ? { url: canonicalUrl } : {}),
   },
 };
 

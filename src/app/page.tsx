@@ -11,21 +11,19 @@ const canonicalUrl = getCanonicalUrl("/");
 export const metadata: Metadata = {
   title: "Free Landscaping Calculators | Soil, Mulch, Gravel, Sand & Concrete",
   description: "Plan outdoor projects with 12 free landscaping material calculators. Estimate topsoil, mulch, pea gravel, compost, sand, concrete and aggregate in US or metric units.",
-  alternates: {
-    canonical: canonicalUrl,
-  },
+  ...(canonicalUrl ? { alternates: { canonical: canonicalUrl } } : {}),
   openGraph: {
     title: "YardMath — Free Landscaping Material Calculators",
     description: "Calculate material volume, package quantities and project estimates for landscaping and outdoor projects.",
     type: "website",
-    url: canonicalUrl,
-    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "YardMath landscaping calculators" }],
+    ...(canonicalUrl ? { url: canonicalUrl } : {}),
+    ...(siteUrl ? { images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "YardMath landscaping calculators" }] } : {}),
   },
   twitter: {
     card: "summary_large_image",
     title: "YardMath — Free Landscaping Material Calculators",
     description: "Calculate soil, mulch, gravel, sand, and concrete volumes accurately.",
-    images: ["/og-image.png"],
+    ...(siteUrl ? { images: ["/og-image.png"] } : {}),
   },
 };
 

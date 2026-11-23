@@ -7,14 +7,12 @@ const canonicalUrl = getCanonicalUrl("/about/");
 export const metadata: Metadata = {
   title: "About YardMath | Calculation Methodology, Editorial Policy & Standards",
   description: "Learn about YardMath's editorial standards, mathematical verification protocols, source citation policy, and client-side calculation methodology.",
-  alternates: {
-    canonical: canonicalUrl,
-  },
+  ...(canonicalUrl ? { alternates: { canonical: canonicalUrl } } : {}),
   openGraph: {
     title: "About YardMath | Editorial Standards & Calculation Methodology",
     description: "Transparent dimensional mathematics and verified educational guidelines for homeowners and landscape contractors.",
     type: "website",
-    url: canonicalUrl,
+    ...(canonicalUrl ? { url: canonicalUrl } : {}),
   },
 };
 

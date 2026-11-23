@@ -2,9 +2,10 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
-import { getMetadataBase, isSiteIndexable } from "@/lib/site-config";
+import { getMetadataBase, getValidatedSiteUrl, isSiteIndexable } from "@/lib/site-config";
 
 const metadataBase = getMetadataBase();
+const siteUrl = getValidatedSiteUrl();
 const indexable = isSiteIndexable();
 
 export const metadata: Metadata = {
@@ -15,8 +16,19 @@ export const metadata: Metadata = {
   category: "Home and garden calculators",
   robots: { index: indexable, follow: indexable, googleBot: { index: indexable, follow: indexable } },
   icons: { icon: "/favicon.svg" },
-  openGraph: { type: "website", siteName: "YardMath", title: "YardMath — Landscaping Material Calculators", description: "Free calculators for soil, mulch, gravel, sand and outdoor project materials.", images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "YardMath landscaping calculators" }] },
-  twitter: { card: "summary_large_image", title: "YardMath — Landscaping Material Calculators", description: "Free calculators for soil, mulch, gravel, sand and outdoor project materials.", images: ["/og-image.png"] },
+  openGraph: {
+    type: "website",
+    siteName: "YardMath",
+    title: "YardMath — Landscaping Material Calculators",
+    description: "Free calculators for soil, mulch, gravel, sand and outdoor project materials.",
+    ...(siteUrl ? { images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "YardMath landscaping calculators" }] } : {}),
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "YardMath — Landscaping Material Calculators",
+    description: "Free calculators for soil, mulch, gravel, sand and outdoor project materials.",
+    ...(siteUrl ? { images: ["/og-image.png"] } : {}),
+  },
   manifest: "/manifest.webmanifest",
   appleWebApp: { capable: true, title: "YardMath", statusBarStyle: "default" },
 };

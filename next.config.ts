@@ -1,9 +1,13 @@
 import type { NextConfig } from "next";
+import { computeSourceFingerprint } from "./src/lib/build-fingerprint";
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
   compress: true,
+  generateBuildId: async () => {
+    return `ym-${computeSourceFingerprint()}`;
+  },
   async headers() {
     return [
       {

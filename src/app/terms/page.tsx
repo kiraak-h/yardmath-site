@@ -7,14 +7,12 @@ const canonicalUrl = getCanonicalUrl("/terms/");
 export const metadata: Metadata = {
   title: "Terms of Use | YardMath Project Planning Tools",
   description: "Read the terms and conditions governing the use of YardMath landscaping calculators, educational guides, and mathematical estimation tools.",
-  alternates: {
-    canonical: canonicalUrl,
-  },
+  ...(canonicalUrl ? { alternates: { canonical: canonicalUrl } } : {}),
   openGraph: {
     title: "Terms of Use | YardMath Project Planning Tools",
     description: "Terms governing use of YardMath calculators, conversion engines, and landscaping guides.",
     type: "website",
-    url: canonicalUrl,
+    ...(canonicalUrl ? { url: canonicalUrl } : {}),
   },
 };
 

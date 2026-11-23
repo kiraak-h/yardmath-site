@@ -23,13 +23,13 @@ export default defineConfig({
   retries: 0,
   workers: 1,
   use: {
-    baseURL: 'http://localhost:3000',
+    baseURL: 'http://localhost:3005',
     channel: process.env.PLAYWRIGHT_CHROMIUM ? undefined : 'chrome',
     headless: true,
   },
   webServer: {
-    command: 'npx next start -p 3000',
-    url: 'http://localhost:3000',
+    command: 'npx next start -p 3005',
+    url: 'http://localhost:3005',
     reuseExistingServer: allowServerReuse,
     timeout: 120000,
   },

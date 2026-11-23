@@ -64,48 +64,62 @@ export function validateSiteUrl(rawUrl: string | undefined | null): string | nul
 }
 
 /**
- * Detects the deployment environment across major hosting platforms.
+ * Detects the deployment environment across hosting platforms.
  *
- * Supported platform indicators:
- * - Vercel: VERCEL_ENV ('production' | 'preview' | 'development')
- * - Netlify: CONTEXT ('production' | 'deploy-preview' | 'branch-deploy' | 'dev')
- * - Generic / Cloudflare / Docker: APP_ENV / NEXT_PUBLIC_APP_ENV / DEPLOYMENT_ENV ('production' | 'staging' | 'preview' | 'development')
+ * Precedence Rules:
+ * 1. If VERCEL_ENV is present, it is authoritative ('production' | 'preview' | 'development').
+ * 2. Otherwise, if Netlify CONTEXT is present, it is authoritative ('production' | 'deploy-preview' | 'branch-deploy' | 'dev').
+ * 3. Only when neither platform variable exists may generic application variables (APP_ENV, NEXT_PUBLIC_APP_ENV, DEPLOYMENT_ENV) be evaluated.
+ * 4. Any unknown or conflicting platform value fails safely to 'preview' (non-indexable).
+ * 5. A preview deployment must NEVER become indexable because a generic variable says 'production'.
  *
  * Safe Fallback:
- * If no explicit platform variable is set:
+ * If no explicit variable is set:
  * - If NODE_ENV is 'development' or 'test', returns 'development'.
  * - Otherwise defaults to 'preview'. Local or unconfigured builds are NEVER assumed to be production.
  */
 export function getDeploymentEnv(env: EnvRecord = process.env): DeploymentEnv {
-  const explicit = (
-    env.NEXT_PUBLIC_APP_ENV ||
-    env.APP_ENV ||
-    env.DEPLOYMENT_ENV ||
-    env.VERCEL_ENV ||
-    env.CONTEXT
-  )?.toLowerCase().trim();
-
-  if (explicit) {
-    if (explicit === "production") return "production";
-    if (
-      explicit === "preview" ||
-      explicit === "deploy-preview" ||
-      explicit === "branch-deploy" ||
-      explicit === "staging"
-    ) {
-      return "preview";
-    }
-    if (explicit === "development" || explicit === "dev" || explicit === "test") {
-      return "development";
-    }
+  // 1. Vercel environment takes top precedence if present
+  if (env.VERCEL_ENV !== undefined && env.VERCEL_ENV !== "") {
+    const vercelEnv = env.VERCEL_ENV.toLowerCase().trim();
+    if (vercelEnv === "production") return "production";
+    if (vercelEnv === "preview") return "preview";
+    if (vercelEnv === "development") return "development";
+    // Unknown Vercel environment fails safely to preview (non-indexable)
     return "preview";
   }
 
+  // 2. Netlify CONTEXT takes second precedence if present
+  if (env.CONTEXT !== undefined && env.CONTEXT !== "") {
+    const netlifyContext = env.CONTEXT.toLowerCase().trim();
+    if (netlifyContext === "production") return "production";
+    if (netlifyContext === "deploy-preview" || netlifyContext === "branch-deploy") return "preview";
+    if (netlifyContext === "dev") return "development";
+    // Unknown Netlify context fails safely to preview (non-indexable)
+    return "preview";
+  }
+
+  // 3. Generic application environment variables (only when neither platform variable exists)
+  const genericEnv = (
+    env.APP_ENV ||
+    env.NEXT_PUBLIC_APP_ENV ||
+    env.DEPLOYMENT_ENV
+  )?.toLowerCase().trim();
+
+  if (genericEnv !== undefined && genericEnv !== "") {
+    if (genericEnv === "production") return "production";
+    if (genericEnv === "preview" || genericEnv === "staging") return "preview";
+    if (genericEnv === "development" || genericEnv === "dev" || genericEnv === "test") return "development";
+    // Unknown generic environment fails safely to preview (non-indexable)
+    return "preview";
+  }
+
+  // 4. Node environment fallback (development/test)
   if (env.NODE_ENV === "development" || env.NODE_ENV === "test") {
     return "development";
   }
 
-  // Without explicit platform declaration, default to preview to safeguard unconfigured builds
+  // Default fallback: preview (non-indexable) to safeguard unconfigured builds
   return "preview";
 }
 
@@ -140,15 +154,15 @@ export function isSiteIndexable(env: EnvRecord = process.env): boolean {
 /**
  * Returns canonical URL for a path.
  * - When indexable production: returns absolute URL `${siteUrl}${path}`
- * - When preview/development: returns relative path `${path}` to prevent canonical leaks
+ * - When preview/development: returns undefined so no canonical tag is emitted
  */
-export function getCanonicalUrl(path: string, env: EnvRecord = process.env): string {
+export function getCanonicalUrl(path: string, env: EnvRecord = process.env): string | undefined {
   const siteUrl = getValidatedSiteUrl(env);
-  const normalizedPath = path.startsWith("/") ? path : `/${path}`;
-  if (siteUrl) {
-    return `${siteUrl}${normalizedPath}`;
+  if (!siteUrl) {
+    return undefined;
   }
-  return normalizedPath;
+  const normalizedPath = path.startsWith("/") ? path : `/${path}`;
+  return `${siteUrl}${normalizedPath}`;
 }
 
 /**

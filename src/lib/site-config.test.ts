@@ -1,4 +1,6 @@
 import { describe, it, expect } from "vitest";
+import fs from "fs";
+import path from "path";
 import {
   validateSiteUrl,
   getDeploymentEnv,
@@ -41,6 +43,61 @@ describe("Site Configuration & Indexing Safeguards", () => {
     });
   });
 
+  describe("Hosting-Platform Precedence & Safe Fallbacks", () => {
+    it("VERCEL_ENV=preview + NEXT_PUBLIC_APP_ENV=production → preview, noindex", () => {
+      const env: EnvRecord = {
+        VERCEL_ENV: "preview",
+        NEXT_PUBLIC_APP_ENV: "production",
+        NEXT_PUBLIC_SITE_URL: "https://www.example.com",
+      };
+      expect(getDeploymentEnv(env)).toBe("preview");
+      expect(isProduction(env)).toBe(false);
+      expect(isSiteIndexable(env)).toBe(false);
+      expect(getValidatedSiteUrl(env)).toBeNull();
+      expect(getCanonicalUrl("/topsoil-calculator/", env)).toBeUndefined();
+    });
+
+    it("VERCEL_ENV=production + NEXT_PUBLIC_APP_ENV=preview → production, subject to valid URL", () => {
+      const env: EnvRecord = {
+        VERCEL_ENV: "production",
+        NEXT_PUBLIC_APP_ENV: "preview",
+        NEXT_PUBLIC_SITE_URL: "https://www.example.com",
+      };
+      expect(getDeploymentEnv(env)).toBe("production");
+      expect(isProduction(env)).toBe(true);
+      expect(isSiteIndexable(env)).toBe(true);
+      expect(getValidatedSiteUrl(env)).toBe("https://www.example.com");
+      expect(getCanonicalUrl("/topsoil-calculator/", env)).toBe("https://www.example.com/topsoil-calculator/");
+    });
+
+    it("CONTEXT=deploy-preview + APP_ENV=production → preview, noindex", () => {
+      const env: EnvRecord = {
+        CONTEXT: "deploy-preview",
+        APP_ENV: "production",
+        NEXT_PUBLIC_SITE_URL: "https://www.example.com",
+      };
+      expect(getDeploymentEnv(env)).toBe("preview");
+      expect(isProduction(env)).toBe(false);
+      expect(isSiteIndexable(env)).toBe(false);
+      expect(getValidatedSiteUrl(env)).toBeNull();
+      expect(getCanonicalUrl("/mulch-calculator/", env)).toBeUndefined();
+    });
+
+    it("unknown platform environment values fail safely to non-indexable preview", () => {
+      const unknownVercel: EnvRecord = { VERCEL_ENV: "unknown-branch-env", NEXT_PUBLIC_SITE_URL: "https://www.example.com" };
+      expect(getDeploymentEnv(unknownVercel)).toBe("preview");
+      expect(isSiteIndexable(unknownVercel)).toBe(false);
+
+      const unknownNetlify: EnvRecord = { CONTEXT: "unknown-context", NEXT_PUBLIC_SITE_URL: "https://www.example.com" };
+      expect(getDeploymentEnv(unknownNetlify)).toBe("preview");
+      expect(isSiteIndexable(unknownNetlify)).toBe(false);
+
+      const unknownGeneric: EnvRecord = { APP_ENV: "custom-sandbox", NEXT_PUBLIC_SITE_URL: "https://www.example.com" };
+      expect(getDeploymentEnv(unknownGeneric)).toBe("preview");
+      expect(isSiteIndexable(unknownGeneric)).toBe(false);
+    });
+  });
+
   describe("Scenario 1: Production with a valid URL", () => {
     const env: EnvRecord = {
       VERCEL_ENV: "production",
@@ -79,7 +136,7 @@ describe("Site Configuration & Indexing Safeguards", () => {
       expect(isProduction(env)).toBe(true);
       expect(getValidatedSiteUrl(env)).toBeNull();
       expect(isSiteIndexable(env)).toBe(false);
-      expect(getCanonicalUrl("/about/", env)).toBe("/about/");
+      expect(getCanonicalUrl("/about/", env)).toBeUndefined();
       expect(getMetadataBase(env)).toBeUndefined();
     });
 
@@ -104,7 +161,7 @@ describe("Site Configuration & Indexing Safeguards", () => {
       expect(isProduction(env)).toBe(true);
       expect(getValidatedSiteUrl(env)).toBeNull();
       expect(isSiteIndexable(env)).toBe(false);
-      expect(getCanonicalUrl("/guides/", env)).toBe("/guides/");
+      expect(getCanonicalUrl("/guides/", env)).toBeUndefined();
       expect(getMetadataBase(env)).toBeUndefined();
     });
 
@@ -125,7 +182,7 @@ describe("Site Configuration & Indexing Safeguards", () => {
       expect(isProduction(env)).toBe(false);
       expect(getValidatedSiteUrl(env)).toBeNull();
       expect(isSiteIndexable(env)).toBe(false);
-      expect(getCanonicalUrl("/contact/", env)).toBe("/contact/");
+      expect(getCanonicalUrl("/contact/", env)).toBeUndefined();
       expect(getMetadataBase(env)).toBeUndefined();
     });
 
@@ -147,7 +204,7 @@ describe("Site Configuration & Indexing Safeguards", () => {
       // Critical safeguard: URL must be nullified for preview
       expect(getValidatedSiteUrl(env)).toBeNull();
       expect(isSiteIndexable(env)).toBe(false);
-      expect(getCanonicalUrl("/topsoil-calculator/", env)).toBe("/topsoil-calculator/");
+      expect(getCanonicalUrl("/topsoil-calculator/", env)).toBeUndefined();
       expect(getMetadataBase(env)).toBeUndefined();
     });
 
@@ -171,13 +228,34 @@ describe("Site Configuration & Indexing Safeguards", () => {
       expect(isProduction(env)).toBe(false);
       expect(getValidatedSiteUrl(env)).toBeNull();
       expect(isSiteIndexable(env)).toBe(false);
-      expect(getCanonicalUrl("/terms/", env)).toBe("/terms/");
+      expect(getCanonicalUrl("/terms/", env)).toBeUndefined();
       expect(getMetadataBase(env)).toBeUndefined();
     });
 
     it("emits disallow-all robots and empty sitemap in development", () => {
       expect(robots(env).rules).toEqual({ userAgent: "*", disallow: "/" });
       expect(sitemap(env)).toEqual([]);
+    });
+  });
+
+  describe("Rendered Production-Build HTML Metadata Verification", () => {
+    it("verifies rendered preview/staging HTML contains no canonical link or misleading origins", () => {
+      const serverAppDir = path.join(process.cwd(), ".next", "server", "app");
+      if (!fs.existsSync(serverAppDir)) return;
+
+      const filesToCheck = ["index.html", "topsoil-calculator.html", "about.html", "contact.html"];
+      for (const file of filesToCheck) {
+        const filePath = path.join(serverAppDir, file);
+        if (fs.existsSync(filePath)) {
+          const html = fs.readFileSync(filePath, "utf8");
+          // No canonical link tag when non-indexable
+          expect(html).not.toMatch(/<link[^>]*rel="canonical"[^>]*>/i);
+          // No og:url tag when non-indexable
+          expect(html).not.toMatch(/<meta[^>]*property="og:url"[^>]*>/i);
+          // No fallback to localhost in og:image or twitter:image
+          expect(html).not.toContain("http://localhost:3000/og-image.png");
+        }
+      }
     });
   });
 });

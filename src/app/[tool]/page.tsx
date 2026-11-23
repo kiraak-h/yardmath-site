@@ -16,24 +16,25 @@ export async function generateMetadata({ params }: { params: Promise<{ tool: str
   const tool = getTool(slug);
   if (!tool) return {};
 
+  const siteUrl = getValidatedSiteUrl();
   const canonicalUrl = getCanonicalUrl(`/${tool.slug}/`);
 
   return {
     title: tool.metaTitle || tool.name,
     description: tool.metaDescription || tool.description,
-    alternates: { canonical: canonicalUrl },
+    ...(canonicalUrl ? { alternates: { canonical: canonicalUrl } } : {}),
     openGraph: {
       title: `${tool.name} | YardMath`,
       description: tool.metaDescription || tool.description,
       type: "website",
-      url: canonicalUrl,
-      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: tool.name }],
+      ...(canonicalUrl ? { url: canonicalUrl } : {}),
+      ...(siteUrl ? { images: [{ url: "/og-image.png", width: 1200, height: 630, alt: tool.name }] } : {}),
     },
     twitter: {
       card: "summary_large_image",
       title: `${tool.name} | YardMath`,
       description: tool.metaDescription || tool.description,
-      images: ["/og-image.png"],
+      ...(siteUrl ? { images: ["/og-image.png"] } : {}),
     },
   };
 }
@@ -61,7 +62,7 @@ export default async function ToolPage({ params }: { params: Promise<{ tool: str
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", ...(siteUrl ? { item: siteUrl } : {}) },
       { "@type": "ListItem", position: 2, name: "Calculators", ...(siteUrl ? { item: `${siteUrl}/#calculators` } : {}) },
-      { "@type": "ListItem", position: 3, name: tool.name, ...(siteUrl ? { item: pageUrl } : {}) },
+      { "@type": "ListItem", position: 3, name: tool.name, ...(siteUrl && pageUrl ? { item: pageUrl } : {}) },
     ],
   };
 
@@ -74,7 +75,7 @@ export default async function ToolPage({ params }: { params: Promise<{ tool: str
     browserRequirements: "Requires JavaScript and a modern web browser.",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
     description: tool.metaDescription || tool.description,
-    ...(siteUrl ? { url: pageUrl } : {}),
+    ...(siteUrl && pageUrl ? { url: pageUrl } : {}),
   };
 
   return (
