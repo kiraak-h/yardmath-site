@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { calculateMaterial, convertDepth, convertLength, convertPackageVolume, convertUnitPrice, type CalculatorInput } from "./calculation";
+import { calculateMaterial, convertDepth, convertLength, convertPackageVolume, convertUnitPrice, formatNumber, formatTons, type CalculatorInput } from "./calculation";
 
 const baseInput: CalculatorInput = {
   system: "imperial",
@@ -84,5 +84,40 @@ describe("measurement conversions", () => {
     const cubicMetres = cubicYards * 0.764554857984;
     expect(cubicYards * pricePerYard).toBeCloseTo(cubicMetres * pricePerMetre, 10);
     expect(convertUnitPrice(pricePerMetre, "metric", "imperial")).toBeCloseTo(pricePerYard, 10);
+  });
+
+  it("maintains precision and stability over repeated bi-directional conversion cycles", () => {
+    // Starting with 20 ft
+    let lengthFt = 20;
+    for (let i = 0; i < 10; i++) {
+      const metricVal = Number(convertLength(lengthFt, "imperial", "metric").toFixed(3));
+      lengthFt = Number(convertLength(metricVal, "metric", "imperial").toFixed(2));
+    }
+    expect(lengthFt).toBe(20.00);
+
+    // Starting with 5 metres
+    let lengthM = 5;
+    for (let i = 0; i < 10; i++) {
+      const impVal = Number(convertLength(lengthM, "metric", "imperial").toFixed(2));
+      lengthM = Number(convertLength(impVal, "imperial", "metric").toFixed(3));
+    }
+    // Stabilizes at 4.999 (0.02% variance, within tape measure tolerance) with zero ongoing drift
+    expect(lengthM).toBe(4.999);
+  });
+});
+
+describe("weight number formatting", () => {
+  it("formats integer and fractional tonnage consistently with two decimal places", () => {
+    expect(formatTons(3)).toBe("3.00");
+    expect(formatTons(3.364)).toBe("3.36");
+    expect(formatTons(0.5)).toBe("0.50");
+    expect(formatTons(12.7)).toBe("12.70");
+  });
+
+  it("formats pounds and kilograms as integers with thousands separators", () => {
+    expect(formatNumber(6000, 0)).toBe("6,000");
+    expect(formatNumber(2722, 0)).toBe("2,722");
+    expect(formatNumber(500, 0)).toBe("500");
+    expect(formatNumber(15420.8, 0)).toBe("15,421");
   });
 });

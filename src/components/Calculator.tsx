@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import type { ToolDefinition } from "@/lib/tools";
-import { calculateMaterial, convertDepth, convertLength, convertPackageVolume, convertUnitPrice, formatMoney, formatNumber, type AreaShape, type DensityUnit, type MeasurementSystem } from "@/lib/calculation";
+import { calculateMaterial, convertDepth, convertLength, convertPackageVolume, convertUnitPrice, formatMoney, formatNumber, formatTons, type AreaShape, type DensityUnit, type MeasurementSystem } from "@/lib/calculation";
 
 type Currency = "USD" | "CAD" | "GBP" | "AUD" | "NZD" | "EUR";
 
@@ -144,7 +144,7 @@ export default function Calculator({ tool }: { tool: ToolDefinition }) {
     `Order volume: ${formatNumber(primaryVolume, 3)} ${volumeLabel}`,
     `Equivalent: ${formatNumber(result.cubicYards, 3)} yd³ · ${formatNumber(result.cubicMetres, 3)} m³ · ${formatNumber(result.cubicFeet, 2)} ft³ · ${formatNumber(result.litres, 0)} L`,
     result.bags !== null ? `Estimated bags: ${result.bags} × ${bagSize} ${system === "imperial" ? "cu ft" : "L"}` : "",
-    result.weightKg !== null ? `Estimated weight: ${formatNumber(result.weightLb ?? 0, 0)} lb (${formatNumber(result.weightShortTons ?? 0, 2)} US short tons / ${formatNumber(result.weightLongTons ?? 0, 2)} UK long tons) · ${formatNumber(result.weightKg, 0)} kg (${formatNumber(result.weightMetricTonnes ?? 0, 2)} metric tonnes) (based on ${density} ${densityUnit === "kg-m3" ? "kg/m³" : "lb/yd³"})` : "",
+    result.weightKg !== null ? `Estimated weight: ${formatNumber(result.weightLb ?? 0, 0)} lb (${formatTons(result.weightShortTons ?? 0)} US short tons / ${formatTons(result.weightLongTons ?? 0)} UK long tons) · ${formatNumber(result.weightKg, 0)} kg (${formatTons(result.weightMetricTonnes ?? 0)} metric tonnes) (based on ${density} ${densityUnit === "kg-m3" ? "kg/m³" : "lb/yd³"})` : "",
     result.materialCost !== null ? `Estimated material + delivery: ${formatMoney(result.totalCost ?? result.materialCost, currency)}` : "",
     "Planning estimate only. Confirm material specification, density, packaging and order quantity with your supplier.",
   ].filter(Boolean).join("\n") : "";
@@ -198,7 +198,7 @@ export default function Calculator({ tool }: { tool: ToolDefinition }) {
 
         <div className="allowance-row">
           <div><strong>Extra-material allowance</strong><span>An optional buffer for uneven areas or small measurement differences.</span></div>
-          <label className="compact-number"><input aria-label="Extra-material allowance percentage" type="number" min="0" max="100" step="1" value={waste} onChange={(event) => setWaste(event.target.value)} /><span>%</span></label>
+          <label htmlFor="field-allowance-percent" className="compact-number"><input id="field-allowance-percent" name="allowancePercent" aria-label="Extra-material allowance percentage" type="number" min="0" max="100" step="1" value={waste} onChange={(event) => setWaste(event.target.value)} /><span>%</span></label>
         </div>
 
         <button className="advanced-toggle" type="button" aria-expanded={showAdvanced} onClick={() => setShowAdvanced(!showAdvanced)}><span>{showAdvanced ? "−" : "+"}</span> Optional shopping details <small>Bag count, weight and cost</small></button>
@@ -230,7 +230,7 @@ export default function Calculator({ tool }: { tool: ToolDefinition }) {
           <div className="result-line"><span>Extra allowance</span><strong>{formatNumber(system === "imperial" ? result.allowanceCubicYards : result.allowanceCubicYards * 0.764554857984, 3)} {system === "imperial" ? "yd³" : "m³"}</strong></div>
           <div className="result-line"><span>Area covered</span><strong>{formatNumber(result.area, 2)} {system === "imperial" ? "ft²" : "m²"}</strong></div>
           {result.bags !== null ? <div className="purchase-result"><div className="purchase-icon">▧</div><div><span>Estimated packages to buy</span><strong>{result.bags} {result.bags === 1 ? "package" : "packages"}</strong><small>Based on {bagSize} {system === "imperial" ? "cu ft" : "L"} per package</small></div></div> : <button className="add-cost-link" type="button" onClick={() => setShowAdvanced(true)}>＋ Enter package volume to estimate bag count</button>}
-          {result.weightKg !== null ? <div className="result-line"><span>Estimated weight</span><strong>{system === "imperial" ? `${formatNumber(result.weightLb ?? 0, 0)} lb (${formatNumber(result.weightShortTons ?? 0, 2)} US short tons · ${formatNumber(result.weightLongTons ?? 0, 2)} UK long tons) · ${formatNumber(result.weightKg, 0)} kg (${formatNumber(result.weightMetricTonnes ?? 0, 2)} tonnes)` : `${formatNumber(result.weightKg, 0)} kg (${formatNumber(result.weightMetricTonnes ?? 0, 2)} tonnes) · ${formatNumber(result.weightLb ?? 0, 0)} lb (${formatNumber(result.weightShortTons ?? 0, 2)} US short tons · ${formatNumber(result.weightLongTons ?? 0, 2)} UK long tons)`}</strong></div> : null}
+          {result.weightKg !== null ? <div className="result-line"><span>Estimated weight</span><strong>{system === "imperial" ? `${formatNumber(result.weightLb ?? 0, 0)} lb (${formatTons(result.weightShortTons ?? 0)} US short tons · ${formatTons(result.weightLongTons ?? 0)} UK long tons) · ${formatNumber(result.weightKg, 0)} kg (${formatTons(result.weightMetricTonnes ?? 0)} tonnes)` : `${formatNumber(result.weightKg, 0)} kg (${formatTons(result.weightMetricTonnes ?? 0)} tonnes) · ${formatNumber(result.weightLb ?? 0, 0)} lb (${formatTons(result.weightShortTons ?? 0)} US short tons · ${formatTons(result.weightLongTons ?? 0)} UK long tons)`}</strong></div> : null}
           {result.materialCost !== null ? <div className="cost-result"><div><span>Estimated material + delivery</span><strong>{formatMoney(result.totalCost ?? result.materialCost, currency)}</strong></div><small>Based on your entered unit price and delivery fee.</small></div> : <button className="add-cost-link" type="button" onClick={() => setShowAdvanced(true)}>＋ Add a material price to estimate cost</button>}
           <div className="result-actions"><button type="button" onClick={copySummary}>↗ {copyState}</button><button type="button" onClick={downloadSummary}>↓ Download</button><button type="button" onClick={() => window.print()}>⎙ Print</button></div>
         </> : <div className="empty-result"><div className="empty-result-icon">∑</div><strong>Check your dimensions</strong><p>Enter valid measurements to see your volume and shopping estimate.</p></div>}

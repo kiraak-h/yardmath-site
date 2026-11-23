@@ -146,11 +146,16 @@ export function calculateMaterial(input: CalculatorInput): CalculatorResult {
   };
 }
 
-export function formatNumber(value: number, maximumFractionDigits = 2): string {
+export function formatNumber(value: number, maximumFractionDigits = 2, minimumFractionDigits = 0): string {
   return new Intl.NumberFormat("en-US", {
     maximumFractionDigits,
-    minimumFractionDigits: 0,
+    minimumFractionDigits,
   }).format(value);
+}
+
+/** Formats weight tonnage values with consistent 2 decimal places (e.g. "3.00", "3.36"). */
+export function formatTons(value: number): string {
+  return formatNumber(value, 2, 2);
 }
 
 export function formatMoney(value: number, currency: string): string {
