@@ -794,23 +794,57 @@ describe("Content Validation & Calculation Integrity", () => {
       expect(allGuideText).not.toMatch(/permanent barrier/i);
       expect(allGuideText).not.toMatch(/heavy non-woven geotextile separation fabric/i);
 
+      // Must reject simplistic exclusive mapping of fabric type to single function
+      expect(allGuideText).not.toMatch(/woven for subgrade stabilization or non-woven for/i);
+      expect(allGuideText).not.toMatch(/woven for stabilization or non-woven for filtration/i);
+      expect(allGuideText).not.toMatch(/woven stabilization vs\. non-woven filtration/i);
+
+      // Must reject claiming 4-6 inches universally or reliably provides sufficient support
+      expect(allGuideText).not.toMatch(/frequently provides sufficient support without requiring/i);
+
+      // Must reject 1/4 inch per foot as the FHWA typical gravel road crown
+      expect(allGuideText).not.toMatch(/FHWA.*(?:typically\s+)?1\/4\s+inch\s+per\s+foot/i);
+      expect(allGuideText).not.toMatch(/typically 1\/4 to 1\/2 inch per foot.*FHWA/i);
+
       // Must distinguish design options and qualify site-specific conditions
       expect(allGuideText).toMatch(/single-layer/i);
       expect(allGuideText).toMatch(/site-specific/i);
       expect(allGuideText).toMatch(/FHWA/i);
       expect(allGuideText).toMatch(/rather than a universal statutory building code/i);
-      expect(allGuideText).toMatch(/woven for subgrade stabilization or non-woven for/i);
+
+      // Must explain both woven and non-woven can perform separation under design criteria
+      expect(allGuideText).toMatch(/both woven and non-woven/i);
+      expect(allGuideText).toMatch(/separation/i);
+      expect(allGuideText).toMatch(/retention criteria|filtration/i);
+      expect(allGuideText).toMatch(/permeability|permittivity/i);
+      expect(allGuideText).toMatch(/survivability/i);
+      expect(allGuideText).toMatch(/in-plane drainage/i);
+
+      // Must state fabric is conditional and unnecessary on firm ground
+      expect(allGuideText).toMatch(/unnecessary/i);
+
+      // Must state 4-6 inches is an illustrative planning baseline and not universally sufficient
+      expect(allGuideText).toMatch(/illustrative planning (?:figure|baseline)/i);
+      expect(allGuideText).toMatch(/should never be assumed universally sufficient|should not be assumed universally sufficient/i);
+
+      // Must represent FHWA unpaved road crown accurately (~1/2 inch per foot / 4%) and note vehicle hazard
+      expect(allGuideText).toMatch(/1\/2 inch per (?:linear )?foot/i);
+      expect(allGuideText).toMatch(/4% cross slope/i);
+      expect(allGuideText).toMatch(/vehicle-handling hazards|sliding/i);
 
       // FAQ must explicitly clarify three layers are not universally required
       const layerFaq = drivewayGuide?.faqs.find((f) => f.question.includes("three separate layers"));
       expect(layerFaq, "Must have FAQ addressing whether 3 layers are required").toBeDefined();
       expect(layerFaq?.answer).toMatch(/^No\./i);
 
-      // FAQ 4 must not call geotextile a permanent barrier and must distinguish woven vs non-woven
+      // FAQ 4 must not call geotextile a permanent barrier, must not assign fabric exclusively, and must explain engineering criteria
       const fabricFaq = drivewayGuide?.faqs.find((f) => f.question.includes("geotextile fabric"));
       expect(fabricFaq, "Must have geotextile FAQ").toBeDefined();
       expect(fabricFaq?.answer).not.toMatch(/permanent barrier/i);
-      expect(fabricFaq?.answer).toMatch(/woven for stabilization or non-woven for filtration/i);
+      expect(fabricFaq?.answer).not.toMatch(/woven for stabilization or non-woven for filtration/i);
+      expect(fabricFaq?.answer).toMatch(/both woven and non-woven/i);
+      expect(fabricFaq?.answer).toMatch(/Neither fabric type should be assigned exclusively/i);
+      expect(fabricFaq?.answer).toMatch(/in-plane drainage/i);
     });
 
     it("ensures gravel driveway calculator copy reflects optional allowances, conditional geotextile, and aggregate distinction", () => {
@@ -822,9 +856,9 @@ describe("Content Validation & Calculation Integrity", () => {
       expect(drivewayTool?.inputsGuide.allowanceRecommendation).toMatch(/optional user selections/i);
       expect(drivewayTool?.inputsGuide.allowanceRecommendation).toMatch(/verify expected yields with your local aggregate supplier/i);
 
-      // Quick answer must label depths as illustrative planning figures
+      // Quick answer must label depths as illustrative planning figures and not assume 4-6 inches is universally sufficient
       expect(drivewayTool?.quickAnswer.directAnswer).toMatch(/illustrative planning figure/i);
-      expect(drivewayTool?.quickAnswer.directAnswer).toMatch(/ranging from an illustrative 4-to-6-inch single dense-graded course/i);
+      expect(drivewayTool?.quickAnswer.directAnswer).toMatch(/should not be assumed universally sufficient/i);
       expect(drivewayTool?.quickAnswer.ruleOfThumb).toMatch(/neat volume of 6\.17 cubic yards/i);
       expect(drivewayTool?.quickAnswer.ruleOfThumb).toMatch(/optional 10% planning allowance/i);
 
@@ -839,16 +873,27 @@ describe("Content Validation & Calculation Integrity", () => {
       expect(drivewayTool?.formulaExplanation.metric).toContain("Neat Volume");
       expect(drivewayTool?.formulaExplanation.metric).toContain("Order Volume");
 
-      // Geotextile and crowning in material specifics & mistakes must be conditional
-      expect(drivewayTool?.materialSpecifics.orderingRule).toMatch(/On weak, wet, or silty subgrades/i);
+      // Geotextile selection must not be a simplistic 1:1 mapping and must explain criteria
+      expect(drivewayTool?.materialSpecifics.orderingRule).not.toMatch(/woven stabilization vs\. non-woven filtration/i);
+      expect(drivewayTool?.materialSpecifics.orderingRule).toMatch(/both woven and non-woven/i);
+      expect(drivewayTool?.materialSpecifics.orderingRule).toMatch(/retention/i);
+      expect(drivewayTool?.materialSpecifics.orderingRule).toMatch(/permeability/i);
+      expect(drivewayTool?.materialSpecifics.orderingRule).toMatch(/survivability/i);
+      expect(drivewayTool?.materialSpecifics.orderingRule).toMatch(/in-plane drainage/i);
       expect(drivewayTool?.materialSpecifics.orderingRule).toMatch(/unnecessary/i);
-      expect(drivewayTool?.materialSpecifics.orderingRule).toMatch(/woven stabilization vs\. non-woven filtration/i);
-      expect(drivewayTool?.materialSpecifics.subgradePreparation).toMatch(/drainage design practice/i);
 
-      // Common mistakes must distinguish stone types and conditional subgrade stabilization
+      // Crowning in material specifics must accurately cite FHWA ~1/2 in/ft / 4% and distinguish private driveways
+      expect(drivewayTool?.materialSpecifics.subgradePreparation).not.toMatch(/crowning the driveway with a slope of 1\/4 to 1\/2 inch/i);
+      expect(drivewayTool?.materialSpecifics.subgradePreparation).toMatch(/1\/2 inch per linear foot/i);
+      expect(drivewayTool?.materialSpecifics.subgradePreparation).toMatch(/4% cross slope/i);
+      expect(drivewayTool?.materialSpecifics.subgradePreparation).toMatch(/vehicle-handling hazards/i);
+      expect(drivewayTool?.materialSpecifics.subgradePreparation).toMatch(/private residential driveways/i);
+
+      // Common mistakes must reject simplistic fabric mapping and distinguish stone types
       const mistakePreventions = drivewayTool?.commonMistakes.map((m) => m.prevention).join(" ") || "";
-      expect(mistakePreventions).toMatch(/woven for stabilization or non-woven for drainage/i);
-      expect(mistakePreventions).toMatch(/drainage design consideration/i);
+      expect(mistakePreventions).not.toMatch(/woven for stabilization or non-woven for drainage/i);
+      expect(mistakePreventions).toMatch(/select woven or non-woven fabric based on soil filtration retention/i);
+      expect(mistakePreventions).toMatch(/1\/2 inch per foot \/ 4%/i);
       expect(mistakePreventions).toMatch(/open-graded stone \(#57\)/i);
       expect(mistakePreventions).toMatch(/dense-graded aggregate with fines/i);
 
@@ -859,10 +904,13 @@ describe("Content Validation & Calculation Integrity", () => {
 
       const faq3 = drivewayTool?.faqs.find((f) => f.question.includes("How thick should a new gravel driveway be"));
       expect(faq3?.answer).toMatch(/There is no single universal thickness/i);
-      expect(faq3?.answer).toMatch(/where soft soil conditions warrant it/i);
+      expect(faq3?.answer).toMatch(/should not be assumed universally sufficient/i);
+      expect(faq3?.answer).toMatch(/both woven and non-woven/i);
+      expect(faq3?.answer).toMatch(/1\/2 inch per foot \(4% cross slope\)/i);
+      expect(faq3?.answer).toMatch(/vehicle-handling hazards/i);
     });
 
-    it("ensures driveway guide and calculator maintain consistent aggregate, crowning, and multi-tier guidance", () => {
+    it("ensures driveway guide and calculator maintain consistent geotechnical geotextile, crowning, and multi-tier guidance", () => {
       const drivewayTool = tools.find((t) => t.slug === "gravel-driveway-calculator");
       const drivewayGuide = guides.find((g) => g.slug === "gravel-driveway-material-estimation");
       expect(drivewayTool).toBeDefined();
@@ -876,10 +924,16 @@ describe("Content Validation & Calculation Integrity", () => {
       expect(guideSources).toContain("fhwa.dot.gov");
       expect(guideSources).toContain("dirtandgravel.psu.edu");
 
-      // Both qualify crowning slope as a drainage design consideration (1/4 to 1/2 in/ft)
-      expect(drivewayTool?.materialSpecifics.subgradePreparation).toContain("1/4 to 1/2 inch");
+      // Both accurately state FHWA unpaved road crown (~1/2 in/ft / 4%) and adapt for private residential terrain
+      expect(drivewayTool?.materialSpecifics.subgradePreparation).toContain("1/2 inch");
+      expect(drivewayTool?.materialSpecifics.subgradePreparation).toContain("4% cross slope");
       const guideText = drivewayGuide?.sections.flatMap((s) => s.paragraphs).join(" ") || "";
-      expect(guideText).toContain("1/4 to 1/2 inch");
+      expect(guideText).toContain("1/2 inch per linear foot");
+      expect(guideText).toContain("4% cross slope");
+
+      // Neither claims 1/4 in/ft is the FHWA typical unpaved road crown
+      expect(drivewayTool?.materialSpecifics.subgradePreparation).not.toMatch(/FHWA.*1\/4 inch/i);
+      expect(guideText).not.toMatch(/FHWA recommends a crown of approximately 1\/4/i);
 
       // Both explain dense-graded aggregates bind under compaction into a crust
       expect(drivewayTool?.faqs[1].answer).toMatch(/dense-graded/i);
@@ -896,6 +950,12 @@ describe("Content Validation & Calculation Integrity", () => {
         ...(drivewayGuide?.faqs.flatMap((f) => [f.question, f.answer]) || []),
       ].join(" ");
       expect(allDrivewayGuideText).toMatch(/binds|bind together/i);
+
+      // Both explain that both woven and non-woven geotextiles can perform separation under design criteria
+      expect(drivewayTool?.materialSpecifics.orderingRule).toMatch(/both woven and non-woven/i);
+      expect(guideText).toMatch(/both woven and non-woven/i);
+      expect(drivewayTool?.materialSpecifics.orderingRule).toMatch(/in-plane drainage/i);
+      expect(guideText).toMatch(/in-plane drainage/i);
     });
 
     it("ensures concrete calculator copy across all fields reflects optional allowance and non-universal thickness", () => {

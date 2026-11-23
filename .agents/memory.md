@@ -93,6 +93,12 @@
   - Expanded Regression Suite (`src/lib/content-validation.test.ts`): Expanded suite to 50 content validation tests (60 total across project) testing copy fields across driveway calculator, driveway guide, concrete calculator, and arithmetic consistency of report source and test counts.
   - Report Test Count Synchronization (`FINAL_SEARCH_INTEGRITY_REPORT.md`): Synchronized all test run outputs to 60/60 tests (10 calculation + 50 content tests).
   - Verified Pipeline: 0 ESLint warnings, 0 TypeScript errors, 60/60 Vitest passed, 34/34 Next.js static pages prerendered.
+- [x] Step 35: Final Geotechnical Evidence Alignment:
+  - Geotextile Selection Nuance (FHWA-NHI-05-037): Eliminated simplistic 1-to-1 mapping of fabric type to function (e.g. woven=stabilization, non-woven=filtration); clarified that both woven and non-woven geotextiles can perform separation; documented selection criteria (soil retention/filtration, permittivity, survivability against aggregate puncture, and in-plane drainage provided by non-wovens) in `src/lib/tools.ts` and `src/lib/guides.ts`.
+  - Crown Slope Guidance (FHWA Gravel Roads Guide & Penn State CDGRS): Corrected representation of FHWA crown to approx. 1/2 in/ft (~4% cross slope) for unpaved roads, cited FHWA warnings regarding excessive slopes and vehicle safety, eliminated unsupported 1/4 in/ft references as typical FHWA crown, and distinguished public unpaved road standards from site-specific private residential driveway drainage and terrain constraints.
+  - Qualified Residential Depths: Removed claims implying 4–6 inches reliably provides sufficient support for all light residential installations; qualified 4–6" as an illustrative planning baseline that depends on subgrade CBR, drainage, frost, and axle loads.
+  - Strengthened Regression Suite: Enhanced `src/lib/content-validation.test.ts` to enforce rejection of simplistic fabric mapping, reject 1/4 in/ft as FHWA crown, assert accurate FHWA ~1/2 in/ft crown and vehicle hazard explanations, and assert in-plane drainage and soil retention criteria across both calculator and guide.
+  - Full Verification: 60/60 Vitest tests pass, 0 ESLint warnings, 0 TypeScript errors, 34/34 Next.js static pages prerendered.
 
 ## Burn Book (Updated)
 - Next.js Turbopack Route Validation: When deleting an existing App Router directory (e.g. `src/app/guides/how-to-measure-landscaping-materials/`), Next.js caches route validators in `.next/types/validator.ts`. Run `Remove-Item -Recurse -Force .next` prior to `tsc --noEmit` to clear stale route validator references.
