@@ -534,17 +534,29 @@ describe("Content Validation & Calculation Integrity", () => {
         expect(validatedCategories.has("base_volume"), `Tool '${tool.slug}' must validate base_volume`).toBe(true);
         expect(validatedCategories.has("order_volume"), `Tool '${tool.slug}' must validate order_volume`).toBe(true);
 
-        // Density / Weight step coverage
-        if (fixture.expected.weightLb !== null) {
+        // Density / Weight step coverage asserted from fixture.input.density
+        const hasDensityConfigured = fixture.input.density !== null && fixture.input.density !== undefined && fixture.input.density > 0;
+        if (hasDensityConfigured) {
+          expect(fixture.expected.weightLb, `Tool '${tool.slug}' has density (${fixture.input.density}) so expected.weightLb must be defined`).not.toBeNull();
+          expect(fixture.expected.weightShortTons, `Tool '${tool.slug}' has density so expected.weightShortTons must be defined`).not.toBeNull();
+          expect(fixture.expected.weightMetricTonnes, `Tool '${tool.slug}' has density so expected.weightMetricTonnes must be defined`).not.toBeNull();
+          expect(fixture.expected.weightLongTons, `Tool '${tool.slug}' has density so expected.weightLongTons must be defined`).not.toBeNull();
           expect(validatedCategories.has("total_weight"), `Tool '${tool.slug}' specifies density (${fixture.input.density}) so it must validate total_weight`).toBe(true);
         } else {
+          expect(fixture.expected.weightLb, `Tool '${tool.slug}' has no density so expected.weightLb must be null`).toBeNull();
+          expect(fixture.expected.weightShortTons, `Tool '${tool.slug}' has no density so expected.weightShortTons must be null`).toBeNull();
+          expect(fixture.expected.weightMetricTonnes, `Tool '${tool.slug}' has no density so expected.weightMetricTonnes must be null`).toBeNull();
+          expect(fixture.expected.weightLongTons, `Tool '${tool.slug}' has no density so expected.weightLongTons must be null`).toBeNull();
           expect(validatedCategories.has("total_weight"), `Tool '${tool.slug}' has no density so it must NOT validate total_weight`).toBe(false);
         }
 
-        // Packaging yield step coverage
-        if (fixture.expected.bags !== null) {
+        // Packaging yield step coverage asserted from fixture.input.bagSize
+        const hasPackagingConfigured = fixture.input.bagSize !== null && fixture.input.bagSize !== undefined && fixture.input.bagSize > 0;
+        if (hasPackagingConfigured) {
+          expect(fixture.expected.bags, `Tool '${tool.slug}' specifies bag packaging (${fixture.input.bagSize} cu ft) so expected.bags must be defined`).not.toBeNull();
           expect(validatedCategories.has("packaging_yield"), `Tool '${tool.slug}' specifies bag packaging so it must validate packaging_yield`).toBe(true);
         } else {
+          expect(fixture.expected.bags, `Tool '${tool.slug}' has no bag packaging so expected.bags must be null`).toBeNull();
           expect(validatedCategories.has("packaging_yield"), `Tool '${tool.slug}' has no packaging so it must NOT validate packaging_yield`).toBe(false);
         }
 

@@ -519,7 +519,7 @@ export const tools: ToolDefinition[] = [
       packagingGuidance: "Garden soil in retail bags is commonly sold in 1.0 or 1.5 cubic foot bags."
     },
     materialSpecifics: {
-      compactionBehavior: "Enriched garden soil blends containing organic matter, peat, or compost have higher porosity than compacted native dirt. Loose blends commonly consolidate after initial deep waterings, making an illustrative 10% to 15% planning allowance standard for garden bed ordering.",
+      compactionBehavior: "Enriched garden soil blends containing organic matter, peat, or compost have higher porosity than compacted native dirt. Loose blends commonly consolidate after initial deep waterings; gardeners and landscapers frequently choose an optional illustrative 10% to 15% planning allowance when ordering to account for settling, though actual consolidation depends on organic fraction, initial moisture, and hand-tamping.",
       moistureAndWeight: "A blended garden soil weighs ~2,000 to 2,400 lb/yd³ (1,200 to 1,425 kg/m³) depending on compost and sand content.",
       subgradePreparation: "Loosen the existing native subsoil with a garden fork before adding fresh soil to encourage deep taproot penetration.",
       orderingRule: "Check whether your supplier's soil is weed-free screened loam or unamended raw fill dirt."
@@ -607,7 +607,7 @@ export const tools: ToolDefinition[] = [
     inputsGuide: {
       lengthWidth: "Measure inside the wooden frame. 2-inch lumber is actually 1.5 inches thick, deducting 3 inches from both length and width.",
       depthGuidance: "Measure from the bottom to 1 or 2 inches below the top rim. Leaving freeboard prevents water and soil spillage when watering.",
-      allowanceRecommendation: "Add 15% for organic raised bed mixtures (compost and peat compress significantly upon initial saturation).",
+      allowanceRecommendation: "Consider an optional 10% to 15% planning allowance for organic raised bed mixtures (compost and peat blends consolidate upon initial watering).",
       packagingGuidance: "Raised bed soil mixes are most commonly sold in 1.5 or 2.0 cubic foot bags."
     },
     materialSpecifics: {
@@ -638,7 +638,7 @@ export const tools: ToolDefinition[] = [
       { organization: "University of Florida IFAS Extension", standardOrDocument: "Raised Bed Gardening: Soil Mixtures and Dimensions (CIR 1282)", citation: "Gainesville, FL.", url: "https://gardeningsolutions.ifas.ufl.edu/design/types-of-gardens/raised-beds/" }
     ],
     faqs: [
-      { question: "How many bags of soil do I need for a 4x8 raised bed at 12 inches?", answer: "A 4×8 bed (inside dimensions 3.75 ft × 7.75 ft) at 12 inches deep holds 29.1 cubic feet of soil. Factoring in an illustrative 15% planning allowance for watering consolidation, you need approximately 33.5 cu ft, which equals seventeen 2-cubic-foot bags (or 1.25 cubic yards)." },
+      { question: "How many bags of soil do I need for a 4x8 raised bed at 12 inches?", answer: "A 4×8 bed (inside dimensions 3.75 ft × 7.75 ft) at 12 inches deep holds a neat volume of 29.1 cubic feet (1.08 cubic yards). If an illustrative 15% user planning allowance is selected for watering consolidation (29.1 × 1.15 = 33.5 cu ft), you need approximately seventeen 2-cubic-foot bags (or 1.24 cubic yards)." },
       { question: "What is the ideal soil blend for a vegetable raised bed?", answer: "The gold standard is 1/3 blended compost (for nutrients), 1/3 peat moss or coconut coir (for moisture retention), and 1/3 coarse vermiculite or perlite (for aeration and drainage)." },
       { question: "How deep should a raised bed be for vegetables?", answer: "Most vegetables (lettuce, greens, herbs) thrive in 8 to 10 inches of soil. Deep-rooted crops like tomatoes, peppers, and carrots perform best with 12 to 18 inches." },
       { question: "How do I fill a very deep (24-inch) raised bed cheaply?", answer: "Use the hügelkultur method: fill the bottom 10 to 12 inches with untreated tree logs, branches, and leaf mulch, then fill the top 12 inches with high-quality growing soil." }
@@ -702,7 +702,7 @@ export const tools: ToolDefinition[] = [
       packagingGuidance: "Quality bagged compost is commonly packed in 1.0 cu ft or 40 lb bags."
     },
     materialSpecifics: {
-      compactionBehavior: "Compost is biologically active organic matter. Over a single growing season, soil organisms consume carbon, reducing compost volume by 20% to 30%.",
+      compactionBehavior: "Compost is biologically active organic matter. Over a growing season, soil microorganisms and worms mineralize carbon, causing loose compost to settle and decompose—commonly estimated at an illustrative 15% to 30% seasonal volume reduction depending on temperature, moisture, and starting organic maturity.",
       moistureAndWeight: "Finished mature compost weighs ~1,000 to 1,400 lb/yd³ (600 to 830 kg/m³). Very wet compost can weigh up to 1,600 lb/yd³.",
       subgradePreparation: "For garden beds, spread compost evenly and incorporate it into the top 6 inches of soil using a spade or rototiller.",
       orderingRule: "Ensure your compost is certified 'weed-seed free' and fully cured (STA-certified through the US Composting Council)."
@@ -975,7 +975,7 @@ export const tools: ToolDefinition[] = [
       packagingGuidance: "Driveway aggregate is delivered exclusively in bulk dump truck loads (single-axle ~6 tons; tri-axle ~15–18 tons)."
     },
     materialSpecifics: {
-      compactionBehavior: "Dense-graded base stone compacts by 15% to 20% under a heavy vibratory roller. Clean washed surface stone (#57) settles ~5% under tire traffic.",
+      compactionBehavior: "Dense-graded base stone consolidation varies with quarry gradation and moisture; contractors commonly plan for an optional illustrative 15% to 20% compaction allowance when ordering loose volume. Open-graded washed stone (#57) contains minimal fines and undergoes minor reorientation—often estimated with an optional ~5% planning allowance—though actual yield depends on subgrade firmness and rolling equipment.",
       moistureAndWeight: "Crushed limestone and granite weigh between 2,700 and 2,900 lb/yd³ (1.35 to 1.45 tons/yd³).",
       subgradePreparation: "Grade a 1/2-inch-per-foot crown from center to shoulders to shed surface water into side swales.",
       orderingRule: "Lay a woven geotextile fabric between the raw subgrade dirt and your first coarse stone layer."
@@ -1158,7 +1158,7 @@ export const tools: ToolDefinition[] = [
       packagingGuidance: "Crushed stone is sold by the ton in bulk, or in 50 lb bags (approx. 0.45 cu ft each)."
     },
     materialSpecifics: {
-      compactionBehavior: "Washed crushed stone (like #57) has uniform particle size with no fines; it consolidates roughly 5% under vibration. Dense-graded stone (#411 / Crusher Run) compacts 15% to 20%.",
+      compactionBehavior: "Washed crushed stone (like ASTM #57) has a relatively uniform particle size without fine dust; particle reorientation under vibration is limited, so contractors frequently use an optional ~5% planning allowance. Dense-graded stone (#411 / Crusher Run) contains a wide distribution of particle sizes down to stone dust; depending on moisture and vibratory compaction effort, ordering allowances commonly range from an illustrative 10% to 20% to account for in-place consolidation.",
       moistureAndWeight: "Bulk density ranges from 2,600 to 2,900 lb/yd³ (1.3 to 1.45 tons/yd³ or 1,540 to 1,720 kg/m³).",
       subgradePreparation: "Line drainage trenches with non-woven geotextile filter fabric before placing crushed stone to prevent silt from clogging drainage voids.",
       orderingRule: "Quarries bill by the short ton (2,000 lbs) weighed on certified truck scales."

@@ -104,7 +104,7 @@ export const guides: GuideDefinition[] = [
         callout: {
           type: "warning",
           title: "Allowance vs. Compaction",
-          text: "An allowance percentage is not a compaction factor. Materials like aggregate base and Crusher Run decrease in volume by 15% to 20% under vibratory plate compaction. That mechanical compaction requirement must be calculated separately from surface allowance."
+          text: "An extra allowance percentage entered in a volume calculator is a user-selected buffer, not an automated mechanical compaction calculation. Dense-graded aggregates like Crusher Run consolidate under plate compaction—contractors commonly select an optional illustrative 10% to 20% allowance based on material gradation, moisture, and lift thickness. Check with your aggregate quarry for expected loose-to-compacted yield ratios rather than assuming a fixed universal shrinkage rate."
         }
       }
     ],
@@ -170,12 +170,12 @@ export const guides: GuideDefinition[] = [
         heading: "2. Calculating Topsoil Volume and Coverage",
         paragraphs: [
           "To compute the volume in cubic yards: measure length and width in feet, multiply to find square footage, multiply by intended depth in inches, and divide by 324.",
-          "Worked Example: A homeowner plans to establish a new sod lawn over a 40 ft × 30 ft backyard with 4 inches of fresh topsoil. The plan area is 1,200 sq ft. Volume = 1,200 × 4 ÷ 324 = 14.81 cubic yards. Accounting for a 15% settlement allowance (14.81 × 1.15), the recommended order is 17.0 cubic yards."
+          "Worked Example: A homeowner plans to establish a new sod lawn over a 40 ft × 30 ft backyard with 4 inches of fresh topsoil. The plan area is 1,200 sq ft. Neat Geometric Volume = 1,200 × 4 ÷ 324 = 14.81 cubic yards. If an optional 15% planning allowance is selected for settling and raking uneven subsoil (14.81 × 1.15), the total order volume is 17.03 cubic yards (approx. 17.0 yards)."
         ],
         formulaBox: {
           title: "Topsoil Calculation Formula",
-          formula: "Cubic Yards = Length (ft) × Width (ft) × Depth (in) ÷ 324\nPost-Settlement Order Volume = Base Cubic Yards × 1.15",
-          note: "Loose topsoil fluffs up when screened and handled; it consolidates as water settles air pockets."
+          formula: "Neat Volume: Cubic Yards = Length (ft) × Width (ft) × Depth (in) ÷ 324\nOrder Volume (Optional Allowance): Cubic Yards × (1 + Allowance% ÷ 100)",
+          note: "Screened topsoil fluffs up during handling; consolidation varies with soil moisture, organic content, and subgrade firmness, making extra allowances an optional user-selected planning assumption."
         }
       },
       {
@@ -471,7 +471,7 @@ export const guides: GuideDefinition[] = [
     keyTakeaways: [
       "A long-lasting driveway consists of three distinct layers: sub-base, middle binding base, and surface wearing course.",
       "Total aggregate profile depth should range from 8 to 12 inches on typical residential soils.",
-      "Crusher Run (#411 / CR-6) compacts by 15% to 20%; orders must be adjusted upward to hit target compacted depths.",
+      "Dense-graded stone (#411 / CR-6) consolidates under rolling; contractors commonly apply an illustrative 15% to 20% order allowance based on quarry yield.",
       "A driveway crown sloping 1/2 inch per linear foot from center to shoulder prevents puddle formation and pothole cratering.",
       "Non-woven geotextile fabric between subgrade dirt and sub-base stone prevents heavy aggregate from sinking into muddy subsoils."
     ],
@@ -495,13 +495,13 @@ export const guides: GuideDefinition[] = [
       {
         heading: "2. Calculating Volume with Mechanical Compaction Loss",
         paragraphs: [
-          "Crushed stone with fine particles (such as #411, quarry process, or Crusher Run) contains stone dust that vibrates down into voids when rolled. As a result, loose volume shrinks significantly during installation.",
-          "To achieve 4 inches of compacted base, you must order 4.8 inches of loose stone (a 20% compaction expansion factor). Failure to calculate compaction leaves the driveway under-depth and prone to structural failure."
+          "Crushed stone with fine particles (such as #411, quarry process, or Crusher Run) contains stone dust that settles into voids when rolled with a heavy compactor. As a result, loose volume consolidates during installation.",
+          "To achieve 4 inches of compacted base, contractors often plan for an extra allowance (for example, a 15% to 20% illustrative expansion factor, requiring roughly 4.6 to 4.8 inches of loose stone). Because actual loose-to-compacted ratios depend on quarry moisture, stone geology, and roller weight, verify expected conversion yields with your local aggregate supplier."
         ],
         formulaBox: {
           title: "Driveway Layer Calculation Formula",
-          formula: "Compacted Volume (yd³) = Length (ft) × Width (ft) × Compacted Depth (in) ÷ 324\nLoose Order Quantity (yd³) = Compacted Volume × 1.20 (for dense-graded base)\nLoose Order Quantity (yd³) = Compacted Volume × 1.05 (for washed surface stone)",
-          note: "Calculate each of the three layers independently because they use different materials and compaction rates."
+          formula: "Neat Compacted Volume (yd³) = Length (ft) × Width (ft) × In-Place Depth (in) ÷ 324\nLoose Order Volume (Optional Allowance) = Neat Volume × (1 + Allowance% ÷ 100)",
+          note: "Calculate each layer independently because stone sizes, moisture, and compaction yield vary by material. Allowances (such as an illustrative 15% to 20% for dense-graded base, or ~5% for open-graded #57 stone) represent user-selected planning assumptions."
         }
       },
       {
@@ -638,8 +638,8 @@ export const guides: GuideDefinition[] = [
         ],
         formulaBox: {
           title: "Raised Bed Volume Formula",
-          formula: "Interior Length (ft) × Interior Width (ft) × Soil Depth (ft) = Total Cubic Feet\nCubic Yards = Total Cubic Feet ÷ 27\nOrder Volume = Cubic Yards × 1.15 (to account for settling)",
-          note: "Convert depth in inches to feet by dividing by 12 (e.g. 10 inches ÷ 12 = 0.833 ft)."
+          formula: "Neat Volume: Interior Length (ft) × Interior Width (ft) × Soil Depth (ft) = Total Cubic Feet\nNeat Cubic Yards = Total Cubic Feet ÷ 27\nOrder Volume (Optional Allowance): Cubic Yards × (1 + Allowance% ÷ 100)",
+          note: "Convert depth in inches to feet by dividing by 12 (e.g. 10 inches ÷ 12 = 0.833 ft). Order allowances (such as an optional 10% to 15% for initial soil consolidation) are user-selected planning buffers."
         }
       },
       {
@@ -668,7 +668,7 @@ export const guides: GuideDefinition[] = [
     faqs: [
       {
         question: "How many bags of soil do I need for a 4x8 raised bed at 10 inches deep?",
-        answer: "A 4×8 bed (internal dimensions 3.75 ft × 7.75 ft) at 10 in deep has a volume of 24.2 cubic feet. Factoring in 15% settling, you need approximately 27.8 cubic feet. That equals fourteen 2-cubic-foot bags, or roughly 1.03 cubic yards."
+        answer: "A 4×8 bed (internal dimensions 3.75 ft × 7.75 ft) at 10 in deep has a neat geometric volume of 24.2 cubic feet (0.90 cubic yards). If an optional 15% planning allowance is applied for watering settling (24.2 × 1.15 = 27.8 cu ft), you need approximately fourteen 2-cubic-foot bags, or roughly 1.03 cubic yards."
       },
       {
         question: "Why did my raised bed soil sink by 3 inches after planting?",
