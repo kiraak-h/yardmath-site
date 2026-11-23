@@ -1,4 +1,4 @@
-import { workedExampleFixtures } from "./worked-examples";
+import { workedExampleFixtures, type WorkedExampleStep } from "./worked-examples";
 export type ToolSlug =
   | "topsoil-calculator"
   | "cubic-yard-calculator"
@@ -58,7 +58,7 @@ export type ToolDefinition = {
     title: string;
     scenario: string;
     dimensions: string;
-    steps: { label: string; formula: string; result: string; explanation: string }[];
+    steps: WorkedExampleStep[];
     finalSummary: string;
   };
 
@@ -118,12 +118,12 @@ export const tools: ToolDefinition[] = [
     howTo: [
       "Measure the length and width of your area in feet (or diameter for circular garden islands).",
       "Enter the intended finished topsoil depth in inches (e.g. 4 inches for turf establishment; 0.25 inches for top-dressing).",
-      "Select an allowance (5% for bordered beds, 10–15% for rough ground) to account for grade variation and settling.",
+      "Select an allowance (e.g. 5% for bordered beds, or an illustrative 10% to 15% for rough ground) to account for grade variation and natural soil settling.",
       "Enter optional bag volume (e.g. 0.75 or 1.0 cu ft) or supplier density (typically 2,000 to 2,400 lb/yd³) for bag and weight totals."
     ],
     quickAnswer: {
       directAnswer: "To find topsoil volume: multiply your area in square feet by the desired depth in inches, then divide by 324 to get cubic yards. One cubic yard of topsoil covers 324 square feet at 1 inch deep, 162 square feet at 2 inches, and 81 square feet at 4 inches.",
-      ruleOfThumb: "A 4-inch layer of topsoil over 1,000 sq ft requires approximately 12.35 cubic yards (or 14.2 cubic yards with a 15% settling allowance).",
+      ruleOfThumb: "A 4-inch layer of topsoil over 1,000 sq ft requires approximately 12.35 cubic yards (or approx. 14.2 cubic yards if an illustrative 15% user planning allowance is selected for settling).",
       tableCaption: "Topsoil Coverage Benchmarks per Cubic Yard (27 cu ft)",
       benchmarkTable: [
         { depth: "0.25 inch (6 mm)", coverageSqFt: "1,296 sq ft", coverageSqM: "120.4 m²", typicalUse: "Lawn aeration top-dressing & overseeding" },
@@ -155,7 +155,7 @@ export const tools: ToolDefinition[] = [
       packagingGuidance: "Enter the volume stated on the bag label (typically 0.75 or 1.0 cu ft in retail centers, or 2 cu ft for premium mixes)."
     },
     materialSpecifics: {
-      compactionBehavior: "Screened topsoil contains air pore spaces from processing. Once placed, raked, and watered, it naturally settles by 15% to 20%.",
+      compactionBehavior: "Screened loose topsoil contains aerated pore spaces from excavation and handling. Once placed, graded, and watered, loose loam commonly consolidates—contractors frequently plan for an illustrative 10% to 15% settling allowance depending on initial moisture, organic fraction, and subgrade firmness.",
       moistureAndWeight: "Dry screened loam weighs ~2,000 to 2,200 lb/yd³ (1,200 kg/m³). Saturated topsoil can exceed 2,700 lb/yd³ (1,600 kg/m³).",
       subgradePreparation: "Rototill or core-aerate the existing subsoil to a depth of 2 inches before spreading topsoil to prevent interface shearing.",
       orderingRule: "For volumes exceeding 2 to 3 cubic yards, bulk truck delivery is significantly more economical than retail bags."
@@ -182,7 +182,7 @@ export const tools: ToolDefinition[] = [
       { organization: "Penn State Extension", standardOrDocument: "Lawn Establishment: Preparing the Soil and Grading", citation: "Penn State Extension, College of Agricultural Sciences (Peter Landschoot, Ph.D.).", url: "https://extension.psu.edu/lawn-establishment" }
     ],
     faqs: [
-      { question: "How much topsoil do I need for a 1,000 sq ft lawn?", answer: "At a standard 4-inch depth for new seeding or sod, 1,000 sq ft requires 12.35 cubic yards. With a 10% allowance for settling, order 13.6 cubic yards." },
+      { question: "How much topsoil do I need for a 1,000 sq ft lawn?", answer: "At a standard 4-inch depth for new seeding or sod, 1,000 sq ft requires 12.35 cubic yards. With an illustrative 10% allowance for grade settling, order 13.6 cubic yards." },
       { question: "How much does a cubic yard of topsoil weigh?", answer: "Screened dry topsoil typically weighs between 2,000 and 2,200 lbs (approx. 1 to 1.1 short tons). Wet topsoil can exceed 2,600 to 2,800 lbs per cubic yard." },
       { question: "How many bags of topsoil are in a cubic yard?", answer: "Because 1 cubic yard equals 27 cubic feet, it requires 27 one-cubic-foot bags, 36 bags of 0.75 cu ft, or 13.5 bags of 2 cu ft." },
       { question: "Can I use topsoil in raised garden beds?", answer: "Field topsoil compacts too densely inside raised beds. For raised containers, blend 50% topsoil with 30% organic compost and 20% coarse aeration material like perlite or vermiculite." }
@@ -428,7 +428,7 @@ export const tools: ToolDefinition[] = [
       packagingGuidance: "Most retail hardwood and cedar mulches are 2.0 cu ft; large pine bark nuggets are frequently 3.0 cu ft."
     },
     materialSpecifics: {
-      compactionBehavior: "Fresh shredded bark settles roughly 10% to 15% after rain. Wood mulch decomposes organically over 12 to 24 months, requiring periodic 1-inch refreshes.",
+      compactionBehavior: "Loose shredded bark settles after initial rainfall and exposure; landscape planners commonly apply an illustrative 5% to 10% settling allowance. Wood bark mulches decompose organically over 1 to 2 seasons depending on wood species and climate, typically calling for shallow annual maintenance refreshes.",
       moistureAndWeight: "Dry wood mulch weighs ~400 to 600 lb/yd³ (15 to 22 lb/cu ft). Saturated mulch can weigh 800 to 1,200 lb/yd³.",
       subgradePreparation: "Weed the bed thoroughly and edge deeply (2 to 3 inches) to form a trench that keeps mulch from spilling onto the lawn.",
       orderingRule: "Keep mulch 3 to 4 inches away from wooden house siding and foundation sills to prevent termite pathways."
@@ -519,7 +519,7 @@ export const tools: ToolDefinition[] = [
       packagingGuidance: "Garden soil in retail bags is commonly sold in 1.0 or 1.5 cubic foot bags."
     },
     materialSpecifics: {
-      compactionBehavior: "Enriched garden soil blends (topsoil + compost + peat) have higher porosity than field dirt and settle 10% to 15% after planting.",
+      compactionBehavior: "Enriched garden soil blends containing organic matter, peat, or compost have higher porosity than compacted native dirt. Loose blends commonly consolidate after initial deep waterings, making an illustrative 10% to 15% planning allowance standard for garden bed ordering.",
       moistureAndWeight: "A blended garden soil weighs ~2,000 to 2,400 lb/yd³ (1,200 to 1,425 kg/m³) depending on compost and sand content.",
       subgradePreparation: "Loosen the existing native subsoil with a garden fork before adding fresh soil to encourage deep taproot penetration.",
       orderingRule: "Check whether your supplier's soil is weed-free screened loam or unamended raw fill dirt."
@@ -547,7 +547,7 @@ export const tools: ToolDefinition[] = [
     ],
     faqs: [
       { question: "What is the difference between topsoil and garden soil?", answer: "Topsoil is screened natural surface soil (sand, silt, and clay). Garden soil is topsoil enriched with organic matter (compost, peat, or aged manure) formulated for vegetable and flower growth." },
-      { question: "How many cubic yards of soil do I need for a 10x10 garden?", answer: "For a 100 sq ft garden at a standard 6-inch depth, you need 1.85 cubic yards. With a 10% settling allowance, order 2.0 cubic yards." },
+      { question: "How many cubic yards of soil do I need for a 10x10 garden?", answer: "For a 100 sq ft garden at a standard 6-inch depth, you need 1.85 cubic yards. With an illustrative 10% planning allowance for initial watering consolidation, order 2.0 cubic yards." },
       { question: "How many bags of soil are in a cubic yard?", answer: "A cubic yard contains 27 cubic feet. It requires 27 bags of 1.0 cu ft, 18 bags of 1.5 cu ft, or 13.5 bags of 2.0 cu ft." },
       { question: "Can I plant directly into 100% compost instead of garden soil?", answer: "Pure compost lacks the mineral silt and clay needed for structural root anchorage and can dry out or burn sensitive root hairs. A blend of 60% topsoil and 40% compost is ideal." }
     ],
@@ -611,7 +611,7 @@ export const tools: ToolDefinition[] = [
       packagingGuidance: "Raised bed soil mixes are most commonly sold in 1.5 or 2.0 cubic foot bags."
     },
     materialSpecifics: {
-      compactionBehavior: "Specialty raised bed blends (such as Mel's Mix: 1/3 compost, 1/3 peat, 1/3 vermiculite) settle 15% to 20% in the first month.",
+      compactionBehavior: "High-porosity raised bed blends (e.g. peat, vermiculite, and compost mixtures) consolidate after several soaking water cycles. Gardeners commonly include an illustrative 10% to 15% ordering allowance to ensure soil remains near the desired root bed height after initial settling.",
       moistureAndWeight: "Raised bed mix is lightweight (~900 to 1,200 lb/yd³), allowing for safe installation on elevated decks and patios.",
       subgradePreparation: "If placing over grass or weeds, line the bottom with non-printed brown cardboard or 1/4-inch hardware cloth to deter gophers.",
       orderingRule: "For beds deeper than 18 inches, fill the lower 8 to 12 inches with untreated logs and branches (hügelkultur method) to reduce soil costs."
@@ -638,7 +638,7 @@ export const tools: ToolDefinition[] = [
       { organization: "University of Florida IFAS Extension", standardOrDocument: "Raised Bed Gardening: Soil Mixtures and Dimensions (CIR 1282)", citation: "Gainesville, FL.", url: "https://gardeningsolutions.ifas.ufl.edu/design/types-of-gardens/raised-beds/" }
     ],
     faqs: [
-      { question: "How many bags of soil do I need for a 4x8 raised bed at 12 inches?", answer: "A 4×8 bed (inside dimensions 3.75 ft × 7.75 ft) at 12 inches deep holds 29.1 cubic feet of soil. Factoring in 15% settling, you need 33.5 cu ft, which equals seventeen 2-cubic-foot bags (or 1.25 cubic yards)." },
+      { question: "How many bags of soil do I need for a 4x8 raised bed at 12 inches?", answer: "A 4×8 bed (inside dimensions 3.75 ft × 7.75 ft) at 12 inches deep holds 29.1 cubic feet of soil. Factoring in an illustrative 15% planning allowance for watering consolidation, you need approximately 33.5 cu ft, which equals seventeen 2-cubic-foot bags (or 1.25 cubic yards)." },
       { question: "What is the ideal soil blend for a vegetable raised bed?", answer: "The gold standard is 1/3 blended compost (for nutrients), 1/3 peat moss or coconut coir (for moisture retention), and 1/3 coarse vermiculite or perlite (for aeration and drainage)." },
       { question: "How deep should a raised bed be for vegetables?", answer: "Most vegetables (lettuce, greens, herbs) thrive in 8 to 10 inches of soil. Deep-rooted crops like tomatoes, peppers, and carrots perform best with 12 to 18 inches." },
       { question: "How do I fill a very deep (24-inch) raised bed cheaply?", answer: "Use the hügelkultur method: fill the bottom 10 to 12 inches with untreated tree logs, branches, and leaf mulch, then fill the top 12 inches with high-quality growing soil." }
@@ -666,7 +666,7 @@ export const tools: ToolDefinition[] = [
     howTo: [
       "Measure your application area in feet (or metres).",
       "Enter the recommended compost depth (1/4 to 1/2 inch for lawn top-dressing; 1 to 2 inches for garden soil incorporation).",
-      "Add a 5% to 10% allowance for settling and raking unevenness.",
+      "Add an illustrative 5% to 10% allowance for settling, raking variation, and moisture consolidation.",
       "Review the total volume in cubic yards, cubic metres, or retail bags (typically 1.0 or 1.5 cu ft)."
     ],
     quickAnswer: {
@@ -853,7 +853,7 @@ export const tools: ToolDefinition[] = [
       "Review the loose order volume in cubic yards and weight in short tons."
     ],
     quickAnswer: {
-      directAnswer: "Per CMHA Tech Spec 2 (PAV-TEC-002), pedestrian walkways and residential patios on well-drained soils require a minimum 4-inch (100 mm) compacted base of dense-graded aggregate conforming to ASTM D2940 grading specifications, while residential vehicular driveways require a minimum 6-inch (150 mm) base. For heavier vehicular loads, weak clay subgrades, or commercial traffic, CMHA Tech Spec 4 (PAV-TEC-004) provides structural design methods where aggregate base thickness typically increases to 8 to 12 inches or more based on subgrade California Bearing Ratio (CBR) and axle loads. This calculator determines neat geometric volume from plan dimensions and design depth (81.0 sq ft per cubic yard at 4 inches). Because mechanical plate compaction consolidates loose aggregate, users may apply an optional manual planning allowance to estimate loose bulk ordering.",
+      directAnswer: "Per CMHA Tech Spec 2 (PAV-TEC-002), pedestrian walkways and residential patios on well-drained soils require a minimum 4-inch (100 mm) compacted base of dense-graded aggregate conforming to ASTM D2940 grading specifications, while residential vehicular driveways require a minimum 6-inch (150 mm) base on well-drained soils. For weaker clay soils (low California Bearing Ratio), poor drainage, freeze-thaw climates, or heavier vehicular loading, CMHA Tech Spec 4 (PAV-TEC-004) details engineered pavement design methods; base thicknesses in such conditions commonly range from 8 to 12 inches or more based on site-specific soil testing and traffic analysis. Always consult local building officials or a project engineer for structural pavement designs. This calculator determines neat geometric volume from plan dimensions and design depth (81.0 sq ft per cubic yard at 4 inches). Because mechanical plate compaction consolidates loose aggregate, users may apply an optional manual planning allowance to estimate loose bulk ordering.",
       ruleOfThumb: "A 200 sq ft patio at 4 inches depth requires 2.47 cubic yards of neat base. If the user applies an illustrative 20% manual planning allowance, the estimated order volume is 2.96 cubic yards (approx. 4.1 tons at 1.4 tons/yd³).",
       tableCaption: "Paver Base Depth & Geometric Coverage Benchmarks (Neat Volume)",
       benchmarkTable: [
@@ -912,7 +912,7 @@ export const tools: ToolDefinition[] = [
       { organization: "ASTM International", standardOrDocument: "ASTM D2940 / D2940M-20: Standard Specification for Graded Aggregate Material for Bases or Subbases", citation: "West Conshohocken, PA.", url: "https://www.astm.org/d2940_d2940m-20.html" }
     ],
     faqs: [
-      { question: "How thick should paver base be?", answer: "Per CMHA PAV-TEC-002, pedestrian walkways and residential patios on well-drained subgrades require a minimum of 4 inches (100 mm) of compacted aggregate base. Residential driveways on well-drained soil require a minimum of 6 inches (150 mm). Where subgrades consist of low-strength clay or when supporting heavy concentrated loads or frequent truck traffic, base thickness should be structurally designed per CMHA PAV-TEC-004, often requiring 8 to 12 inches or more." },
+      { question: "How thick should paver base be?", answer: "Per CMHA PAV-TEC-002, pedestrian walkways and residential patios on well-drained subgrades require a minimum of 4 inches (100 mm) of compacted aggregate base, and residential driveways on well-drained soil require a minimum of 6 inches (150 mm). For poor-draining or low-bearing clay subgrades, freeze-thaw exposure, or heavy vehicle traffic, base thickness cannot be assumed from a single rule of thumb and should be engineered according to CMHA PAV-TEC-004 (where structural designs often call for 8 to 12 inches or deeper). Always verify local soil bearing capacity and structural requirements with an engineer or municipal building code." },
       { question: "What is the best material for a paver base?", answer: "Dense-graded aggregate containing 3/4-inch fractured stone down to stone dust (sold as Crusher Run, #411, CR-6, Road Base, or Quarry Process) is the industry standard." },
       { question: "Can I use sand instead of crushed stone for the base?", answer: "No. Sand shifts and washes away under water and foot traffic. Sand is used only as a thin 1-inch bedding layer on top of a firm crushed aggregate base." },
       { question: "How many tons of paver base do I need for a 10x10 patio?", answer: "A 10×10 patio (11×11 with 6-inch over-excavation = 121 sq ft) at 4 inches compacted depth requires 1.49 cubic yards of neat base. If an illustrative 20% user allowance is added, order volume is approximately 1.8 cubic yards, which weighs roughly 2.5 short tons (5,000 lbs at 1.4 tons/yd³)." }
@@ -944,14 +944,14 @@ export const tools: ToolDefinition[] = [
       "Review the total in loose cubic yards and estimated quarry weight (tons)."
     ],
     quickAnswer: {
-      directAnswer: "This calculator evaluates a single aggregate layer at a time. For refreshing an existing driveway, a 2-inch wearing course of #57 angular crushed stone (approx. 1 cubic yard per 162 sq ft) is common. For constructing a new gravel driveway, layered profiles depend on subgrade soil California Bearing Ratio (CBR), frost depth, and axle loads; typical rural residential installations stage a 4-to-6-inch coarse subbase (#3 ballast), a 3-to-4-inch dense-graded base (Crusher Run), and a 1.5-to-2-inch wearing course (#57 or stone with fines). Calculate each layer separately using its specific layer depth, allowance, and supplier density.",
+      directAnswer: "This calculator evaluates a single aggregate layer at a time. For refreshing an existing driveway, a 1.5-to-2-inch surface replenishment layer is commonly placed. For constructing a new gravel driveway, the total aggregate structure depends on native subgrade strength, drainage, vehicle loads, and climate. Multi-layer profiles over weak soils often combine a coarse foundation stone, a dense-graded base course, and a tailored wearing course (either clean angular stone or a dense-graded aggregate with fines). Calculate each layer separately using its specific layer depth, allowance, and supplier density.",
       ruleOfThumb: "A standard 100 ft × 10 ft driveway (1,000 sq ft) resurfaced with 2 inches of gravel requires 6.17 cubic yards (approx. 8.6 tons of crushed stone).",
       tableCaption: "Driveway Gravel Layer Guidelines & Material Sizing",
       benchmarkTable: [
         { depth: "1.5 to 2.0 in (3.8 to 5 cm)", coverageSqFt: "162 to 216 sq ft / yd³", coverageSqM: "15 to 20 m²", typicalUse: "Surface top-dress (#57 washed crushed limestone / granite)" },
         { depth: "3.0 to 4.0 in (7.5 to 10 cm)", coverageSqFt: "81 to 108 sq ft / yd³", coverageSqM: "7.5 to 10 m²", typicalUse: "Middle binding base (Crusher Run / #411 dense-graded)" },
         { depth: "6.0 in (15 cm)", coverageSqFt: "54 sq ft / yd³", coverageSqM: "5.0 m²", typicalUse: "Heavy sub-base foundation stone (#3 or #4 ballast)" },
-        { depth: "8.0 to 12.0 in (20 to 30 cm)", coverageSqFt: "27 to 40.5 sq ft / yd³", coverageSqM: "2.5 to 3.8 m²", typicalUse: "Total engineered profile depth for new rural driveways" }
+        { depth: "8.0 to 12.0 in (20 to 30 cm)", coverageSqFt: "27 to 40.5 sq ft / yd³", coverageSqM: "2.5 to 3.8 m²", typicalUse: "Illustrative heavy profile for unpaved roads or weak subgrades (requires site-specific engineering)" }
       ]
     },
     formulaExplanation: {
@@ -1003,8 +1003,8 @@ export const tools: ToolDefinition[] = [
     ],
     faqs: [
       { question: "How many tons of gravel do I need for a 100-foot driveway?", answer: "For a 100 ft long by 10 ft wide driveway with a 2-inch resurfacing layer: you need 6.17 cubic yards. At 1.4 tons per yard, you need approximately 8.6 tons of gravel." },
-      { question: "What is the best gravel size for a driveway surface?", answer: "#57 crushed stone (approx. 3/4-inch angular stone) is the gold standard for driveway surfaces. It provides smooth driving traction, locks together firmly, and allows rainwater to drain freely." },
-      { question: "How thick should a new gravel driveway be?", answer: "A new driveway over virgin ground should have a total aggregate profile of 8 to 12 inches: 6 inches of coarse base (#3 stone), 4 inches of dense-graded stone (Crusher Run), and 2 inches of surface gravel (#57 stone)." },
+      { question: "What is the best gravel size for a driveway surface?", answer: "Driveway wearing courses vary based on climate, slope, and whether surface binding or free drainage is desired. Clean angular gravel like #57 stone (approx. 3/4-inch washed stone) provides good traction and drainage, but loose unbonded stone can shift on steep grades. Dense-graded aggregate mixtures containing fines (such as Driving Surface Aggregate or quarry process stone) bind tightly when compacted to form a semi-impervious, rut-resistant surface, though they require positive crown drainage to prevent softening during heavy rain." },
+      { question: "How thick should a new gravel driveway be?", answer: "There is no single universal thickness for all driveways. Total aggregate thickness depends on vehicle traffic volume and axle loads, native subgrade bearing capacity (such as firm gravel vs soft clay), drainage, and local freeze-thaw climate. While light-duty residential driveways over stable subgrades often perform well with a 4-to-6-inch compacted aggregate structure, heavier installations or weak, wet subgrades may require an 8-to-12-inch multi-layer profile (e.g., coarse foundation stone, dense-graded base, and a dedicated wearing course) over geotextile fabric. The FHWA Gravel Roads Guide emphasizes proper crown slope (typically 1/2 inch per foot) and drainage maintenance for unpaved roads, but site-specific private driveway construction should be tailored to local soil conditions and supplier gradations." },
       { question: "How often does a gravel driveway need to be resurfaced?", answer: "With proper crowning and drainage, a gravel driveway typically requires a 1-to-2-inch surface top-up every 2 to 4 years to replace aggregate lost to plowing and shoulder displacement." }
     ],
     relatedGuides: [
@@ -1096,6 +1096,7 @@ export const tools: ToolDefinition[] = [
       { question: "How many 80 lb bags of concrete make a cubic yard?", answer: "It takes exactly 45 bags of 80 lb concrete mix to equal one cubic yard (27 cubic feet), because each 80 lb bag yields 0.60 cubic feet (27 ÷ 0.60 = 45)." },
       { question: "How many 60 lb bags of concrete make a cubic yard?", answer: "It takes exactly 60 bags of 60 lb concrete mix to equal one cubic yard (27 cubic feet), because each 60 lb bag yields 0.45 cubic feet (27 ÷ 0.45 = 60)." },
       { question: "How much concrete do I need for a 10x10 slab at 4 inches?", answer: "A 10×10 slab at 4 inches thick has a base volume of 1.23 cubic yards. With a 10% allowance, order 1.36 cubic yards (or 62 bags of 80 lb mix)." },
+      { question: "Do I need a gravel or crushed stone base under a concrete slab?", answer: "An aggregate subbase is commonly placed under residential slabs to provide uniform subgrade support, a capillary moisture break, and frost protection (4 inches is often cited as an illustrative residential reference). However, required base thickness depends on native soil bearing strength, moisture, expected loads, local climate, and project engineering—and must be evaluated separately from the structural concrete slab thickness." },
       { question: "How many bags of concrete do I need for a 4x4 fence post hole?", answer: "A standard 10-inch diameter hole that is 36 inches deep (with a 4x4 post inserted) requires approximately 1.5 to 2.0 cubic feet of concrete, which equals three 60 lb bags or two to three 80 lb bags per post." }
     ],
     relatedGuides: [
@@ -1187,7 +1188,7 @@ export const tools: ToolDefinition[] = [
       { question: "How many tons is 1 cubic yard of crushed stone?", answer: "One cubic yard of crushed stone typically weighs between 1.35 and 1.45 short tons (2,700 to 2,900 lbs). A safe planning estimate is 1.4 tons per cubic yard." },
       { question: "What is the difference between #57 stone and Crusher Run?", answer: "#57 stone is washed crushed rock (about 3/4-inch) with all fine dust removed, allowing water to drain freely. Crusher Run (also called #411 or road base) includes all fine stone dust, which packs tightly to form a solid, impervious foundation." },
       { question: "How many 50 lb bags of crushed stone are in a cubic yard?", answer: "Because one cubic yard weighs roughly 2,700 lbs, it takes 54 fifty-pound bags to equal one cubic yard." },
-      { question: "How deep should crushed stone be under a concrete slab?", answer: "A minimum of 4 inches of compacted crushed stone is standard under residential concrete slabs to provide structural support and prevent capillary water moisture from rising into the concrete." }
+      { question: "How deep should crushed stone be under a concrete slab?", answer: "A 4-inch layer of compacted granular base is commonly specified as an illustrative residential reference to provide uniform support and capillary break drainage. However, there is no single universal thickness: required base depth depends on subgrade bearing strength, moisture conditions, expected vehicle or structural loads, frost-heave depth, and local building codes. Concrete slab thickness must always be evaluated separately from the aggregate subbase thickness." }
     ],
     relatedGuides: [
       { slug: "how-to-calculate-material-weight-bulk-density", title: "Calculating Material Weight from Bulk Density" },

@@ -144,7 +144,7 @@ export const guides: GuideDefinition[] = [
       "Lawn top-dressing requires a thin layer of 1/8 to 1/4 inch (maximum 1/2 inch) to prevent smothering existing grass.",
       "New lawns grown from seed or sod require a minimum of 4 to 6 inches of loosened, quality topsoil for healthy root systems.",
       "Vegetable gardens and perennial beds perform best with 8 to 12 inches of amended rooting soil.",
-      "Screened loose topsoil settles by 15% to 20% after watering and natural rainfall.",
+      "Screened loose topsoil consolidates after watering and rainfall; contractors commonly use an illustrative 10% to 15% settling allowance.",
       "1 cubic yard of topsoil covers 324 sq ft at 1 inch depth, 162 sq ft at 2 inches, and 81 sq ft at 4 inches."
     ],
     sections: [
@@ -189,7 +189,7 @@ export const guides: GuideDefinition[] = [
         heading: "4. Soil Settlement and Compaction Realities",
         paragraphs: [
           "When screened topsoil is loaded into a dump truck, air is introduced into the pore space. Once dumped, raked into position, and saturated with irrigation or rainfall, the soil naturally reconsolidates.",
-          "Uncompacted sandy loam topsoil typically settles 10% to 15%, while loam rich in organic compost can settle 15% to 20%. Grade your topsoil 0.5 to 1 inch above surrounding hard surfaces (such as driveways or walkways) to ensure it finishes flush after the first growing season."
+          "Loose topsoil placed in lawn beds naturally consolidates over time. Gardeners and contractors commonly plan for an illustrative 10% to 15% settling allowance (higher in mixes with high organic compost fractions). Grade topsoil 0.5 to 1 inch above surrounding hard surfaces (such as driveways or walkways) to ensure it finishes flush after initial consolidation."
         ]
       }
     ],
@@ -626,7 +626,7 @@ export const guides: GuideDefinition[] = [
       "Always measure the inside dimensions of your bed; exterior dimensions overestimate volume by 8% to 15%.",
       "Standard square foot gardening blends ('Mel's Mix') consist of 1/3 compost, 1/3 peat moss or coconut coir, and 1/3 coarse vermiculite.",
       "Deep raised beds (18 to 24+ inches) can use a modified hügelkultur base layer (untreated logs and branches) to reduce soil purchase costs.",
-      "Organic planting soil settles 15% to 20% within the first four weeks of watering.",
+      "Organic planting soil in raised beds commonly consolidates after initial waterings, often estimated with an illustrative 10% to 15% planning allowance.",
       "Fill beds to within 1 to 2 inches of the top rim to prevent root exposure while leaving room for annual top-dressing."
     ],
     sections: [
@@ -672,7 +672,7 @@ export const guides: GuideDefinition[] = [
       },
       {
         question: "Why did my raised bed soil sink by 3 inches after planting?",
-        answer: "Fresh organic mixes have extensive macro-pore space. As water permeates the profile, small particles settle into voids and organic compost naturally compresses. Plan for 15% to 20% settling and top-dress annually with 1 to 2 inches of aged compost."
+        answer: "Fresh organic mixes have extensive macro-pore space. As water permeates the profile, small particles settle into voids and organic compost naturally consolidates. Gardeners commonly plan for an illustrative 10% to 15% settling buffer and top-dress annually with 1 to 2 inches of aged compost."
       },
       {
         question: "Should I line the bottom of my raised bed?",

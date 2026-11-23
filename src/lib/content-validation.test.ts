@@ -397,7 +397,26 @@ describe("Content Validation & Calculation Integrity", () => {
         expect(tool.workedExample.steps.length).toBe(fixture.steps.length);
         expect(tool.workedExample.finalSummary).toBe(fixture.finalSummary);
 
+        // Ensure every rendered step corresponds to a typed fixture step with identical data and no duplicates
+        const seenLabels = new Set<string>();
+        for (let i = 0; i < fixture.steps.length; i++) {
+          const renderedStep = tool.workedExample.steps[i];
+          const fixtureStep = fixture.steps[i];
+          expect(renderedStep, `Rendered step ${i} must exist in '${tool.slug}'`).toBeDefined();
+          expect(renderedStep.label, `Step ${i} label mismatch in '${tool.slug}'`).toBe(fixtureStep.label);
+          expect(renderedStep.formula, `Step ${i} formula mismatch in '${tool.slug}'`).toBe(fixtureStep.formula);
+          expect(renderedStep.result, `Step ${i} result mismatch in '${tool.slug}'`).toBe(fixtureStep.result);
+          expect(renderedStep.explanation, `Step ${i} explanation mismatch in '${tool.slug}'`).toBe(fixtureStep.explanation);
+          expect(renderedStep.category, `Step ${i} category mismatch in '${tool.slug}'`).toBe(fixtureStep.category);
+          expect(renderedStep.packageYieldCuFt, `Step ${i} package yield mismatch in '${tool.slug}'`).toBe(fixtureStep.packageYieldCuFt);
+
+          // Verify no duplicated step labels within this tool
+          expect(seenLabels.has(renderedStep.label), `Duplicate step label '${renderedStep.label}' in tool '${tool.slug}'`).toBe(false);
+          seenLabels.add(renderedStep.label);
+        }
+
         const validatedCategories = new Set<string>();
+        let validatedStepCount = 0;
 
         // 8. Mathematically validate every displayed step result using explicit typed step category
         for (const step of fixture.steps) {
@@ -408,6 +427,7 @@ describe("Content Validation & Calculation Integrity", () => {
 
           const cleanResult = step.result.replace(/,/g, "");
           validatedCategories.add(step.category);
+          validatedStepCount++;
 
           switch (step.category) {
             case "surface_area": {
@@ -505,10 +525,32 @@ describe("Content Validation & Calculation Integrity", () => {
           }
         }
 
-        // Verify that essential core categories were verified
+        // 9. Verify step counts and ensure no steps went unvalidated
+        expect(validatedStepCount, `Every fixture step must be validated for '${tool.slug}'`).toBe(fixture.steps.length);
+        expect(tool.workedExample.steps.length, `Rendered step count must match validated step count for '${tool.slug}'`).toBe(validatedStepCount);
+
+        // 10. Validate the expected category coverage for each fixture based on its actual inputs
         expect(validatedCategories.has("surface_area"), `Tool '${tool.slug}' must validate surface_area`).toBe(true);
         expect(validatedCategories.has("base_volume"), `Tool '${tool.slug}' must validate base_volume`).toBe(true);
         expect(validatedCategories.has("order_volume"), `Tool '${tool.slug}' must validate order_volume`).toBe(true);
+
+        // Density / Weight step coverage
+        if (fixture.expected.weightLb !== null) {
+          expect(validatedCategories.has("total_weight"), `Tool '${tool.slug}' specifies density (${fixture.input.density}) so it must validate total_weight`).toBe(true);
+        } else {
+          expect(validatedCategories.has("total_weight"), `Tool '${tool.slug}' has no density so it must NOT validate total_weight`).toBe(false);
+        }
+
+        // Packaging yield step coverage
+        if (fixture.expected.bags !== null) {
+          expect(validatedCategories.has("packaging_yield"), `Tool '${tool.slug}' specifies bag packaging so it must validate packaging_yield`).toBe(true);
+        } else {
+          expect(validatedCategories.has("packaging_yield"), `Tool '${tool.slug}' has no packaging so it must NOT validate packaging_yield`).toBe(false);
+        }
+
+        // Metric equivalent coverage
+        const hasMetricStep = fixture.steps.some((s) => s.category === "metric_equivalent");
+        expect(validatedCategories.has("metric_equivalent"), `Metric category mismatch for '${tool.slug}'`).toBe(hasMetricStep);
       });
     }
   });

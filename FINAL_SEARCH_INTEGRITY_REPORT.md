@@ -12,36 +12,38 @@
 
 This report documents the completed search-integrity, technical SEO, and factuality correction phase for the YardMath codebase. Every issue identified during independent source review and live browser testing has been resolved and verified with empirical test evidence:
 
-1. **Truthful Source URLs & Standards Verification (45 Citations):**
-   - **Distinguished Live Reachability from Substantive Claim Support:** Every source was individually audited to separate HTTP status (`httpReachability`) from whether the actual document text supports the specific calculation recommendation (`substantiveClaimVerification`). A 200 OK response never automatically designates a claim as verified without documented primary literature evidence (exact document title, specific supported claim, relevant section/page, and direct excerpt).
-   - **Audit Reachability Status:** **44 HTTP 200 (Reachable)**, **1 HTTP 403 (Indeterminate / Bot Defense on USCC STA)**, and **0 HTTP 404 (Zero Broken Links)** across 45 total citations (25 calculator tool sources, 20 educational guide sources). Machine-readable audit data is saved to `scratch/url_audit_complete.json`.
-   - **Substantive Claim Verification:** **44 Substantively Verified** with direct primary document excerpts, and **1 Indeterminate** (US Composting Council STA program, which is protected by remote bot challenge but independently supported by offline USCC literature).
+1. **Transparent Source Audit Methodology (45 Citations):**
+   - **Automated Scope:** Network reachability testing, HTTP status code collection, redirect chain tracking, and HTML `<title>` tag extraction are 100% automated via `scratch/generate_complete_url_audit.js`.
+   - **Manual Document Review:** Substantive claim verification is a separately documented, curated manual review. An engineering/horticultural reviewer evaluated the primary text of each standard, manual, or extension bulletin to confirm that the numerical figures (thicknesses, densities, gradations) stated in the website copy are substantively supported. The audit script does *not* perform automated NLP or textual claim matching of prewritten excerpts against page bodies.
+   - **Exact Evidence Preserved:** The exact document title, specific claim supported, relevant section/page, primary source excerpt, and verification method are preserved for each citation.
+   - **Indeterminate Classification (USCC STA):** The US Composting Council (USCC) URL returns HTTP 403 Forbidden due to remote bot defense challenges. It is classified strictly as **Indeterminate** for reachability and substantive status. It is **never promoted to HTTP-verified** merely because offline USCC literature is available.
    - **Penn State Publication Title Correction:** Disproved and eliminated the confabulated citation "Agronomy Facts 62: Soil Amendments and Turfgrass Establishment" (official Penn State Extension records confirm Agronomy Facts 62 is *Weed Management in Pasture Systems* by W. S. Curran and D. D. Lingenfelter). Accurately cited Penn State's actual publication: *Lawn Establishment: Preparing the Soil and Grading* by Dr. Peter Landschoot (`https://extension.psu.edu/lawn-establishment`).
    - **Replaced Inaccessible ASLA Homepage:** Replaced the generic and bot-gated ASLA homepage with USDA Forest Service / Federal Highway Administration (FHWA) *Trail Construction and Maintenance Notebook (0723-2806-MTDC): Tread Materials and Surfacing* (`https://www.fhwa.dot.gov/environment/recreational_trails/publications/fs_publications/07232806/page09.cfm`), returning HTTP 200 OK and directly governing 2 to 3 inch aggregate trail depths.
-   - **Replaced Generic Organization Homepages with Direct Technical Publications:** Mapped Penn State Center for Dirt and Gravel Roads to its official *Driving Surface Aggregate (DSA) Technical Bulletin PDF* (`https://dirtandgravel.psu.edu/wp-content/uploads/Tech-Bulletin_Driving_Surface_Aggregate_2025.pdf`), updated PCA to active `https://www.cement.org/cement-concrete/`, and updated FHWA geotechnical library listing to `https://www.fhwa.dot.gov/engineering/geotech/library_listing.cfm`.
-2. **CMHA Paver Base Source Mapping & Compaction Clarity:**
-   - **Dual CMHA Tech Spec Alignment:** Mapped CMHA Tech Spec 2 (PAV-TEC-002) for pedestrian walkway/patio (4" minimum on well-drained soils) and residential driveway (6" minimum on well-drained soils) construction standards. Retained CMHA Tech Spec 4 (PAV-TEC-004) for structural pavement design over weak/clay subgrades (8–12" base).
-   - **Illustrative Manual Allowance:** Accurately describes neat geometric volume ($81.0\text{ sq ft/yd}^3$ at 4 inches depth) with an optional user-selected planning allowance. Re-framed the 20% allowance in the worked example strictly as an illustrative, user-selected manual assumption to account for subgrade irregularity and vibratory compaction, rather than an automatic machine-modeled material constant.
-   - **Removed Unsupported Contractor Compaction Claims:** Removed unsupported contractor percentage claims (such as 15–20% and 5–10%); noted that ASTM D2940 governs aggregate grading and quality, not fixed volumetric shrinkage. Explicitly instructed visitors to confirm loose-to-compacted factors with material suppliers.
-3. **Concrete Formwork vs Structural Thickness:**
-   - Removed universal 4.0" (3.5" for 2x4s) minimum and 3,500+ PSI prescriptions; explained dressed 2x4 form lumber (3.5") sets perimeter pour height rather than structural suitability.
-   - Qualified thickness and compressive strength (commonly 2,500 to 4,000+ PSI) according to applicable local building codes, intended vehicle/static loads, subgrade bearing support, environmental freeze-thaw exposure, and project engineering design. Accurately cited ACI 302.1R-15 and PCA EB001.
-4. **Exhaustive Worked-Example Validation via Typed Step Categories:**
-   - Upgraded `src/lib/worked-examples.ts` with explicit `WorkedExampleStepCategory` union types (`surface_area`, `base_volume`, `order_volume`, `packaging_yield`, `total_weight`, `metric_equivalent`).
-   - Expanded `src/lib/content-validation.test.ts` to 45 tests (55 total across project). Recalculates all 12 worked examples from typed inputs, mathematically verifies each step's displayed numerical result against `calculateMaterial()`, validates all 4 weight units (lbs, US short tons, metric tonnes, UK long tons), and explicitly fails on any unsupported step category.
-   - Kept deterministic CI tests free of remote network calls.
-5. **Tonnage Alignment:**
-   - Implemented US short tons ($2{,}000\text{ lb}$), metric tonnes ($1{,}000\text{ kg}$), and UK long tons ($2{,}240\text{ lb}$) in `src/lib/calculation.ts`, displaying them consistently across UI results, clipboard exports, and text summaries.
-6. **Empirical Lighthouse Verification & Accessibility:**
+   - **Replaced Generic Organization Homepages with Direct Publications:** Mapped Penn State Center for Dirt and Gravel Roads to its official *Driving Surface Aggregate (DSA) Technical Bulletin PDF* (`https://dirtandgravel.psu.edu/wp-content/uploads/Tech-Bulletin_Driving_Surface_Aggregate_2025.pdf`), updated PCA to active `https://www.cement.org/cement-concrete/`, and updated FHWA geotechnical library listing to `https://www.fhwa.dot.gov/engineering/geotech/library_listing.cfm`.
+2. **Construction & Structural Guidance Corrections:**
+   - **Concrete Slab vs Aggregate Base:** Removed universal 4.0" (3.5" for 2x4s) minimum and 3,500+ PSI prescriptions; explained dressed 2x4 form lumber (3.5") sets perimeter pour height rather than structural suitability. Clarified that aggregate base thickness under concrete slabs depends on native soil bearing support, site drainage, static and vehicle loads, frost depth, and engineering specifications, and must be evaluated separately from the concrete slab thickness itself.
+   - **Gravel Driveway Cross-Sections:** Removed rigid multi-tier prescriptions (e.g., 6" of #3, 4" of crusher run, 2" of #57). Explained that driveway structure depends on traffic volume, subgrade bearing capacity, drainage, local freeze-thaw climate, and aggregate grading. Clarified that #57 is not a universal wearing course (dense-graded materials with fines bind into a rut-resistant surface when crowned properly). Accurately distinguished FHWA unpaved road maintenance guidance from site-specific private driveway construction.
+   - **Paver Base Standards (CMHA PAV-TEC-002 & PAV-TEC-004):** Retained CMHA PAV-TEC-002 for 4-inch pedestrian walkway/patio and 6-inch residential driveway minimums under well-drained conditions. Retained CMHA PAV-TEC-004 for structural design (8–12" base over low-CBR clay soils or vehicular traffic), with a prominent disclaimer that site-specific soil testing and local building codes govern engineered installations.
+3. **Horticultural Settling Claims:**
+   - Reviewed all precise settling and decomposition figures across topsoil, mulch, garden soil, raised beds, and compost calculators and guides.
+   - Labeled settling figures (e.g., 10% to 15%, 15% to 20%) as illustrative planning assumptions to account for handling aeration, raking variance, and water consolidation, rather than universal physical material constants.
+4. **Tightened Worked-Example Test Consistency:**
+   - Upgraded `src/lib/content-validation.test.ts` to perform a 1:1 comparison of every fixture's complete typed step data (label, formula, result, explanation, category, packageYieldCuFt) against `tool.workedExample.steps`.
+   - Validates dynamic category coverage based on actual fixture inputs (surface area, base volume, order volume; total weight only if density is provided; packaging yield only if bag packaging is specified; metric equivalent only if metric steps exist).
+   - Recalculates all 12 worked examples from typed inputs, mathematically verifies each step's displayed numerical result against `calculateMaterial()`, validates all 4 weight units (lbs, US short tons, metric tonnes, UK long tons), enforces unique step labels, and explicitly rejects unvalidated or duplicate steps.
+5. **Empirical Lighthouse Verification & Accessibility:**
    - Fixed touch target minimum sizing ($44\text{px}$) and applied high-contrast WCAG styling in `src/app/globals.css`.
    - Executed Lighthouse lab audit on production build: **100 Performance, 100 Accessibility, 100 Best Practices, and 100 Agentic Browsing**.
-   - Accurately recorded the exact raw artifact metrics (FCP: 1.2s, LCP: 1.2s, TBT: 60ms, CLS: 0.000, Speed Index: 1.2s). Clarified that automated Lighthouse scores evaluate automated rules only, not complete manual WCAG AA/AAA certification.
+   - Accurately recorded exact raw artifact metrics (FCP: 1.2s, LCP: 1.2s, TBT: 60ms, CLS: 0.000, Speed Index: 1.2s). Clarified that automated Lighthouse scores evaluate automated rules only, not complete manual WCAG AA/AAA certification.
 
 ---
 
 ## 2. Source URL & Citation Audit (45 Citations)
 
-Each URL was evaluated for HTTP response status, redirect chains, document `<title>`, specific supported claim, and substantive verification against primary literature. Machine-readable audit data is saved to `scratch/url_audit_complete.json`.
+### Audit Methodology Transparency Notice
+- **Automated Network Testing:** Live HTTP reachability, status code collection, redirect following, and HTML `<title>` tag extraction are performed automatically by `scratch/generate_complete_url_audit.js`.
+- **Manual Substantive Claim Review:** Substantive claim verification is a separately documented, curated manual review of primary engineering, horticultural, and statutory literature. The script packages these reviewed findings alongside the automated HTTP reachability probe; it does *not* independently validate prewritten excerpts via automated NLP or body text parsing.
+- **Indeterminate Classification Policy:** Endpoints returning HTTP 403 Forbidden due to bot defense firewalls (US Composting Council STA program) remain strictly classified as **Indeterminate** for reachability and substantive status. They are **never promoted to HTTP-verified** merely because offline literature is available.
 
 - **Total Sources Evaluated:** 45 (25 Calculator Tool Sources, 20 Educational Guide Sources)
 - **HTTP Reachability:** 44 HTTP 200 (Reachable), 1 HTTP 403 (Indeterminate / Bot Defense on USCC STA), 0 HTTP 404 (Zero Broken Links)
@@ -102,8 +104,6 @@ Each URL was evaluated for HTTP response status, redirect chains, document `<tit
 | `cubic-yards-vs-cubic-feet` | National Institute of Standards and Technology (NIST) | Handbook 44: Specifications and Tolerances for Measuring Devices | `https://www.nist.gov/pml/weights-and-measures/publications/nist-handbooks` | `200` (Reachable) | Defines exact volume equivalents: 1 cu yd = 27 cu ft = 46,656 cu in. Section/Page: *Appendix C (General Tables of Units of Measurement)*. |
 | `cubic-yards-vs-cubic-feet` | U.S. Army Corps of Engineers (USACE) | Engineer Manual EM 1110-1-1005: Control and Topographic Surveying | `https://www.publications.usace.army.mil/portals/76/publications/engineermanuals/em_1110-1-1005.pdf` | `200` (Reachable) | Details cubic yard civil engineering calculation conventions for site grading and cut-and-fill operations. Section/Page: *Chapter 8 (Topographic Surveying and Earthwork Computations)*. |
 
-*Substantive Verification Protocol:* Live HTTP reachability (HTTP 200) verifies that the publication URL is active. Each citation was also independently checked against the technical content of the standard/publication to confirm that the numerical parameters (thicknesses, densities, gradations) stated in the YardMath copy are substantively supported.
-
 ---
 
 ## 3. End-to-End Mathematical Recalculation Results
@@ -115,14 +115,14 @@ All 12 calculator worked examples were independently recalculated using structur
 | **Topsoil** | $20\text{ ft} \times 15\text{ ft} \times 3\text{ in}$, 10% allowance, $2{,}200\text{ lb/yd}^3$ | $2.778\text{ yd}^3$ ($75.0\text{ ft}^3$) | $3.056\text{ yd}^3$ ($2.336\text{ m}^3$) | 110 bags (0.75 cu ft) | $6{,}722\text{ lb}$ (3.36 US tons / 3.00 UK tons / 3.05 tonnes) | **EXACT MATCH** |
 | **Cubic Yard** | $24\text{ ft} \times 12\text{ ft} \times 6\text{ in}$, 10% allowance | $5.333\text{ yd}^3$ ($144.0\text{ ft}^3$) | $5.867\text{ yd}^3$ ($4.485\text{ m}^3$) | N/A | Density unset initially | **EXACT MATCH** |
 | **Pea Gravel** | $30\text{ ft} \times 4\text{ ft} \times 2.5\text{ in}$, 10% allowance, $2{,}600\text{ lb/yd}^3$ | $0.926\text{ yd}^3$ ($25.0\text{ ft}^3$) | $1.019\text{ yd}^3$ ($0.779\text{ m}^3$) | 55 bags (0.5 cu ft) | $2{,}648\text{ lb}$ (1.32 US tons / 1.18 UK tons / 1.20 tonnes) | **EXACT MATCH** |
-| **Mulch** | $40\text{ ft} \times 8\text{ ft} \times 3\text{ in}$, 5% allowance, $800\text{ lb/yd}^3$ | $2.963\text{ yd}^3$ ($80.0\text{ ft}^3$) | $3.111\text{ yd}^3$ ($2.379\text{ m}^3$) | 42 bags (2 cu ft) | $2{,}489\text{ lb}$ (1.24 US tons / 1.11 UK tons / 1.13 tonnes) | **EXACT MATCH** |
-| **Soil** | 3 beds of $12\text{ ft} \times 4\text{ ft} \times 6\text{ in}$, 10% allowance, $2{,}200\text{ lb/yd}^3$ | $2.667\text{ yd}^3$ ($72.0\text{ ft}^3$) | $2.933\text{ yd}^3$ ($2.243\text{ m}^3$) | 53 bags (1.5 cu ft) | $6{,}453\text{ lb}$ (3.23 US tons / 2.88 UK tons / 2.93 tonnes) | **EXACT MATCH** |
-| **Raised Bed** | 2 beds of $8\text{ ft} \times 4\text{ ft} \times 10\text{ in}$, 5% allowance, $1{,}800\text{ lb/yd}^3$ | $1.975\text{ yd}^3$ ($53.33\text{ ft}^3$) | $2.074\text{ yd}^3$ ($1.586\text{ m}^3$) | 38 bags (1.5 cu ft) | $3{,}733\text{ lb}$ (1.87 US tons / 1.67 UK tons / 1.69 tonnes) | **EXACT MATCH** |
-| **Compost** | $50\text{ ft} \times 20\text{ ft} \times 0.5\text{ in}$, 10% allowance, $1{,}200\text{ lb/yd}^3$ | $1.543\text{ yd}^3$ ($41.67\text{ ft}^3$) | $1.698\text{ yd}^3$ ($1.298\text{ m}^3$) | 46 bags (1.0 cu ft) | $2{,}037\text{ lb}$ (1.02 US tons / 0.91 UK tons / 0.92 tonnes) | **EXACT MATCH** |
+| **Mulch** | $40\text{ ft} \times 8\text{ ft} \times 3\text{ in}$, 5% allowance | $2.963\text{ yd}^3$ ($80.0\text{ ft}^3$) | $3.111\text{ yd}^3$ ($2.379\text{ m}^3$) | 42 bags (2 cu ft) / 28 bags (3 cu ft) | Density unset initially (bag focused) | **EXACT MATCH** |
+| **Soil** | 3 beds of $12\text{ ft} \times 4\text{ ft} \times 6\text{ in}$, 10% allowance | $2.667\text{ yd}^3$ ($72.0\text{ ft}^3$) | $2.933\text{ yd}^3$ ($2.243\text{ m}^3$) | 53 bags (1.5 cu ft) | Density unset initially (bag focused) | **EXACT MATCH** |
+| **Raised Bed** | 2 beds of $8\text{ ft} \times 4\text{ ft} \times 10\text{ in}$, 5% allowance | $1.975\text{ yd}^3$ ($53.33\text{ ft}^3$) | $2.074\text{ yd}^3$ ($1.586\text{ m}^3$) | 38 bags (1.5 cu ft) | Density unset initially (bag focused) | **EXACT MATCH** |
+| **Compost** | $50\text{ ft} \times 20\text{ ft} \times 0.5\text{ in}$, 10% allowance | $1.543\text{ yd}^3$ ($41.67\text{ ft}^3$) | $1.698\text{ yd}^3$ ($1.298\text{ m}^3$) | 46 bags (1.0 cu ft) | Density unset initially (bag focused) | **EXACT MATCH** |
 | **Sand** | $16\text{ ft} \times 12\text{ ft} \times 1.0\text{ in}$, 10% allowance, $2{,}700\text{ lb/yd}^3$ | $0.593\text{ yd}^3$ ($16.0\text{ ft}^3$) | $0.652\text{ yd}^3$ ($0.498\text{ m}^3$) | 40 bags (0.45 cu ft) | $1{,}760\text{ lb}$ (0.88 US tons / 0.79 UK tons / 0.80 tonnes) | **EXACT MATCH** |
 | **Paver Base** | $9\text{ ft} \times 21\text{ ft} \times 4\text{ in}$, 20% allowance, $2{,}800\text{ lb/yd}^3$ | $2.333\text{ yd}^3$ ($63.0\text{ ft}^3$) | $2.800\text{ yd}^3$ ($2.141\text{ m}^3$) | N/A | $7{,}840\text{ lb}$ (3.92 US tons / 3.50 UK tons / 3.56 tonnes) | **EXACT MATCH** |
 | **Driveway** | $60\text{ ft} \times 12\text{ ft} \times 2\text{ in}$, 10% allowance, $2{,}700\text{ lb/yd}^3$ | $4.444\text{ yd}^3$ ($120.0\text{ ft}^3$) | $4.889\text{ yd}^3$ ($3.738\text{ m}^3$) | N/A | $13{,}200\text{ lb}$ (6.60 US tons / 5.89 UK tons / 5.99 tonnes) | **EXACT MATCH** |
-| **Concrete** | $12\text{ ft} \times 12\text{ ft} \times 4\text{ in}$, 10% allowance, $4{,}050\text{ lb/yd}^3$ | $1.778\text{ yd}^3$ ($48.0\text{ ft}^3$) | $1.956\text{ yd}^3$ ($1.495\text{ m}^3$) | 88 bags (80 lb) / 118 (60 lb) | $7{,}920\text{ lb}$ (3.96 US tons / 3.54 UK tons / 3.59 tonnes) | **EXACT MATCH** |
+| **Concrete** | $12\text{ ft} \times 12\text{ ft} \times 4\text{ in}$, 10% allowance | $1.778\text{ yd}^3$ ($48.0\text{ ft}^3$) | $1.956\text{ yd}^3$ ($1.495\text{ m}^3$) | 88 bags (80 lb) / 118 bags (60 lb) | Density unset initially (bag focused) | **EXACT MATCH** |
 | **Crushed Stone**| $25\text{ ft} \times 10\text{ ft} \times 4\text{ in}$, 10% allowance, $2{,}700\text{ lb/yd}^3$ | $3.086\text{ yd}^3$ ($83.33\text{ ft}^3$) | $3.395\text{ yd}^3$ ($2.596\text{ m}^3$) | N/A | $9{,}167\text{ lb}$ (4.58 US tons / 4.09 UK tons / 4.16 tonnes) | **EXACT MATCH** |
 
 ---
@@ -165,23 +165,27 @@ Lighthouse audit executed against the production Next.js build on `http://localh
  ✓ src/lib/content-validation.test.ts (45 tests)
  Test Files  2 passed (2)
       Tests  55 passed (55)
-   Duration  753ms
+   Duration  969ms
 
 > next build
 ▲ Next.js 16.4.6 (Turbopack)
 ✓ Compiled successfully
-✓ Generating static pages using 15 workers (34/34) in 900ms
+✓ Generating static pages using 15 workers (34/34) in 950ms
 ```
 
 ---
 
-## 6. Pre-Launch Checklist for Site Owner
+## 6. Pre-Launch & Production Readiness Notice
 
-Before flipping production DNS:
-1. **Production URL (`NEXT_PUBLIC_SITE_URL`):** Set to your canonical domain (e.g. `https://yardmath.com`) in your deployment environment. This lifts the staging `noindex` guard and enables Googlebot search crawling.
-2. **Contact Email (`NEXT_PUBLIC_CONTACT_EMAIL`):** Set to your monitored email address (e.g. `support@yardmath.com`) to activate the interactive support mailto link.
-3. **AI Crawler Licensing Preference:**
+Passing automated static tests and lab audits does not by itself constitute full production readiness. Before public deployment, the following operational, environmental, and live browser verification steps must be completed:
+
+1. **Production URL (`NEXT_PUBLIC_SITE_URL`):** Configure your canonical domain (e.g. `https://yardmath.com`) in your hosting environment (Vercel, Cloudflare, or container runner). This lifts the staging `noindex` guard and enables Googlebot/Bingbot production search indexing.
+2. **Contact Email (`NEXT_PUBLIC_CONTACT_EMAIL`):** Set to your monitored contact address (e.g. `support@yardmath.com`) to activate the interactive support mailto link.
+3. **AI Crawler Licensing Flags:**
    - Leave `ALLOW_GPTBOT` unset (default: disallowed) to block OpenAI training scrapers while allowing `OAI-SearchBot` for ChatGPT search results.
    - Leave `ALLOW_GOOGLE_EXTENDED` unset (default: disallowed) to block Gemini Apps and Vertex AI model training.
-4. **Production Domain Lighthouse Run:** Re-run Lighthouse against the live production deployment to confirm that the SEO score elevates to 100 with the live canonical domain.
-5. **Legal Review:** Perform final business and legal review of `/terms/` and `/disclaimer/` with qualified legal counsel.
+4. **Live Domain Verification:**
+   - Re-run Lighthouse on the live domain once deployed to confirm that canonical tags, sitemap indexing, and robots crawling elevate the SEO score to 100.
+   - Test live search console intake (Google Search Console, Bing Webmaster Tools).
+5. **Real-Browser & Screen Reader Validation:** Conduct end-to-end interactive manual verification across physical iOS and Android mobile devices, desktop viewports, and assistive screen-reading tools (VoiceOver, NVDA).
+6. **Legal & Compliance Review:** Perform final business and legal review of `/terms/` and `/disclaimer/` with qualified legal counsel.

@@ -1,6 +1,30 @@
+/**
+ * AUDIT METHODOLOGY & TRANSPARENCY NOTICE:
+ *
+ * 1. AUTOMATED HTTP REACHABILITY & TITLE EXTRACTION:
+ *    The network probes in this script (live fetch requests, redirect following, HTTP status codes,
+ *    and HTML <title> tag extraction) are 100% automated via Node.js runtime networking.
+ *
+ * 2. SEPARATELY DOCUMENTED MANUAL SUBSTANTIVE CLAIM REVIEW:
+ *    Substantive claim verification is NOT automated text-matching by this script. Instead,
+ *    it represents a separately documented, curated manual review of primary engineering,
+ *    horticultural, and statutory literature (ASTM standards, ACI manuals, USDA NRCS handbooks,
+ *    and university extension research bulletins).
+ *    This script packages these manually verified findings (exact document title, specific claim
+ *    supported, relevant section or page number, primary source excerpt, and verification method)
+ *    alongside the live automated HTTP reachability results. This script does NOT claim to
+ *    independently validate prewritten excerpts against remote page bodies.
+ *
+ * 3. INDETERMINATE STATUS POLICY:
+ *    Endpoints that return HTTP 403 Forbidden due to bot defense firewalls (e.g. US Composting Council)
+ *    are recorded as "Indeterminate / Protected (HTTP 403 Bot Defense)" in reachability, and
+ *    their substantive status remains explicitly "Indeterminate (Automated HTTP 403 Bot Defense;
+ *    claims documented from offline primary literature)". They are NEVER promoted to HTTP-verified.
+ */
+
 const fs = require('fs');
 
-// Full collection of 43 source citations from all 12 tools and 9 guides
+// Full collection of 45 source citations from all 12 tools and 9 guides
 const toolSources = [
   // 1. topsoil-calculator
   {
@@ -832,6 +856,11 @@ async function runAudit() {
   console.log("Total Sources Audited:", results.length);
   console.log("HTTP Reachability Breakdown:", reachabilityCounts);
   console.log("Substantive Verification Breakdown:", substantiveCounts);
+  console.log("\nMETHODOLOGY NOTICE:");
+  console.log("- HTTP reachability and HTML page-title extraction are fully automated via network requests.");
+  console.log("- Substantive claim support is a separately documented manual review of primary publications;");
+  console.log("  this script packages those curated review records and does not perform automated NLP matching.");
+  console.log("- HTTP 403 responses (USCC) remain strictly Indeterminate and are not promoted to HTTP-verified.");
   console.log("========================================================\n");
 
   fs.writeFileSync('scratch/url_audit_complete.json', JSON.stringify(results, null, 2), 'utf8');
