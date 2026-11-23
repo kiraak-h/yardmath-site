@@ -469,7 +469,7 @@ export const guides: GuideDefinition[] = [
     category: "Construction",
     summary: "Driveway aggregate requirements depend on native subgrade strength, traffic volume, and site drainage. This engineering guide explains when a simple single-layer surface replenishment suffices versus when tiered cross-sections are justified, compares dense-graded aggregate with open-graded stone, and details compaction allowances and crown grading.",
     keyTakeaways: [
-      "Driveway construction is site-specific: existing stable drives often require only a 1.5-to-2-inch single-layer replenishment, while unpaved roads over weak soils may justify multi-tier profiles.",
+      "Driveway construction is site-specific: maintaining an existing stable drive often uses an illustrative 1.5-to-2-inch surface replenishment planning figure, while unpaved roads over weak soils may justify multi-tier profiles.",
       "Aggregate depths are site-specific illustrative planning figures: while 4 to 6 inches of compacted aggregate is an illustrative planning figure for passenger cars on firm, well-draining subgrades, actual depth must be determined by subgrade bearing capacity (CBR), drainage, frost depth, and axle loads; weak clay or heavy vehicle traffic may require an 8-to-12-inch engineered multi-course profile.",
       "Dense-graded stone (such as Crusher Run or DSA) contains fine particles that pack into a rut-resistant crust; open-graded stone (#57) provides rapid drainage but can shift without lateral confinement.",
       "Dense-graded stone consolidates under rolling; contractors commonly apply an illustrative 15% to 20% ordering allowance based on local quarry yield.",
@@ -480,14 +480,14 @@ export const guides: GuideDefinition[] = [
         heading: "1. Driveway Cross-Section Options: Single-Layer vs. Multi-Tier Design",
         paragraphs: [
           "There is no single universal cross-section for every gravel driveway. The appropriate aggregate structure depends on native subgrade bearing capacity (CBR), site drainage, frost-heave potential, and expected vehicle axle loads.",
-          "For routine maintenance of an established, well-compacted driveway, a single-layer surface top-up of 1.5 to 2 inches of clean angular gravel is commonly placed to restore traction and replenish displaced stone.",
+          "For routine maintenance of an established, well-compacted driveway, a single-layer surface replenishment of 1.5 to 2 inches of clean angular gravel is an illustrative planning figure used to restore traction and replenish displaced stone.",
           "When planning a new residential driveway over stable, well-drained native soil for passenger vehicle use, a single 4-to-6-inch compacted course of dense-graded aggregate is an illustrative planning baseline. However, a 4-to-6-inch depth should never be assumed universally sufficient: required structural thickness is governed by native subgrade bearing capacity (CBR), site drainage, local frost-heave depth, delivery truck axle loads, and aggregate grading. Inadequate depth over soft, saturated subgrades will lead to rutting and aggregate loss regardless of passenger traffic volume.",
           "For challenging site conditions—such as heavy truck traffic, agricultural equipment, soft clay subgrades, or poor natural drainage—engineers and experienced road builders often specify a tiered cross-section. In such designs, each course serves a distinct structural function: a coarse ballast sub-base bridges soft ground, a dense-graded middle base locks aggregate in place, and a tailored wearing course provides traction.",
           "Note on Standards: Publications such as the Federal Highway Administration (FHWA) Gravel Roads Construction and Maintenance Guide (FHWA-FLH-15-004) provide foundational civil engineering principles for public unpaved roads, forestry access, and county collector routes. For example, the FHWA recommends a crown of approximately 1/2 inch per foot (4% cross slope) for public unpaved roads to shed runoff rapidly, warning that flatter crowns pond water while steeper slopes create vehicle-handling hazards. While these principles regarding crown drainage, aggregate interlock, and crusting are instructive, they represent public highway maintenance guidance rather than a universal statutory building code for private residential driveways, which must account for residential terrain, garage transitions, and site-specific vehicle safety."
         ],
         table: {
           caption: "Common Driveway Aggregate Courses (Used in Multi-Tier Designs)",
-          headers: ["Layer Name", "Stone Size / Grade", "Target Compacted Depth", "Primary Function"],
+          headers: ["Layer Name", "Stone Size / Grade", "Illustrative Compacted Depth", "Primary Function"],
           rows: [
             ["1. Sub-Base Course (Where Needed)", "#3 or #4 ballast (2 to 3 inch fractured stone)", "4 to 6 inches (10 to 15 cm)", "Structural foundation; bridges soft subsoil moisture in weak clay cuts"],
             ["2. Middle Base Course", "#411 / CR-6 Crusher Run (1 inch down to dust)", "3 to 4 inches (7.5 to 10 cm)", "Dense mechanical interlock; binds base firmly into a semi-impervious pad"],
@@ -521,11 +521,11 @@ export const guides: GuideDefinition[] = [
     faqs: [
       {
         question: "How much gravel do I need for a 100-foot driveway?",
-        answer: "For a 100 ft long by 10 ft wide driveway (1,000 sq ft) with an illustrative 2-inch surface replenishment layer: neat geometric volume is 1,000 × 2 ÷ 324 = 6.17 cubic yards. If an optional 10% allowance is added for low spots and shoulder spillage (6.17 × 1.10 = 6.79 cu yd), you should order approximately 6.8 cubic yards (approx. 9.5 short tons at 1.4 tons/yd³). For a new 4-inch base layer: neat volume is 12.35 cubic yards (approx. 13.6 cu yd with a 10% allowance, or ~19 tons)."
+        answer: "For a 100 ft long by 10 ft wide driveway (1,000 sq ft) with an illustrative 2-inch surface replenishment layer: neat geometric volume is 1,000 × 2 ÷ 324 = 6.17 cubic yards. If an optional 10% allowance is added for low spots and shoulder spillage (6.17 × 1.10 = 6.79 cu yd), you should order approximately 6.8 cubic yards (approx. 9.5 short tons at 1.4 tons/yd³). For an illustrative 4-inch base layer: neat volume is 12.35 cubic yards (approx. 13.6 cu yd with a 10% allowance, or ~19 tons)."
       },
       {
         question: "Does every residential gravel driveway need three separate layers?",
-        answer: "No. A three-layer system (#3 ballast, dense-graded base, and surface course) is an engineered design suited for weak soils, heavy truck traffic, or high-moisture rural lanes. Many residential driveways over stable subgrades perform exceptionally well with a single 4-to-6-inch compacted dense-graded aggregate structure, or a simple 1.5-to-2-inch surface top-up on an established driveway."
+        answer: "No. A three-layer system (#3 ballast, dense-graded base, and surface course) is an engineered design suited for weak soils, heavy truck traffic, or high-moisture rural lanes. For residential driveways, required aggregate depth is site-dependent and governed by native subgrade bearing capacity (CBR), site drainage, frost depth, and axle loads: while an illustrative 4-to-6-inch single dense-graded aggregate course is often evaluated as an initial planning baseline over firm, well-draining subgrades, it should not be assumed universally sufficient for all residential conditions. Similarly, an illustrative 1.5-to-2-inch surface replenishment is a planning figure strictly for maintaining established, stable driveways."
       },
       {
         question: "Which aggregate is best for the driveway wearing surface?",

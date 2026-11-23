@@ -778,16 +778,29 @@ describe("Content Validation & Calculation Integrity", () => {
       const drivewayGuide = guides.find((g) => g.slug === "gravel-driveway-material-estimation");
       expect(drivewayGuide, "Gravel driveway guide must exist").toBeDefined();
 
-      // Must not state three layers are mandatory or universally required for all driveways
+      // Collect complete text across all guide fields: description, summary, keyTakeaways, sections, tables, formulaBoxes, and FAQs
       const allGuideText = [
         drivewayGuide?.title,
+        drivewayGuide?.shortTitle,
+        drivewayGuide?.kicker,
         drivewayGuide?.summary,
         drivewayGuide?.description,
         ...(drivewayGuide?.keyTakeaways || []),
-        ...(drivewayGuide?.sections.flatMap((s) => [s.heading, ...s.paragraphs]) || []),
+        ...(drivewayGuide?.sections.flatMap((s) => [
+          s.heading,
+          ...s.paragraphs,
+          ...(s.table ? [s.table.caption, ...s.table.headers, ...s.table.rows.flat()] : []),
+          ...(s.formulaBox ? [s.formulaBox.title, s.formulaBox.formula, s.formulaBox.note] : []),
+          ...(s.callout ? [s.callout.title, s.callout.text] : []),
+        ]) || []),
         ...(drivewayGuide?.faqs.flatMap((f) => [f.question, f.answer]) || []),
       ].join(" ");
 
+      // Must reject unqualified claims and prescriptiveness
+      expect(allGuideText).not.toMatch(/perform(?:s)?\s+exceptionally\s+well/i);
+      expect(allGuideText).not.toMatch(/commonly placed/i);
+      expect(allGuideText).not.toMatch(/frequently provides sufficient support/i);
+      expect(allGuideText).not.toMatch(/reliably provides sufficient support/i);
       expect(allGuideText).not.toMatch(/requires a tiered three-layer aggregate profile rather than/i);
       expect(allGuideText).not.toMatch(/consists of three distinct layers/i);
       expect(allGuideText).not.toMatch(/profile depth should range from 8 to 12 inches on typical residential soils/i);
@@ -798,9 +811,6 @@ describe("Content Validation & Calculation Integrity", () => {
       expect(allGuideText).not.toMatch(/woven for subgrade stabilization or non-woven for/i);
       expect(allGuideText).not.toMatch(/woven for stabilization or non-woven for filtration/i);
       expect(allGuideText).not.toMatch(/woven stabilization vs\. non-woven filtration/i);
-
-      // Must reject claiming 4-6 inches universally or reliably provides sufficient support
-      expect(allGuideText).not.toMatch(/frequently provides sufficient support without requiring/i);
 
       // Must reject 1/4 inch per foot as the FHWA typical gravel road crown
       expect(allGuideText).not.toMatch(/FHWA.*(?:typically\s+)?1\/4\s+inch\s+per\s+foot/i);
@@ -823,19 +833,30 @@ describe("Content Validation & Calculation Integrity", () => {
       // Must state fabric is conditional and unnecessary on firm ground
       expect(allGuideText).toMatch(/unnecessary/i);
 
-      // Must state 4-6 inches is an illustrative planning baseline and not universally sufficient
-      expect(allGuideText).toMatch(/illustrative planning (?:figure|baseline)/i);
-      expect(allGuideText).toMatch(/should never be assumed universally sufficient|should not be assumed universally sufficient/i);
+      // Must qualify depth examples accurately
+      expect(allGuideText).toMatch(/4(?:\s+to\s+|\s*-\s*)6\s+inch(?:es)?.*(?:illustrative|planning)/i);
+      expect(allGuideText).toMatch(/should (?:never|not) be assumed universally sufficient/i);
+      expect(allGuideText).toMatch(/(?:1\.5.*?2.*?inch.*?illustrative|illustrative.*?1\.5.*?2.*?inch)/i);
+
+      // Must state actual thickness depends on geotechnical determinants
+      expect(allGuideText).toMatch(/subgrade bearing/i);
+      expect(allGuideText).toMatch(/drainage/i);
+      expect(allGuideText).toMatch(/frost/i);
+      expect(allGuideText).toMatch(/axle loads/i);
 
       // Must represent FHWA unpaved road crown accurately (~1/2 inch per foot / 4%) and note vehicle hazard
       expect(allGuideText).toMatch(/1\/2 inch per (?:linear )?foot/i);
       expect(allGuideText).toMatch(/4% cross slope/i);
       expect(allGuideText).toMatch(/vehicle-handling hazards|sliding/i);
 
-      // FAQ must explicitly clarify three layers are not universally required
+      // FAQ must explicitly clarify three layers are not universally required and qualify depths
       const layerFaq = drivewayGuide?.faqs.find((f) => f.question.includes("three separate layers"));
       expect(layerFaq, "Must have FAQ addressing whether 3 layers are required").toBeDefined();
       expect(layerFaq?.answer).toMatch(/^No\./i);
+      expect(layerFaq?.answer).not.toMatch(/perform(?:s)?\s+exceptionally\s+well/i);
+      expect(layerFaq?.answer).toMatch(/illustrative 4-to-6-inch/i);
+      expect(layerFaq?.answer).toMatch(/should not be assumed universally sufficient/i);
+      expect(layerFaq?.answer).toMatch(/illustrative 1\.5-to-2-inch/i);
 
       // FAQ 4 must not call geotextile a permanent barrier, must not assign fabric exclusively, and must explain engineering criteria
       const fabricFaq = drivewayGuide?.faqs.find((f) => f.question.includes("geotextile fabric"));
@@ -850,6 +871,43 @@ describe("Content Validation & Calculation Integrity", () => {
     it("ensures gravel driveway calculator copy reflects optional allowances, conditional geotextile, and aggregate distinction", () => {
       const drivewayTool = tools.find((t) => t.slug === "gravel-driveway-calculator");
       expect(drivewayTool, "Gravel driveway calculator must exist").toBeDefined();
+
+      // Collect complete text across all driveway tool fields
+      const allDrivewayToolText = [
+        drivewayTool?.name,
+        drivewayTool?.shortName,
+        drivewayTool?.metaTitle,
+        drivewayTool?.metaDescription,
+        drivewayTool?.description,
+        drivewayTool?.cardDescription,
+        drivewayTool?.formula,
+        ...(drivewayTool?.howTo || []),
+        drivewayTool?.quickAnswer.directAnswer,
+        drivewayTool?.quickAnswer.ruleOfThumb,
+        drivewayTool?.quickAnswer.tableCaption,
+        ...(drivewayTool?.quickAnswer.benchmarkTable.flatMap((r) => [r.depth, r.coverageSqFt, r.coverageSqM, r.typicalUse]) || []),
+        drivewayTool?.formulaExplanation.usCustomary,
+        drivewayTool?.formulaExplanation.metric,
+        drivewayTool?.formulaExplanation.dimensionalExplanation,
+        drivewayTool?.formulaExplanation.circleNote,
+        drivewayTool?.formulaExplanation.triangleNote,
+        drivewayTool?.inputsGuide.lengthWidth,
+        drivewayTool?.inputsGuide.depthGuidance,
+        drivewayTool?.inputsGuide.allowanceRecommendation,
+        drivewayTool?.inputsGuide.packagingGuidance,
+        drivewayTool?.materialSpecifics.compactionBehavior,
+        drivewayTool?.materialSpecifics.moistureAndWeight,
+        drivewayTool?.materialSpecifics.subgradePreparation,
+        drivewayTool?.materialSpecifics.orderingRule,
+        ...(drivewayTool?.commonMistakes.flatMap((m) => [m.mistake, m.impact, m.prevention]) || []),
+        ...(drivewayTool?.faqs.flatMap((f) => [f.question, f.answer]) || []),
+      ].join(" ");
+
+      // Must reject unqualified claims
+      expect(allDrivewayToolText).not.toMatch(/perform(?:s)?\s+exceptionally\s+well/i);
+      expect(allDrivewayToolText).not.toMatch(/commonly placed/i);
+      expect(allDrivewayToolText).not.toMatch(/frequently provides sufficient support/i);
+      expect(allDrivewayToolText).not.toMatch(/reliably provides sufficient support/i);
 
       // HowTo and InputsGuide must emphasize optional allowance
       expect(drivewayTool?.howTo[2]).toMatch(/optional planning allowance/i);
@@ -945,7 +1003,8 @@ describe("Content Validation & Calculation Integrity", () => {
         ...(drivewayGuide?.sections.flatMap((s) => [
           s.heading,
           ...s.paragraphs,
-          ...(s.table ? s.table.rows.flat() : []),
+          ...(s.table ? [s.table.caption, ...s.table.headers, ...s.table.rows.flat()] : []),
+          ...(s.formulaBox ? [s.formulaBox.title, s.formulaBox.formula, s.formulaBox.note] : []),
         ]) || []),
         ...(drivewayGuide?.faqs.flatMap((f) => [f.question, f.answer]) || []),
       ].join(" ");
@@ -956,6 +1015,12 @@ describe("Content Validation & Calculation Integrity", () => {
       expect(guideText).toMatch(/both woven and non-woven/i);
       expect(drivewayTool?.materialSpecifics.orderingRule).toMatch(/in-plane drainage/i);
       expect(guideText).toMatch(/in-plane drainage/i);
+
+      // Both communicate identical depth limitations: illustrative baselines and not universally sufficient
+      expect(drivewayTool?.quickAnswer.directAnswer).toMatch(/should not be assumed universally sufficient/i);
+      expect(allDrivewayGuideText).toMatch(/should not be assumed universally sufficient/i);
+      expect(drivewayTool?.quickAnswer.directAnswer).toMatch(/(?:1\.5.*?2.*?inch.*?illustrative|illustrative.*?1\.5.*?2.*?inch)/i);
+      expect(allDrivewayGuideText).toMatch(/(?:1\.5.*?2.*?inch.*?illustrative|illustrative.*?1\.5.*?2.*?inch)/i);
     });
 
     it("ensures concrete calculator copy across all fields reflects optional allowance and non-universal thickness", () => {

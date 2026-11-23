@@ -99,6 +99,10 @@
   - Qualified Residential Depths: Removed claims implying 4–6 inches reliably provides sufficient support for all light residential installations; qualified 4–6" as an illustrative planning baseline that depends on subgrade CBR, drainage, frost, and axle loads.
   - Strengthened Regression Suite: Enhanced `src/lib/content-validation.test.ts` to enforce rejection of simplistic fabric mapping, reject 1/4 in/ft as FHWA crown, assert accurate FHWA ~1/2 in/ft crown and vehicle hazard explanations, and assert in-plane drainage and soil retention criteria across both calculator and guide.
   - Full Verification: 60/60 Vitest tests pass, 0 ESLint warnings, 0 TypeScript errors, 34/34 Next.js static pages prerendered.
+- [x] Step 36: Final Driveway Guide Depth Consistency & Exhaustive Regression Coverage:
+  - Corrected Remaining Guide Language (`src/lib/guides.ts`): Removed the unqualified "perform exceptionally well" statement in FAQ 2, replaced "commonly placed" with illustrative planning phrasing in Section 1, updated table headers to "Illustrative Compacted Depth", and explicitly qualified 1.5–2" replenishment and 4–6" base as illustrative planning figures across all guide fields.
+  - Expanded Regression Suite (`src/lib/content-validation.test.ts`): Exhaustively aggregated all content fields (titles, summaries, descriptions, takeaways, headings, paragraphs, tables, formula boxes, callouts, FAQs, tool specifics, and benchmarks) and added explicit assertions rejecting unqualified claims (`perform exceptionally well`, `commonly placed`, `frequently provides sufficient support`) while verifying that depth baselines and geotechnical limitations are uniformly presented.
+  - Full Verification: 60/60 Vitest tests pass, 0 ESLint warnings, 0 TypeScript errors, 34/34 Next.js static pages prerendered.
 
 ## Burn Book (Updated)
 - Next.js Turbopack Route Validation: When deleting an existing App Router directory (e.g. `src/app/guides/how-to-measure-landscaping-materials/`), Next.js caches route validators in `.next/types/validator.ts`. Run `Remove-Item -Recurse -Force .next` prior to `tsc --noEmit` to clear stale route validator references.
